@@ -1,7 +1,9 @@
-{ self, pkgs, nixpkgs, fenix, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./yabai
     ./spacebar
+    ./homebrew
   ];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -13,14 +15,6 @@
       fish
     ];
 
-  homebrew = {
-    enable = true;
-    onActivation.cleanup = "uninstall";
-
-    taps = [ "daipeihust/tap" "laishulu/homebrew" ];
-    brews = [ "fish" { name = "daipeihust/tap/im-select"; link = true; } "laishulu/homebrew/macism" ];
-    casks = [ "wezterm" "zerotier-one" ];
-  };
   nixpkgs.config.allowUnfree = true;
 
 
@@ -60,4 +54,15 @@
   users.users.tony.shell = pkgs.fish;
   users.users.tony.uid = 501;
   users.knownUsers = [ "tony" ];
+
+  system.defaults.dock = {
+    autohide = true;
+    autohide-delay = 0.0;
+    autohide-time-modifier = 0.2;
+    expose-animation-duration = 0.2;
+    tilesize = 48;
+    show-recents = false;
+    show-process-indicators = true;
+    orientation = "left";
+  };
 }

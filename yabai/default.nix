@@ -11,7 +11,7 @@
       right_padding = 0;
       window_gap = 0;
       mouse_follows_focus = "on";
-      focus_follows_mouse = "on";
+      focus_follows_mouse = "off";
       split_ratio = 0.382;
       auto_balance = "off";
       external_bar = "all:26:0";

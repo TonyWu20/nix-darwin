@@ -12,6 +12,7 @@ in
     ./nvim
     ./tmux
     ./skhd
+    ./nushell
   ];
 
   # https://github.com/malob/nixpkgs/blob/master/home/default.nix
@@ -84,6 +85,12 @@ in
         host = "mac";
         user = "tonywu";
         hostname = "10.147.17.25";
+        identityFile = "~/.ssh/id_ed25519";
+      };
+      klt = {
+        host = "klt";
+        user = "klt";
+        hostname = "10.147.17.146";
         identityFile = "~/.ssh/id_ed25519";
       };
     };
