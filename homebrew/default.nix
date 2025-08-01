@@ -10,6 +10,6 @@
       "laishulu/homebrew/macism"
       "watch"
     ];
-    casks = [ "wezterm" "zerotier-one" ];
+    casks = [ "wezterm" "zerotier-one" "xquartz" ];
   };
 }

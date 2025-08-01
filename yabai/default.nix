@@ -14,7 +14,7 @@
       focus_follows_mouse = "off";
       split_ratio = 0.382;
       auto_balance = "off";
-      external_bar = "all:26:0";
+      external_bar = "all:0:26";
     };
     extraConfig = ''
       yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off

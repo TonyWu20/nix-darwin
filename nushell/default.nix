@@ -9,11 +9,16 @@
       nushellPlugins.highlight
       nushellPlugins.gstat
     ];
+    shellAliases = {
+      vim = "nvim";
+      fg = "job unfreeze";
+    };
     envFile.source = ./env.nu;
     extraConfig = builtins.concatStringsSep "\n" [
       (builtins.readFile ./bib_management.nu)
       (builtins.readFile ./crossref.nu)
       (builtins.readFile ./keybindings.nu)
+      (builtins.readFile ./hubbard.nu)
       ''
         let carapace_completer = {|spans| 
           carapace $spans.0 nushell ...$spans | from json
@@ -21,6 +26,10 @@
         $env.config.completions.external.enable = true
         $env.config.completions.external.max_results = 100
         $env.config.completions.external.completer = $carapace_completer
+        source ~/.zoxide.nu
+        $env.config = ($env.config |upsert hooks {
+          display_output: { table -ed 1 }
+        })
       ''
     ];
     settings = {
@@ -61,6 +70,7 @@
       display_errors.termination_signal = true;
     };
   };
+  home.shell.enableNushellIntegration = true;
   programs = {
     zoxide.enableNushellIntegration = true;
     starship.enableNushellIntegration = true;
@@ -70,9 +80,4 @@
       enableNushellIntegration = true;
     };
   };
-  catppuccin.nushell = {
-    enable = true;
-    flavor = "macchiato";
-  };
-
 }

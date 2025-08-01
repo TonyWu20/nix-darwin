@@ -22,15 +22,6 @@
           ({ pkgs, ... }: {
             nixpkgs.overlays = [ fenix.overlays.default ];
             environment.systemPackages = with pkgs; [
-
-              (fenix.packages.aarch64-darwin.stable.withComponents [
-                "cargo"
-                "clippy"
-                "rust-src"
-                "rustc"
-                "rustfmt"
-                "rust-analyzer"
-              ])
               gcc
             ];
           }

@@ -224,11 +224,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1751830249,
-        "narHash": "sha256-Bqd+vND3Fufb4+bPEUXTVVfUdQ5MeZ0Zfk34B97Qp2k=",
+        "lastModified": 1753388428,
+        "narHash": "sha256-kkkbrEYp5H318kj9AqiHs8iWpFCHIRVIuISsIlxugHI=",
         "owner": "TonyWu20",
         "repo": "nvimdots",
-        "rev": "4de9d781f4607b275a075fde4091431bdeae06a2",
+        "rev": "54775222998958e562ce1914de7f041f763677a4",
         "type": "github"
       },
       "original": {

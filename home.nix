@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
-
-  catppuccin_programs = [ "fzf" "bat" "fish" "skim" ];
+  catppuccin_programs = [ "fzf" "bat" "fish" "skim" "nushell" ];
 in
 {
   home.stateVersion = "25.05";
@@ -92,6 +91,13 @@ in
         user = "klt";
         hostname = "10.147.17.146";
         identityFile = "~/.ssh/id_ed25519";
+        forwardX11 = true;
+      };
+      local-mini = {
+        host = "local-mini";
+        user = "tonywu";
+        hostname = "10.0.0.5";
+        identityFile = "~/.ssh/id_ed25519";
       };
     };
   };
@@ -102,5 +108,21 @@ in
     delta = {
       enable = true;
     };
+  };
+  programs.fzf = {
+    enable = true;
+    enableFishIntegration = true;
+    defaultOptions = [
+      "--height 80%"
+      "--reverse"
+      "--border"
+      "--preview-window right:67%"
+    ];
+    defaultCommand = "fd --type file -HI -E .git --color=always";
+    fileWidgetOptions = [
+      "--preview 'bat -n --color=always {}'"
+      "--bind 'ctrl-/:change-preview-window(down|hidden|)'"
+      "--walker-skip .git,node_modules,target"
+    ];
   };
 }

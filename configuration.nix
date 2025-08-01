@@ -13,6 +13,8 @@
       neovim
       skhd
       fish
+      nushell
+      zoxide
     ];
 
   nixpkgs.config.allowUnfree = true;

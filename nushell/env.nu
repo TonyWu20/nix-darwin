@@ -10,3 +10,4 @@ $env.ENV_CONVERSIONS = {
 		to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
 	}
 }
+zoxide init nushell | save -f ~/.zoxide.nu

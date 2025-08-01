@@ -3,7 +3,7 @@
     enable = true;
     package = pkgs.spacebar;
     config = {
-      position = "top";
+      position = "bottom";
       height = 26;
       spacing_left = 25;
       spacing_right = 15;
