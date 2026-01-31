@@ -16,7 +16,8 @@
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#wutongs-MacBook-Air
-      darwinConfigurations."wutongs-MacBook-Air" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations = {
+	"wutongs-MacBook-Air" = nix-darwin.lib.darwinSystem {
         modules = [
           ./configuration.nix
           ({ pkgs, ... }: {
@@ -43,5 +44,33 @@
           }
         ];
       };
+	"Tonys-Mac-mini" = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./configuration.nix
+          ({ pkgs, ... }: {
+            nixpkgs.overlays = [ fenix.overlays.default ];
+            environment.systemPackages = with pkgs; [
+              gcc
+            ];
+          }
+          )
+
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.tony = import ./home.nix;
+              sharedModules = [
+                nvimdots.homeManagerModules.default
+                catppuccin.homeModules.catppuccin
+              ];
+              backupFileExtension = ".backup";
+            };
+
+          }
+        ];
+      };
+};
     };
 }

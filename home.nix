@@ -99,6 +99,12 @@ in
         hostname = "10.0.0.5";
         identityFile = "~/.ssh/id_ed25519";
       };
+      mba = {
+        host = "mba";
+        user = "tony";
+        hostname = "10.147.17.179";
+        identityFile = "~/.ssh/id_ed25519";
+      };
     };
   };
   programs.git = {
