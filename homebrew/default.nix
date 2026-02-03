@@ -9,6 +9,7 @@
       { name = "daipeihust/tap/im-select"; link = true; }
       "laishulu/homebrew/macism"
       "watch"
+      "php"
     ];
     casks = [ "wezterm" "zerotier-one" "xquartz" ];
   };

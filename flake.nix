@@ -17,60 +17,71 @@
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#wutongs-MacBook-Air
       darwinConfigurations = {
-	"wutongs-MacBook-Air" = nix-darwin.lib.darwinSystem {
-        modules = [
-          ./configuration.nix
-          ({ pkgs, ... }: {
-            nixpkgs.overlays = [ fenix.overlays.default ];
-            environment.systemPackages = with pkgs; [
-              gcc
-            ];
-          }
-          )
-
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.tony = import ./home.nix;
-              sharedModules = [
-                nvimdots.homeManagerModules.default
-                catppuccin.homeModules.catppuccin
+        "wutongs-MacBook-Air" = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./configuration.nix
+            ({ pkgs, ... }: {
+              nixpkgs.overlays = [ fenix.overlays.default ];
+              environment.systemPackages = with pkgs; [
+                gcc
               ];
-              backupFileExtension = ".backup";
-            };
+            }
+            )
 
-          }
-        ];
-      };
-	"Tonys-Mac-mini" = nix-darwin.lib.darwinSystem {
-        modules = [
-          ./configuration.nix
-          ({ pkgs, ... }: {
-            nixpkgs.overlays = [ fenix.overlays.default ];
-            environment.systemPackages = with pkgs; [
-              gcc
-            ];
-          }
-          )
+            home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.tony = {
+                  imports = [
+                    ./home.nix
+                    ssh/air.nix
+                  ];
+                };
+                sharedModules = [
+                  nvimdots.homeManagerModules.default
+                  catppuccin.homeModules.catppuccin
+                ];
+                backupFileExtension = ".backup";
+              };
 
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.tony = import ./home.nix;
-              sharedModules = [
-                nvimdots.homeManagerModules.default
-                catppuccin.homeModules.catppuccin
+            }
+          ];
+        };
+        "Tonys-Mac-mini-M4" = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./configuration.nix
+            ({ pkgs, ... }: {
+              nixpkgs.overlays = [ fenix.overlays.default ];
+              environment.systemPackages = with pkgs; [
+                gcc
+                libiconv
               ];
-              backupFileExtension = ".backup";
-            };
+            }
+            )
 
-          }
-        ];
+            home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.tony = {
+                  imports = [
+                    ./home.nix
+                    ssh/mini.nix
+                  ];
+                };
+                sharedModules = [
+                  nvimdots.homeManagerModules.default
+                  catppuccin.homeModules.catppuccin
+                ];
+                backupFileExtension = ".backup";
+              };
+
+            }
+          ];
+        };
       };
-};
     };
 }
