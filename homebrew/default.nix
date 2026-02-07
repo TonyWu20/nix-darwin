@@ -11,6 +11,6 @@
       "watch"
       "php"
     ];
-    casks = [ "wezterm" "zerotier-one" "xquartz" ];
+    casks = [ "wezterm" "zerotier-one" "xquartz" "darktable" "zoom" "kitty" "citra" ];
   };
 }

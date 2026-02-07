@@ -20,7 +20,7 @@
     },
     "devshell": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1764011051,
@@ -96,6 +96,27 @@
       }
     },
     "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nushell-cfg",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754174776,
+        "narHash": "sha256-Sp3FRM6xNwNtGzYH/HByjzJYHSQvwsW+lDMMZNF43PQ=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "e6e2f43a62b7dbc8aa8b1adb7101b0d8b9395445",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_3": {
       "inputs": {
         "nixpkgs": [
           "nvimdots",
@@ -200,7 +221,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1768364046,
         "narHash": "sha256-PDFfpswLiuG/DcadTBb7dEfO3jX1fcGlCD4ZKSkC0M8=",
@@ -216,12 +237,32 @@
         "type": "github"
       }
     },
+    "nushell-cfg": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "home-manager": "home-manager_2",
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1754233933,
+        "narHash": "sha256-VwdTTgMLoS7WMglQNw9hdTaV3uVwA753bqFuYEfB810=",
+        "owner": "TonyWu20",
+        "repo": "nushell_hm_module",
+        "rev": "ee8b3d9859252517f76cc8e21e3861fb5a613427",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TonyWu20",
+        "repo": "nushell_hm_module",
+        "type": "github"
+      }
+    },
     "nvimdots": {
       "inputs": {
         "devshell": "devshell",
-        "flake-parts": "flake-parts",
-        "home-manager": "home-manager_2",
-        "nixpkgs": "nixpkgs_4"
+        "flake-parts": "flake-parts_2",
+        "home-manager": "home-manager_3",
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1769839821,
@@ -245,6 +286,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
+        "nushell-cfg": "nushell-cfg",
         "nvimdots": "nvimdots"
       }
     },

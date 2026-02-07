@@ -10,9 +10,10 @@
     fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     catppuccin.url = "github:catppuccin/nix";
     nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
+    nushell-cfg.url = "github:TonyWu20/nushell_hm_module";
   };
 
-  outputs = { nix-darwin, home-manager, fenix, catppuccin, nvimdots, ... }:
+  outputs = { nix-darwin, home-manager, fenix, catppuccin, nvimdots, nushell-cfg, ... }:
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#wutongs-MacBook-Air

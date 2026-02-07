@@ -11,7 +11,7 @@ in
     ./nvim
     ./tmux
     ./skhd
-    ./nushell
+    # ./nushell
   ];
 
   # https://github.com/malob/nixpkgs/blob/master/home/default.nix
@@ -26,6 +26,24 @@ in
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
   programs.htop.enable = true;
   programs.htop.settings.show_program_path = true;
+  programs.yazi = {
+    enable = true;
+    settings = {
+      plugins = {
+        prepend_previewers = [{
+          mime = "image/tiff";
+          run = "magick";
+        }
+          {
+            name = "*.tif";
+            run = "magick";
+          }];
+        prepend_preloaders = [
+          { mime = "image/tiff"; run = "magick"; }
+        ];
+      };
+    };
+  };
 
 
   home.packages = with pkgs; [
@@ -49,7 +67,10 @@ in
     eza
     btop
     nodejs-slim_24
-    libiconvReal
+    source-sans-pro
+    imagemagick
+    rar
+    simple-http-server
 
     # Dev stuff
     # (agda.withPackages (p: [ p.standard-library ]))
@@ -58,6 +79,7 @@ in
     cachix # adding/managing alternative binary caches hosted by Cachix
     # comma # run software from without installing it
     niv # easy dependency management for nix projects
+    nom
 
   ] ++ lib.optionals stdenv.isDarwin [
     m-cli # useful macOS CLI commands

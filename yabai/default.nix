@@ -28,6 +28,7 @@
       yabai -m rule --add label="mpv" app="^mpv$" manage=off
       yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
       yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
+      yabai -m rule --add label="Darktable" app="^darktable$" manage=off
     '';
   };
 
