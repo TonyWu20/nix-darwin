@@ -10,6 +10,7 @@
     set -U FZF_TMUX 0
     set -U FZF_COMPLETE 1
     set -ga PATH ~/.cargo/bin/
+    source ${pkgs.fish}/share/fish/completions/rsync.fish
     /opt/homebrew/bin/brew shellenv |source
     ";
     shellAbbrs = {
