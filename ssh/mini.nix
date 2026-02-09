@@ -40,6 +40,12 @@
         hostname = "10.147.17.179";
         identityFile = "~/.ssh/id_ed25519";
       };
+      klt = {
+        host = "klt";
+        user = "Atoms";
+        hostname = "10.0.0.6";
+        identityFile = "~/.ssh/id_ed25519";
+      };
     };
   };
 }
