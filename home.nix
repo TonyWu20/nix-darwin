@@ -89,12 +89,12 @@ in
   catppuccin = lib.attrsets.genAttrs catppuccin_programs (prog: { enable = true; flavor = "macchiato"; });
   programs.git = {
     enable = true;
-    userName = "TonyWu20";
-    userEmail = "tony.w21@gmail.com";
-    delta = {
-      enable = true;
+    settings.user = {
+      name = "TonyWu20";
+      email = "tony.w21@gmail.com";
     };
   };
+  programs.delta.enable = true;
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;

@@ -2,8 +2,7 @@
 {
   programs.ssh = {
     enable = true;
-    forwardAgent = true;
-    addKeysToAgent = "yes";
+    enableDefaultConfig = false;
     matchBlocks = {
       github = {
         host = "github.com";
@@ -21,6 +20,12 @@
         host = "mac";
         user = "tonywu";
         hostname = "10.147.17.25";
+        identityFile = "~/.ssh/id_ed25519";
+      };
+      mac-mini-m4 = {
+        host = "macm4";
+        user = "tony";
+        hostname = "10.147.17.145";
         identityFile = "~/.ssh/id_ed25519";
       };
       klt = {
