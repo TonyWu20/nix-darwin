@@ -3,7 +3,56 @@ let
   catppuccin_programs = [ "fzf" "bat" "fish" "skim" "nushell" ];
 in
 {
-  home.stateVersion = "25.05";
+  home = {
+    stateVersion = "25.05";
+
+    sessionVariables = {
+      LIBRIME_LIB_DIR = "/opt/homebrew/lib";
+      LIBRIME_INCLUDE_DIR = "/opt/homebrew/include";
+      DYLD_LIBRARY_PATH = "/opt/homebrew/lib";
+    };
+
+    packages = with pkgs; [
+      # Some basics
+      coreutils
+      curl
+      wget
+      wezterm
+      fish
+      starship
+      zoxide
+      ripgrep
+      fd
+      bat
+      gh
+      sad
+      fzf
+      skim
+      nushell
+      tmux
+      eza
+      btop
+      nodejs-slim_24
+      source-sans-pro
+      imagemagick
+      rar
+      simple-http-server
+
+      # Dev stuff
+      # (agda.withPackages (p: [ p.standard-library ]))
+
+      # Useful nix related tools
+      cachix # adding/managing alternative binary caches hosted by Cachix
+      # comma # run software from without installing it
+      niv # easy dependency management for nix projects
+      nom
+    ] ++ lib.optionals stdenv.isDarwin [
+      m-cli # useful macOS CLI commands
+      skhd
+      yabai
+    ];
+  };
+
   imports = [
     ./fish
     ./starship
@@ -11,6 +60,7 @@ in
     ./nvim
     ./tmux
     ./skhd
+    ./rime
     # ./nushell
   ];
 
@@ -44,54 +94,17 @@ in
       };
     };
   };
-
-
-  home.packages = with pkgs; [
-    # Some basics
-    coreutils
-    curl
-    wget
-    wezterm
-    fish
-    starship
-    zoxide
-    ripgrep
-    fd
-    bat
-    gh
-    sad
-    fzf
-    skim
-    nushell
-    tmux
-    eza
-    btop
-    nodejs-slim_24
-    source-sans-pro
-    imagemagick
-    rar
-    simple-http-server
-
-    # Dev stuff
-    # (agda.withPackages (p: [ p.standard-library ]))
-
-    # Useful nix related tools
-    cachix # adding/managing alternative binary caches hosted by Cachix
-    # comma # run software from without installing it
-    niv # easy dependency management for nix projects
-    nom
-
-  ] ++ lib.optionals stdenv.isDarwin [
-    m-cli # useful macOS CLI commands
-    skhd
-    yabai
-  ];
   catppuccin = lib.attrsets.genAttrs catppuccin_programs (prog: { enable = true; flavor = "macchiato"; });
   programs.git = {
     enable = true;
     settings.user = {
       name = "TonyWu20";
       email = "tony.w21@gmail.com";
+    };
+    settings = {
+      core = {
+        quotepath = false;
+      };
     };
   };
   programs.delta.enable = true;

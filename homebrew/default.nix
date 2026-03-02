@@ -10,7 +10,17 @@
       "laishulu/homebrew/macism"
       "watch"
       "php"
+      "librime"
     ];
-    casks = [ "wezterm" "zerotier-one" "xquartz" "darktable" "zoom" "kitty" "citra" "thunderbird" ];
+    casks = [
+      "wezterm"
+      "zerotier-one"
+      "xquartz"
+      "darktable"
+      "zoom"
+      "kitty"
+      "citra"
+      "squirrel-app"
+    ];
   };
 }
