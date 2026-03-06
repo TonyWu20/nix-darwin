@@ -97,15 +97,20 @@ in
   catppuccin = lib.attrsets.genAttrs catppuccin_programs (prog: { enable = true; flavor = "macchiato"; });
   programs.git = {
     enable = true;
-    settings.user = {
-      name = "TonyWu20";
-      email = "tony.w21@gmail.com";
+    settings = {
+      user = {
+        name = "TonyWu20";
+        email = "tony.w21@gmail.com";
+      };
       core = {
         quotepath = false;
       };
     };
   };
-  programs.delta.enable = true;
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+  };
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;

@@ -43,6 +43,7 @@
                 sharedModules = [
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
+                  nushell-cfg.homeManagerModules.default
                 ];
                 backupFileExtension = ".backup";
               };
@@ -76,6 +77,7 @@
                 sharedModules = [
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
+                  nushell-cfg.homeManagerModules.default
                 ];
                 backupFileExtension = ".backup";
               };
