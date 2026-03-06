@@ -100,8 +100,6 @@ in
     settings.user = {
       name = "TonyWu20";
       email = "tony.w21@gmail.com";
-    };
-    settings = {
       core = {
         quotepath = false;
       };
