@@ -5,19 +5,18 @@
     ./spacebar
     ./homebrew
   ];
-  environment = {
-    # List packages installed in system profile. To search by name, run:
-    # $ nix-env -qaP | grep wget
-    systemPackages =
-      with pkgs;[
-        vim
-        neovim
-        skhd
-        fish
-        nushell
-        zoxide
-      ];
-  };
+  # List packages installed in system profile. To search by name, run:
+  # $ nix-env -qaP | grep wget
+  environment.systemPackages =
+    with pkgs;[
+      vim
+      neovim
+      skhd
+      fish
+      nushell
+      zoxide
+      fontconfig
+    ];
 
   nixpkgs.config.allowUnfree = true;
 
