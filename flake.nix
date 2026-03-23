@@ -9,7 +9,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     catppuccin.url = "github:catppuccin/nix";
-    nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
+    #nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
+    nvimdots = { url = "git+file:/Users/tony/Downloads/nvimdots"; };
     nushell-cfg.url = "github:TonyWu20/nushell_hm_module";
   };
 

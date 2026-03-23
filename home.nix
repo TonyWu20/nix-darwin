@@ -37,6 +37,9 @@ in
       imagemagick
       rar
       simple-http-server
+      lua51Packages.luarocks
+      lua51Packages.lua
+      librime
 
       # Dev stuff
       # (agda.withPackages (p: [ p.standard-library ]))

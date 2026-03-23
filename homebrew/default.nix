@@ -10,7 +10,6 @@
       "laishulu/homebrew/macism"
       "watch"
       "php"
-      "librime"
     ];
     casks = [
       "wezterm"

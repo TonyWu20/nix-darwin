@@ -1,12 +1,12 @@
 __build_info:
   rime_version: 1.16.1
   timestamps:
-    default: 1773231540
+    default: 1773736373
     default.custom: 0
     symbols_caps_v: 1772450587
     symbols_caps_v.custom: 0
     xhup.custom: 0
-    xhup.schema: 1773394032
+    xhup.schema: 1773746019
 engine:
   filters:
     - simplifier
@@ -402,14 +402,16 @@ switches:
     reset: 0
     states: ["中文", "西文"]
   - name: full_shape
-    reset: 1
     states: ["半角", "全角"]
   - name: simplification
     states: ["汉字", "漢字"]
   - name: ascii_punct
     states: ["。，", "．，"]
 translator:
-  dictionary: flypydz
+  comment_format:
+    - "xform/^/［/"
+    - "xform/$/］/"
+  dictionary: flypy
   disable_user_dict_for_patterns:
     - "^z.*$"
     - "^oi.*$"
