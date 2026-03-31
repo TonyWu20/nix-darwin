@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   programs.fish = {
     enable = true;
     interactiveShellInit = "
@@ -10,6 +10,13 @@
     set -U FZF_TMUX 0
     set -U FZF_COMPLETE 1
     set -ga PATH ~/.cargo/bin/
+    set -gx POE_BASE_URL https://api.poe.com
+    set -gx POE_TOKEN (cat ${config.sops.secrets.poe_chatbot_api.path})
+    set -gx YUNWU_BASE_URL https://yunwu.ai
+    set -gx YUNWU_TOKEN (cat ${config.sops.secrets.yunwu_claude_api.path})
+    set -gx ANTHROPIC_API_KEY ''
+    set -gx ANTHROPIC_AUTH_TOKEN $YUNWU_TOKEN
+    set -gx ANTHROPIC_BASE_URL $YUNWU_BASE_URL
     source ${pkgs.fish}/share/fish/completions/rsync.fish
     /opt/homebrew/bin/brew shellenv |source
     ";

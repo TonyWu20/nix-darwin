@@ -12,9 +12,13 @@
     #nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
     nvimdots = { url = "git+file:/Users/tony/Downloads/nvimdots"; };
     nushell-cfg.url = "github:TonyWu20/nushell_hm_module";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nix-darwin, home-manager, fenix, catppuccin, nvimdots, nushell-cfg, ... }:
+  outputs = { nix-darwin, home-manager, fenix, catppuccin, nvimdots, nushell-cfg, sops-nix, ... }:
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#wutongs-MacBook-Air
@@ -45,6 +49,7 @@
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
+                  sops-nix.homeManagerModules.sops
                 ];
                 backupFileExtension = ".backup";
               };
@@ -79,6 +84,7 @@
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
+                  sops-nix.homeManagerModules.sops
                 ];
                 backupFileExtension = ".backup";
               };

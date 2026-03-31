@@ -336,7 +336,8 @@
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
         "nushell-cfg": "nushell-cfg",
-        "nvimdots": "nvimdots"
+        "nvimdots": "nvimdots",
+        "sops-nix": "sops-nix"
       }
     },
     "rust-analyzer-src": {
@@ -353,6 +354,26 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774910634,
+        "narHash": "sha256-B+rZDPyktGEjOMt8PcHKYmgmKoF+GaNAFJhguktXAo0=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "19bf3d8678fbbfbc173beaa0b5b37d37938db301",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     }

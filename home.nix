@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   catppuccin_programs = [ "fzf" "bat" "fish" "skim" "nushell" ];
 in
@@ -64,16 +64,19 @@ in
     ./tmux
     ./skhd
     ./rime
-    # ./nushell
+    ./sops
+    ./nushell
   ];
+  programs.direnv = {
 
-  # https://github.com/malob/nixpkgs/blob/master/home/default.nix
+    # https://github.com/malob/nixpkgs/blob/master/home/default.nix
 
-  # Direnv, load and unload environment variables depending on the current directory.
-  # https://direnv.net
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+    # Direnv, load and unload environment variables depending on the current directory.
+    # https://direnv.net
+    # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   # Htop
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
@@ -81,6 +84,7 @@ in
   programs.htop.settings.show_program_path = true;
   programs.yazi = {
     enable = true;
+    shellWrapperName = "y";
     settings = {
       plugins = {
         prepend_previewers = [{
@@ -130,4 +134,5 @@ in
       "--walker-skip .git,node_modules,target"
     ];
   };
+  programs.claude-code = { enable = true; };
 }
