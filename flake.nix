@@ -10,15 +10,19 @@
     fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     catppuccin.url = "github:catppuccin/nix";
     #nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
-    nvimdots = { url = "git+file:/Users/tony/Downloads/nvimdots"; };
+    nvimdots = { url = "github:TonyWu20/nvimdots"; };
     nushell-cfg.url = "github:TonyWu20/nushell_hm_module";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nushell_plugin_crossref = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:TonyWu20/crossref-rs";
+    };
   };
 
-  outputs = { nix-darwin, home-manager, fenix, catppuccin, nvimdots, nushell-cfg, sops-nix, ... }:
+  outputs = { nix-darwin, home-manager, fenix, catppuccin, nvimdots, nushell-cfg, sops-nix, nushell_plugin_crossref, ... }:
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#wutongs-MacBook-Air
@@ -49,6 +53,11 @@
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
+                  {
+                    extraPlugins = [
+                      nushell_plugin_crossref.packages.aarch64-darwin.nu_plugin_crossref_v110
+                    ];
+                  }
                   sops-nix.homeManagerModules.sops
                 ];
                 backupFileExtension = ".backup";
