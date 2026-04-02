@@ -28,11 +28,10 @@ in
       sad
       fzf
       skim
-      nushell
       tmux
       eza
       btop
-      nodejs-slim_24
+      nodejs_24
       source-sans-pro
       imagemagick
       rar
@@ -65,7 +64,6 @@ in
     ./skhd
     ./rime
     ./sops
-    ./nushell
   ];
   programs.direnv = {
 

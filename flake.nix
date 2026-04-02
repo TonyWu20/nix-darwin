@@ -9,8 +9,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     catppuccin.url = "github:catppuccin/nix";
-    #nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
-    nvimdots = { url = "github:TonyWu20/nvimdots"; };
+    nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
     nushell-cfg.url = "github:TonyWu20/nushell_hm_module";
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -55,7 +54,7 @@
                   nushell-cfg.homeManagerModules.default
                   {
                     extraPlugins = [
-                      nushell_plugin_crossref.packages.aarch64-darwin.nu_plugin_crossref_v110
+                      nushell_plugin_crossref.packages.aarch64-darwin.nu_plugin_crossref
                     ];
                   }
                   sops-nix.homeManagerModules.sops
