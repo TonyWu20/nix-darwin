@@ -360,11 +360,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1775109092,
-        "narHash": "sha256-zjmuj0nZ5VGn7qWcxV4YiGmU2yyEN1lzoTRaliYv72Y=",
+        "lastModified": 1775155233,
+        "narHash": "sha256-Mnrx2982JcHREFP6bjHVIkuv4r5PqZFiqdxrHZA4IK4=",
         "owner": "TonyWu20",
         "repo": "nushell_hm_module",
-        "rev": "bf35b6c170cbf219135fea579fbdf3bf9eab7630",
+        "rev": "a6a5f204a6339d5700c3240862406f7101be8744",
         "type": "github"
       },
       "original": {

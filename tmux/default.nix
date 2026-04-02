@@ -10,7 +10,7 @@
       "setw -g monitor-activity on"
       "run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux"
     ];
-    terminal = "xterm-256colors";
+    terminal = "tmux-256colors";
     plugins = with pkgs; [
       tmuxPlugins.resurrect
       tmuxPlugins.net-speed

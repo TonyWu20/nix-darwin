@@ -1,7 +1,9 @@
 keys:
   - &admin_air age1555na6yxk4c4p4zr0s228vue4hwm3jn7kup47m4pesue39xq3elsjlcyvh
+  - &admin_minim4 age1v3zdulnnp505r2r7ensl2ma7tvy29e2dscwx5fd605ya36tdxpdqhlqdx2
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
           - *admin_air
+          - *admin_minim4
