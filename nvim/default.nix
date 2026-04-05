@@ -14,8 +14,8 @@
     defaultEditor = true;
     nvimdots = {
       enable = true;
-      #setBuildEnv=true;
-      #withBuildTools=true;
+      setBuildEnv = true;
+      withBuildTools = true;
     };
     # enable = true;
     extraPackages = with pkgs; [

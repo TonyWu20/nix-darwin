@@ -14,9 +14,11 @@
     set -gx POE_TOKEN (cat ${config.sops.secrets.poe_chatbot_api.path})
     set -gx YUNWU_BASE_URL https://yunwu.ai
     set -gx YUNWU_TOKEN (cat ${config.sops.secrets.yunwu_claude_api.path})
+    set -gx FOXCODE_TOKEN (cat ${config.sops.secrets.foxcode_claude_token.path})
+    set -gx FOXCODE_BASE_URL https://code.newcli.com/claude/ultra
     set -gx ANTHROPIC_API_KEY ''
-    set -gx ANTHROPIC_AUTH_TOKEN $YUNWU_TOKEN
-    set -gx ANTHROPIC_BASE_URL $YUNWU_BASE_URL
+    set -gx ANTHROPIC_AUTH_TOKEN $FOXCODE_TOKEN
+    set -gx ANTHROPIC_BASE_URL $FOXCODE_BASE_URL
     source ${pkgs.fish}/share/fish/completions/rsync.fish
     /opt/homebrew/bin/brew shellenv |source
     ";

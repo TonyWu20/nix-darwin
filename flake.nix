@@ -3,6 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-claude-code-patch = {
+      url = "github:TonyWu20/nixpkgs/claude-code-patch";
+    };
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -21,7 +24,18 @@
     };
   };
 
-  outputs = { nix-darwin, home-manager, fenix, catppuccin, nvimdots, nushell-cfg, sops-nix, nushell_plugin_crossref, ... }:
+  outputs =
+    { nix-darwin
+    , home-manager
+    , fenix
+    , catppuccin
+    , nvimdots
+    , nushell-cfg
+    , sops-nix
+    , nushell_plugin_crossref
+    , nixpkgs-claude-code-patch
+    , ...
+    }:
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#wutongs-MacBook-Air
@@ -47,6 +61,9 @@
                     ./home.nix
                     ssh/air.nix
                   ];
+                };
+                extraSpecialArgs = {
+                  nixpkgs-cc-patch = import nixpkgs-claude-code-patch { system = "aarch64-darwin"; config.allowUnfree = true; };
                 };
                 sharedModules = [
                   nvimdots.homeManagerModules.default
@@ -92,6 +109,11 @@
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
+                  {
+                    extraPlugins = [
+                      nushell_plugin_crossref.packages.aarch64-darwin.nu_plugin_crossref
+                    ];
+                  }
                   sops-nix.homeManagerModules.sops
                 ];
                 backupFileExtension = ".backup";

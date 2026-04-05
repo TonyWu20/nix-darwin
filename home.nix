@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 let
   catppuccin_programs = [ "fzf" "bat" "fish" "skim" "nushell" ];
 in
@@ -39,7 +39,10 @@ in
       lua51Packages.luarocks
       lua51Packages.lua
       librime
-
+      python313Packages.pynvim
+      python313
+      bun
+      sd
       # Dev stuff
       # (agda.withPackages (p: [ p.standard-library ]))
 
@@ -64,6 +67,8 @@ in
     ./skhd
     ./rime
     ./sops
+    ./nushell
+    ./claude-code
   ];
   programs.direnv = {
 
@@ -132,5 +137,4 @@ in
       "--walker-skip .git,node_modules,target"
     ];
   };
-  programs.claude-code = { enable = true; };
 }

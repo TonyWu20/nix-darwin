@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   sops = {
     defaultSopsFile = ./secrets/my_secrets.yaml;
@@ -6,5 +6,6 @@
     age.generateKey = false;
     secrets.poe_chatbot_api = { };
     secrets.yunwu_claude_api = { };
+    secrets.foxcode_claude_token = { };
   };
 }

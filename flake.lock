@@ -259,6 +259,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-claude-code-patch": {
+      "locked": {
+        "lastModified": 1775245020,
+        "narHash": "sha256-oHux/9J2cxxgt88j6NlDbhcLoGR5mlyu0Oza+ijQMto=",
+        "owner": "TonyWu20",
+        "repo": "nixpkgs",
+        "rev": "c465bc4fb65d07aa3f6768547291bf2568c0bd54",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TonyWu20",
+        "ref": "claude-code-patch",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1774748309,
@@ -360,11 +376,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1775155233,
-        "narHash": "sha256-Mnrx2982JcHREFP6bjHVIkuv4r5PqZFiqdxrHZA4IK4=",
+        "lastModified": 1775272615,
+        "narHash": "sha256-21fc3Po2Q+oPpCxE7MxjJQEE4O3EV5ysi6RqkcJt8qQ=",
         "owner": "TonyWu20",
         "repo": "nushell_hm_module",
-        "rev": "a6a5f204a6339d5700c3240862406f7101be8744",
+        "rev": "2ae222763323dc3874efaf7fa93e1e8d1b9a09ec",
         "type": "github"
       },
       "original": {
@@ -403,11 +419,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1775108992,
-        "narHash": "sha256-uChyp5+r0yLzAfwyvnBNyCLOMAz3LR4LVmxS1x6F/7c=",
+        "lastModified": 1775335632,
+        "narHash": "sha256-/Du7dXQGeiFnsjuYYBwqsCymv0xsdpjdBqHTDzeJqyQ=",
         "owner": "TonyWu20",
         "repo": "nvimdots",
-        "rev": "c4bdc9afd67b474856b610b5dc38851754ef0d3c",
+        "rev": "93143ee2e7c4339999b7fa385973582370c8d3d5",
         "type": "github"
       },
       "original": {
@@ -424,6 +440,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-claude-code-patch": "nixpkgs-claude-code-patch",
         "nushell-cfg": "nushell-cfg",
         "nushell_plugin_crossref": "nushell_plugin_crossref",
         "nvimdots": "nvimdots",
