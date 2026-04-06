@@ -3,13 +3,14 @@
     enable = true;
     onActivation.cleanup = "uninstall";
 
-    taps = [ "daipeihust/tap" "laishulu/homebrew" ];
+    taps = [ "daipeihust/tap" "laishulu/homebrew" "lablup/tap" ];
     brews = [
       "fish"
       { name = "daipeihust/tap/im-select"; link = true; }
       "laishulu/homebrew/macism"
       "watch"
       "php"
+      "lablup/tap/all-smi"
     ];
     casks = [
       "wezterm"

@@ -76,7 +76,7 @@
                   }
                   sops-nix.homeManagerModules.sops
                 ];
-                backupFileExtension = ".backup";
+                backupFileExtension = "backup";
               };
 
             }
@@ -105,6 +105,9 @@
                     ssh/mini.nix
                   ];
                 };
+                extraSpecialArgs = {
+                  nixpkgs-cc-patch = import nixpkgs-claude-code-patch { system = "aarch64-darwin"; config.allowUnfree = true; };
+                };
                 sharedModules = [
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
@@ -116,9 +119,8 @@
                   }
                   sops-nix.homeManagerModules.sops
                 ];
-                backupFileExtension = ".backup";
+                backupFileExtension = "backup";
               };
-
             }
           ];
         };

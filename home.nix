@@ -53,8 +53,6 @@ in
       nom
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
-      skhd
-      yabai
     ];
   };
 

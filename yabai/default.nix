@@ -3,7 +3,6 @@
     enable = true;
     enableScriptingAddition = true;
     config = {
-
       layout = "bsp";
       top_padding = 0;
       bottom_padding = 0;
