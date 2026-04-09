@@ -16,6 +16,8 @@
     set -gx YUNWU_TOKEN (cat ${config.sops.secrets.yunwu_claude_api.path})
     set -gx FOXCODE_TOKEN (cat ${config.sops.secrets.foxcode_claude_token.path})
     set -gx FOXCODE_BASE_URL https://code.newcli.com/claude/ultra
+    set -gx XCODE_BEST_TOKEN (cat ${config.sops.secrets.xcode_best_claude_token.path})
+    set -gx XCODE_BEST_BASE_URL https://xcode.best
     set -gx ANTHROPIC_API_KEY ''
     set -gx ANTHROPIC_AUTH_TOKEN $FOXCODE_TOKEN
     set -gx ANTHROPIC_BASE_URL $FOXCODE_BASE_URL

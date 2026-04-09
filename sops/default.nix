@@ -7,5 +7,6 @@
     secrets.poe_chatbot_api = { };
     secrets.yunwu_claude_api = { };
     secrets.foxcode_claude_token = { };
+    secrets.xcode_best_claude_token = { };
   };
 }
