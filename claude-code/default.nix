@@ -6,6 +6,7 @@
     skills = {
       first-principle = ./first-principles-skill;
       rust-api-doc = ./rust-api-doc;
+      humanizer = ./humanizer;
     };
   };
 }
