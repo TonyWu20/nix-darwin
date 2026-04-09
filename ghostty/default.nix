@@ -7,16 +7,17 @@
     package = if pkgs.stdenv.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
 
     settings = {
-      font-size = 12;
+      font-size = 14;
+      font-family = "Hack Nerd Font Mono";
+      font-family-bold = "Hack Nerd Font Mono Bold";
+      font-family-bold-italic = "Hack Nerd Font Mono Bold Italic";
+      font-family-italic = "Hack Nerd Font Mono Italic";
 
       # Native Claude Code notifications via OSC 9
       desktop-notifications = true;
 
-      # Ensures you see Claude's 'Needs Input' alerts globally
-      notification-handling-method = "AlwaysShow";
-
       # Performance and UX
-      window-decoration = false;
+      window-decoration = true;
       confirm-close-surface = false;
 
       # Claude-specific keybinds

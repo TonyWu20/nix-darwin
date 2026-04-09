@@ -28,6 +28,8 @@
       yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
       yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
       yabai -m rule --add label="Darktable" app="^darktable$" manage=off
+      yabai -m signal --add app='^Ghostty$' event=window_created action='yabai -m space --layout bsp'
+      yabai -m signal --add app='^Ghostty$' event=window_destroyed action='yabai -m space --layout bsp'
     '';
   };
 

@@ -21,6 +21,7 @@
       "kitty"
       "citra"
       "squirrel-app"
+      "ghostty"
     ];
   };
 }

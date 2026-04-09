@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  catppuccin_programs = [ "fzf" "bat" "fish" "skim" "nushell" ];
+  catppuccin_programs = [ "fzf" "bat" "fish" "skim" "nushell" "ghostty" ];
 in
 {
   home = {
@@ -67,6 +67,7 @@ in
     ./sops
     ./nushell
     ./claude-code
+    ./ghostty
   ];
   programs.direnv = {
 
