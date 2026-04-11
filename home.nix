@@ -1,6 +1,16 @@
 { pkgs, lib, ... }:
 let
-  catppuccin_programs = [ "fzf" "bat" "fish" "skim" "nushell" "ghostty" ];
+  catppuccin_programs = [
+    "bat"
+    "eza"
+    "fish"
+    "fzf"
+    "ghostty"
+    "nushell"
+    "skim"
+    "starship"
+    "yazi"
+  ];
 in
 {
   home = {
@@ -51,6 +61,7 @@ in
       # comma # run software from without installing it
       niv # easy dependency management for nix projects
       nom
+      tun2socks
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
     ];

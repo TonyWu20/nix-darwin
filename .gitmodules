@@ -1,6 +1,9 @@
 [submodule "claude-code/first-principles-skill"]
 	path = claude-code/first-principles-skill
-	url = https://github.com/tt-a1i/first-principles-skill.git
+	url = git@github.com:TonyWu20/first-principles-skill.git
 [submodule "claude-code/humanizer"]
 	path = claude-code/humanizer
 	url = https://github.com/blader/humanizer.git
+[submodule "claude-code/humanizer-zh"]
+	path = claude-code/humanizer-zh
+	url = git@github.com:op7418/Humanizer-zh.git

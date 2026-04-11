@@ -7,7 +7,8 @@
     package = if pkgs.stdenv.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
 
     settings = {
-      font-size = 14;
+      font-thicken = true;
+      font-size = 12;
       font-family = "Hack Nerd Font Mono";
       font-family-bold = "Hack Nerd Font Mono Bold";
       font-family-bold-italic = "Hack Nerd Font Mono Bold Italic";
@@ -25,6 +26,7 @@
         "super+d=new_split:right"
         "super+shift+d=new_split:down"
       ];
+      macos-option-as-alt = true;
     };
   };
 }

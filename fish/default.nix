@@ -18,9 +18,11 @@
     set -gx FOXCODE_BASE_URL https://code.newcli.com/claude/ultra
     set -gx XCODE_BEST_TOKEN (cat ${config.sops.secrets.xcode_best_claude_token.path})
     set -gx XCODE_BEST_BASE_URL https://xcode.best
+    set -gx CLAUDE_ZZ_TOKEN (cat ${config.sops.secrets.claude_zz_token.path})
+    set -gx CLAUDE_BASE_URL https://claude-zhongzhuan.cloud
     set -gx ANTHROPIC_API_KEY ''
-    set -gx ANTHROPIC_AUTH_TOKEN $FOXCODE_TOKEN
-    set -gx ANTHROPIC_BASE_URL $FOXCODE_BASE_URL
+    set -gx ANTHROPIC_AUTH_TOKEN $CLAUDE_ZZ_TOKEN
+    set -gx ANTHROPIC_BASE_URL $CLAUDE_BASE_URL
     source ${pkgs.fish}/share/fish/completions/rsync.fish
     /opt/homebrew/bin/brew shellenv |source
     ";

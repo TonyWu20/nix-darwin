@@ -76,7 +76,7 @@
                   }
                   sops-nix.homeManagerModules.sops
                 ];
-                backupFileExtension = "backup";
+                backupFileExtension = "hm-backup";
               };
 
             }
@@ -119,7 +119,7 @@
                   }
                   sops-nix.homeManagerModules.sops
                 ];
-                backupFileExtension = "backup";
+                backupFileExtension = "hm-backup";
               };
             }
           ];

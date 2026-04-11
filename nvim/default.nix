@@ -22,5 +22,6 @@
       go
       python3
     ];
+    withRuby = false;
   };
 }
