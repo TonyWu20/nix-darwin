@@ -1,6 +1,7 @@
 ---
 name: rust-api-doc
 description: Add comprehensive API documentation to Rust code for docs.rs. Use this skill when the user asks to "document this code", "add doc comments", "improve documentation", "make this docs.rs ready", "add rustdoc", or mentions preparing code for publication. Also trigger when the user is working on a library crate and mentions documentation, API clarity, or user-facing interfaces.
+disable-model-invocation: true
 ---
 
 # Rust API Documentation
@@ -9,7 +10,7 @@ Add comprehensive, user-friendly documentation comments to Rust code following d
 
 ## Core Principles
 
-**Explain why, not what**: The code already shows *what* it does. Documentation should explain *why* it exists, *when* to use it, and *how* it fits into the larger picture.
+**Explain why, not what**: The code already shows _what_ it does. Documentation should explain _why_ it exists, _when_ to use it, and _how_ it fits into the larger picture.
 
 **Examples for user-facing APIs**: Public APIs that users interact with directly should include examples. Internal helpers and obvious utilities don't need them.
 
@@ -20,24 +21,28 @@ Add comprehensive, user-friendly documentation comments to Rust code following d
 ## What to Document
 
 ### Module-level (`//!`)
+
 - Purpose of the module
 - Key concepts and relationships
 - Usage examples for the primary workflow
 - Links to important types
 
 ### Public structs and enums
+
 - What the type represents (domain concept, not implementation)
 - When to use it vs alternatives
 - Key invariants or constraints
 - Example for non-obvious usage
 
 ### Public functions
+
 - What problem it solves (not just what it does)
 - When to use it
 - Errors it can return and why
 - Examples for complex APIs
 
 ### Fields (when public)
+
 - What the field represents
 - Valid ranges or constraints
 - How it relates to other fields
@@ -45,7 +50,8 @@ Add comprehensive, user-friendly documentation comments to Rust code following d
 ## Documentation Style
 
 ### Structure
-```rust
+
+````rust
 /// One-line summary (ends with period).
 ///
 /// Detailed explanation of why this exists and when to use it.
@@ -67,9 +73,10 @@ Add comprehensive, user-friendly documentation comments to Rust code following d
 /// # Panics
 ///
 /// Panics if called before initialization.
-```
+````
 
 ### Sections to use
+
 - `# Example` / `# Examples` — concrete usage
 - `# Errors` — what can go wrong
 - `# Panics` — when it panics
@@ -77,6 +84,7 @@ Add comprehensive, user-friendly documentation comments to Rust code following d
 - `# Invariants` — constraints that must hold
 
 ### Writing style
+
 - Use present tense: "Returns the value" not "Will return"
 - Be direct: "Creates a new instance" not "This function creates"
 - Explain trade-offs: "Faster but uses more memory"
@@ -85,6 +93,7 @@ Add comprehensive, user-friendly documentation comments to Rust code following d
 ## What NOT to Document
 
 Skip documentation for:
+
 - Private items (unless they're complex and need explanation for maintainers)
 - Obvious getters/setters
 - Standard trait implementations (Debug, Clone, etc.) unless they have special behavior
@@ -103,6 +112,7 @@ Skip documentation for:
 ## Example Transformations
 
 ### Before
+
 ```rust
 pub struct Task {
     pub id: String,
@@ -115,7 +125,8 @@ pub fn run(task: &Task) -> Result<()> {
 ```
 
 ### After
-```rust
+
+````rust
 /// A unit of work in the execution pipeline.
 ///
 /// Tasks are created by [`expand_sweeps`] and executed by the scheduler.
@@ -151,11 +162,12 @@ pub struct Task {
 pub fn run(task: &Task) -> Result<()> {
     // implementation
 }
-```
+````
 
 ## Common Patterns
 
 ### Explaining relationships
+
 ```rust
 /// Concrete task instance after sweep expansion.
 ///
@@ -164,6 +176,7 @@ pub fn run(task: &Task) -> Result<()> {
 ```
 
 ### Documenting invariants
+
 ```rust
 /// Sweep parameter bindings that produced this instance.
 ///
@@ -175,6 +188,7 @@ pub bindings: HashMap<String, String>,
 ```
 
 ### Explaining design decisions
+
 ```rust
 /// Working directories of tasks this task depends on.
 ///
@@ -185,11 +199,13 @@ pub bindings: HashMap<String, String>,
 ## Verification
 
 After documenting, run:
+
 ```bash
 cargo doc --no-deps --document-private-items
 ```
 
 Check for:
+
 - Broken links (warnings about unresolved links)
 - Malformed code blocks
 - Missing backticks around type names
