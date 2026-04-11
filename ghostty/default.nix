@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hostName, ... }:
 
 {
   programs.ghostty = {
@@ -7,7 +7,7 @@
     package = if pkgs.stdenv.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
 
     settings = {
-      font-thicken = true;
+      font-thicken = if hostName == "Tonys-Mac-mini-M4" then true else false;
       font-size = 12;
       font-family = "Hack Nerd Font Mono";
       font-family-bold = "Hack Nerd Font Mono Bold";

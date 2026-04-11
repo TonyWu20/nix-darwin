@@ -64,6 +64,7 @@
                 };
                 extraSpecialArgs = {
                   nixpkgs-cc-patch = import nixpkgs-claude-code-patch { system = "aarch64-darwin"; config.allowUnfree = true; };
+                  hostName = "wutongs-MacBook-Air";
                 };
                 sharedModules = [
                   nvimdots.homeManagerModules.default
@@ -107,6 +108,7 @@
                 };
                 extraSpecialArgs = {
                   nixpkgs-cc-patch = import nixpkgs-claude-code-patch { system = "aarch64-darwin"; config.allowUnfree = true; };
+                  hostName = "Tonys-Mac-mini-M4";
                 };
                 sharedModules = [
                   nvimdots.homeManagerModules.default
