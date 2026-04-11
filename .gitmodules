@@ -3,7 +3,7 @@
 	url = git@github.com:TonyWu20/first-principles-skill.git
 [submodule "claude-code/humanizer"]
 	path = claude-code/humanizer
-	url = https://github.com/blader/humanizer.git
+	url = git@github.com:TonyWu20/humanizer.git
 [submodule "claude-code/humanizer-zh"]
 	path = claude-code/humanizer-zh
-	url = git@github.com:op7418/Humanizer-zh.git
+	url = git@github.com:TonyWu20/Humanizer-zh.git
