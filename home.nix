@@ -2,6 +2,8 @@
 let
   catppuccin_programs = [
     "bat"
+    "btop"
+    "delta"
     "eza"
     "fish"
     "fzf"
@@ -130,6 +132,9 @@ in
   programs.delta = {
     enable = true;
     enableGitIntegration = true;
+    options = {
+      side-by-side = true;
+    };
   };
   programs.fzf = {
     enable = true;

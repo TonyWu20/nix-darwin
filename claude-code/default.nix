@@ -1,5 +1,8 @@
 { nixpkgs-cc-patch, pkgs, ... }:
 {
+  home.packages = with pkgs;[
+    claude-code-router
+  ];
   programs.claude-code = {
     enable = true;
     package = nixpkgs-cc-patch.claude-code;
@@ -20,6 +23,7 @@
             osascript -e "display notification \"$message\" with title \"Claude Code\""
           ''
         else "");
+      five_mins = builtins.readFile ./five_min.sh;
     };
   };
 }
