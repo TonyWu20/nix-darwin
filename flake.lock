@@ -261,11 +261,11 @@
     },
     "nixpkgs-claude-code-patch": {
       "locked": {
-        "lastModified": 1775926015,
-        "narHash": "sha256-ucUZYW2wGmjKw/QI7gKyH3HsiVxtelj4/MWGcOc0l3M=",
+        "lastModified": 1776251917,
+        "narHash": "sha256-jCpz+m2MFvC3VwatH+tUi8940ILAWLPKpbY/BCeyQZc=",
         "owner": "TonyWu20",
         "repo": "nixpkgs",
-        "rev": "aba81c2ee345ed1d588eeba57cd7637d58968c4f",
+        "rev": "751928808670ec224260c07eecd081090f333697",
         "type": "github"
       },
       "original": {
