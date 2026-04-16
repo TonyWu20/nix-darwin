@@ -24,6 +24,7 @@
           ''
         else "");
       five_mins = builtins.readFile ./five_min.sh;
+      notify_telegram = builtins.readFile ./notify_telegram;
     };
   };
 }

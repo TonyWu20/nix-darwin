@@ -23,6 +23,8 @@
     set -gx ANTHROPIC_API_KEY ''
     set -gx ANTHROPIC_AUTH_TOKEN $CLAUDE_ZZ_TOKEN
     set -gx ANTHROPIC_BASE_URL $CLAUDE_BASE_URL
+    set -gx TELEGRAM_BOT_TOKEN (cat ${config.sops.secrets.telegram_bot_token.path})
+    set -gx TELEGRAM_CHAT_ID (cat ${config.sops.secrets.telegram_user_id.path})
     source ${pkgs.fish}/share/fish/completions/rsync.fish
     /opt/homebrew/bin/brew shellenv |source
     ";

@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# Sends a Telegram notification when Claude Code needs permission approval
+# or sends a notification event.
+#
+# Required env vars:
+#   TELEGRAM_BOT_TOKEN  — bot token from @BotFather
+#   TELEGRAM_CHAT_ID    — target chat/user ID
+
+set -euo pipefail
+
+[[ -z "${TELEGRAM_BOT_TOKEN:-}" || -z "${TELEGRAM_CHAT_ID:-}" ]] && exit 0
+
+input=$(cat)
+event=$(echo "$input" | jq -r '.hook_event_name // ""')
+session=$(echo "$input" | jq -r '.session_id // ""')
+
+send_telegram() {
+    local text=$1
+    curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+        -H "Content-Type: application/json" \
+        -d "$(jq -n --arg chat_id "$TELEGRAM_CHAT_ID" --arg text "$text" \
+            '{chat_id: $chat_id, text: $text, parse_mode: "HTML"}')" \
+        > /dev/null
+}
+
+if [[ "$event" == "Notification" ]]; then
+    message=$(echo "$input" | jq -r '.message // "Claude Code needs your attention"')
+    send_telegram "$(printf '<b>Claude Code Notification</b>\n\n%s' "$message")"
+    exit 0
+fi
+
+if [[ "$event" == "PreToolUse" ]]; then
+    tool=$(echo "$input" | jq -r '.tool_name // ""')
+
+    # Tools auto-approved in acceptEdits mode — skip notification
+    case "$tool" in
+        Read|Glob|Grep|Edit|Write|NotebookEdit|\
+        Agent|SendMessage|ToolSearch|LSP|\
+        WebFetch|WebSearch|\
+        AskUserQuestion|ExitPlanMode|EnterPlanMode|\
+        Skill|EnterWorktree|ExitWorktree|\
+        TaskCreate|TaskGet|TaskList|TaskUpdate|TaskOutput|TaskStop|\
+        TodoRead|TodoWrite|\
+        TeamCreate|TeamDelete)
+            exit 0
+            ;;
+    esac
+
+    if [[ "$tool" == "Bash" ]]; then
+        cmd=$(echo "$input" | jq -r '.tool_input.command // ""')
+
+        # Check against the allow-list prefixes from settings.json
+        while IFS= read -r prefix; do
+            if [[ "$cmd" == ${prefix}* ]]; then
+                exit 0
+            fi
+        done <<'EOF'
+cargo check
+cargo test
+cargo clippy
+cargo fix
+head
+grep
+git add
+wc
+EOF
+
+        # Bash command needs permission
+        short_cmd="${cmd:0:200}"
+        [[ ${#cmd} -gt 200 ]] && short_cmd="${short_cmd}..."
+        send_telegram "$(printf '<b>Claude Code: Permission Required</b>\n\nTool: <code>Bash</code>\nCommand:\n<pre>%s</pre>\nSession: <code>%s</code>' \
+            "$short_cmd" "$session")"
+        exit 0
+    fi
+
+    # Any other non-approved tool needs permission
+    tool_input=$(echo "$input" | jq -c '.tool_input // {}')
+    short_input="${tool_input:0:200}"
+    [[ ${#tool_input} -gt 200 ]] && short_input="${short_input}..."
+    send_telegram "$(printf '<b>Claude Code: Permission Required</b>\n\nTool: <code>%s</code>\nInput:\n<pre>%s</pre>\nSession: <code>%s</code>' \
+        "$tool" "$short_input" "$session")"
+fi

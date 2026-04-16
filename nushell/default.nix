@@ -12,6 +12,8 @@
       $env.ANTHROPIC_API_KEY = ""
       $env.ANTHROPIC_AUTH_TOKEN = $env.FOXCODE_TOKEN
       $env.ANTHROPIC_BASE_URL = $env.FOXCODE_BASE_URL
+      $env.TELEGRAM_BOT_TOKEN = (open ${config.sops.secrets.telegram_bot_token.path})
+      $env.TELEGRAM_CHAT_ID = (open ${config.sops.secrets.telegram_user_id.path})
     '';
   };
 }
