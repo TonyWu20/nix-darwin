@@ -64,6 +64,7 @@ in
       niv # easy dependency management for nix projects
       nom
       tun2socks
+      mosh
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
     ];
@@ -82,74 +83,76 @@ in
     ./claude-code
     ./ghostty
   ];
-  programs.direnv = {
+  programs = {
+    direnv = {
 
-    # https://github.com/malob/nixpkgs/blob/master/home/default.nix
+      # https://github.com/malob/nixpkgs/blob/master/home/default.nix
 
-    # Direnv, load and unload environment variables depending on the current directory.
-    # https://direnv.net
-    # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
-    enable = true;
-    nix-direnv.enable = true;
-  };
+      # Direnv, load and unload environment variables depending on the current directory.
+      # https://direnv.net
+      # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
+      enable = true;
+      nix-direnv.enable = true;
+    };
 
-  # Htop
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
-  programs.htop.enable = true;
-  programs.htop.settings.show_program_path = true;
-  programs.yazi = {
-    enable = true;
-    shellWrapperName = "y";
-    settings = {
-      plugins = {
-        prepend_previewers = [{
-          mime = "image/tiff";
-          run = "magick";
-        }
-          {
-            name = "*.tif";
+    # Htop
+    # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
+    htop.enable = true;
+    htop.settings.show_program_path = true;
+    yazi = {
+      enable = true;
+      shellWrapperName = "y";
+      settings = {
+        plugins = {
+          prepend_previewers = [{
+            mime = "image/tiff";
             run = "magick";
-          }];
-        prepend_preloaders = [
-          { mime = "image/tiff"; run = "magick"; }
-        ];
+          }
+            {
+              name = "*.tif";
+              run = "magick";
+            }];
+          prepend_preloaders = [
+            { mime = "image/tiff"; run = "magick"; }
+          ];
+        };
       };
+    };
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "TonyWu20";
+          email = "tony.w21@gmail.com";
+        };
+        core = {
+          quotepath = false;
+        };
+      };
+    };
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        side-by-side = true;
+      };
+    };
+    fzf = {
+      enable = true;
+      enableFishIntegration = true;
+      defaultOptions = [
+        "--height 80%"
+        "--reverse"
+        "--border"
+        "--preview-window right:67%"
+      ];
+      defaultCommand = "fd --type file -HI -E .git --color=always";
+      fileWidgetOptions = [
+        "--preview 'bat -n --color=always {}'"
+        "--bind 'ctrl-/:change-preview-window(down|hidden|)'"
+        "--walker-skip .git,node_modules,target"
+      ];
     };
   };
   catppuccin = lib.attrsets.genAttrs catppuccin_programs (prog: { enable = true; flavor = "macchiato"; });
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-        name = "TonyWu20";
-        email = "tony.w21@gmail.com";
-      };
-      core = {
-        quotepath = false;
-      };
-    };
-  };
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-    options = {
-      side-by-side = true;
-    };
-  };
-  programs.fzf = {
-    enable = true;
-    enableFishIntegration = true;
-    defaultOptions = [
-      "--height 80%"
-      "--reverse"
-      "--border"
-      "--preview-window right:67%"
-    ];
-    defaultCommand = "fd --type file -HI -E .git --color=always";
-    fileWidgetOptions = [
-      "--preview 'bat -n --color=always {}'"
-      "--bind 'ctrl-/:change-preview-window(down|hidden|)'"
-      "--walker-skip .git,node_modules,target"
-    ];
-  };
 }

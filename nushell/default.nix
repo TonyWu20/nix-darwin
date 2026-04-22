@@ -14,6 +14,9 @@
       $env.ANTHROPIC_BASE_URL = $env.FOXCODE_BASE_URL
       $env.TELEGRAM_BOT_TOKEN = (open ${config.sops.secrets.telegram_bot_token.path})
       $env.TELEGRAM_CHAT_ID = (open ${config.sops.secrets.telegram_user_id.path})
+      $env.DISCORD_CHANNEL_ID = (open ${config.sops.secrets.discord_claude_channel_id.path})
+      $env.DISCORD_INSPECT_CHANNEL_ID = (open ${config.sops.secrets.discord_inspect_channel_id.path})
+      $env.DISCORD_BOT_TOKEN = (open ${config.sops.secrets.discord_bot_token.path})
     '';
   };
 }

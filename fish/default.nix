@@ -25,6 +25,9 @@
     set -gx ANTHROPIC_BASE_URL $CLAUDE_BASE_URL
     set -gx TELEGRAM_BOT_TOKEN (cat ${config.sops.secrets.telegram_bot_token.path})
     set -gx TELEGRAM_CHAT_ID (cat ${config.sops.secrets.telegram_user_id.path})
+    set -gx DISCORD_BOT_TOKEN (cat ${config.sops.secrets.discord_bot_token.path})
+    set -gx DISCORD_CHANNEL_ID (cat ${config.sops.secrets.discord_claude_channel_id.path})
+    set -gx DISCORD_INSPECT_CHANNEL_ID (cat ${config.sops.secrets.discord_inspect_channel_id.path})
     source ${pkgs.fish}/share/fish/completions/rsync.fish
     /opt/homebrew/bin/brew shellenv |source
     ";
