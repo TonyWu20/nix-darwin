@@ -17,6 +17,7 @@
       $env.DISCORD_CHANNEL_ID = (open ${config.sops.secrets.discord_claude_channel_id.path})
       $env.DISCORD_INSPECT_CHANNEL_ID = (open ${config.sops.secrets.discord_inspect_channel_id.path})
       $env.DISCORD_BOT_TOKEN = (open ${config.sops.secrets.discord_bot_token.path})
+      $env.DISCORD_NOTIFY_USER_IDS = (open ${config.sops.secrets.discord_notify_user_ids.path})
     '';
   };
 }
