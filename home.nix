@@ -35,10 +35,8 @@ in
       zoxide
       ripgrep
       fd
-      bat
       gh
       sad
-      fzf
       skim
       tmux
       eza
@@ -152,6 +150,9 @@ in
         "--bind 'ctrl-/:change-preview-window(down|hidden|)'"
         "--walker-skip .git,node_modules,target"
       ];
+    };
+    bat = {
+      enable = true;
     };
   };
   catppuccin = lib.attrsets.genAttrs catppuccin_programs (prog: { enable = true; flavor = "macchiato"; });

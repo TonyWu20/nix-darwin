@@ -1,39 +1,36 @@
 { pkgs, config, ... }: {
   programs.fish = {
     enable = true;
-    interactiveShellInit = "
-    fish_vi_key_bindings
-    zoxide init fish | source
-    set -gx FZF_DEFAULT_COMMAND 'fd --type file -HI -E .git --color=always'
-    set -gx FZF_PREVIEW_FILE_CMD 'bat --style=header,numbers,grid --line-range :300 --color=always'
-    set -gx FZF_PREVIEW_DIR_CMD 'eza -l --git --no-permissions --icons --no-user --level=2 -T '
-    set -U FZF_TMUX 0
-    set -U FZF_COMPLETE 1
-    set -ga PATH ~/.cargo/bin/
-    set -gx POE_BASE_URL https://api.poe.com
-    set -gx POE_TOKEN (cat ${config.sops.secrets.poe_chatbot_api.path})
-    set -gx YUNWU_BASE_URL https://yunwu.ai
-    set -gx YUNWU_TOKEN (cat ${config.sops.secrets.yunwu_claude_api.path})
-    set -gx FOXCODE_TOKEN (cat ${config.sops.secrets.foxcode_claude_token.path})
-    set -gx FOXCODE_BASE_URL https://code.newcli.com/claude/ultra
-    set -gx XCODE_BEST_TOKEN (cat ${config.sops.secrets.xcode_best_claude_token.path})
-    set -gx XCODE_BEST_BASE_URL https://xcode.best
-    set -gx CLAUDE_ZZ_TOKEN (cat ${config.sops.secrets.claude_zz_token.path})
-    set -gx CLAUDE_BASE_URL https://claude-zhongzhuan.cloud
-    set -gx ANTHROPIC_API_KEY ''
-    set -gx ANTHROPIC_AUTH_TOKEN $CLAUDE_ZZ_TOKEN
-    set -gx ANTHROPIC_BASE_URL $CLAUDE_BASE_URL
-    set -gx TELEGRAM_BOT_TOKEN (cat ${config.sops.secrets.telegram_bot_token.path})
-    set -gx TELEGRAM_CHAT_ID (cat ${config.sops.secrets.telegram_user_id.path})
-    set -gx DISCORD_BOT_TOKEN (cat ${config.sops.secrets.discord_bot_token.path})
-    set -gx DISCORD_CHANNEL_ID (cat ${config.sops.secrets.discord_claude_channel_id.path})
-    set -gx DISCORD_INSPECT_CHANNEL_ID (cat ${config.sops.secrets.discord_inspect_channel_id.path})
-    set -gx DISCORD_NOTIFY_USER_IDS (cat ${config.sops.secrets.discord_notify_user_ids.path})
-    source ${pkgs.fish}/share/fish/completions/rsync.fish
-    /opt/homebrew/bin/brew shellenv |source
-    ";
+    interactiveShellInit = builtins.concatStringsSep "\n" [
+      ''
+        fish_vi_key_bindings
+        zoxide init fish | source
+        set -gx FZF_DEFAULT_COMMAND 'fd --type file -HI -E .git --color=always'
+        set -gx FZF_PREVIEW_FILE_CMD 'bat --style=header,numbers,grid --line-range :300 --color=always'
+        set -gx FZF_PREVIEW_DIR_CMD 'eza -l --git --no-permissions --icons --no-user --level=2 -T '
+        set -U FZF_TMUX 0
+        set -U FZF_COMPLETE 1
+        set -ga PATH ~/.cargo/bin/
+        source ${pkgs.fish}/share/fish/completions/rsync.fish
+        /opt/homebrew/bin/brew shellenv |source
+      ''
+      ''
+        set -gx POE_BASE_URL https://api.poe.com
+        set -gx POE_TOKEN (cat ${config.sops.secrets.poe_chatbot_api.path})
+        set -gx YUNWU_BASE_URL https://yunwu.ai
+        set -gx YUNWU_TOKEN (cat ${config.sops.secrets.yunwu_claude_api.path})
+        set -gx FOXCODE_TOKEN (cat ${config.sops.secrets.foxcode_claude_token.path})
+        set -gx FOXCODE_BASE_URL https://code.newcli.com/claude/ultra
+        set -gx XCODE_BEST_TOKEN (cat ${config.sops.secrets.xcode_best_claude_token.path})
+        set -gx XCODE_BEST_BASE_URL https://xcode.best
+        set -gx CLAUDE_ZZ_TOKEN (cat ${config.sops.secrets.claude_zz_token.path})
+        set -gx CLAUDE_BASE_URL https://claude-zhongzhuan.cloud
+        set -gx ANTHROPIC_API_KEY ''
+    ];
+    preferAbbrs = true;
     shellAbbrs = {
       vim = "nvim";
+      ls = "eza";
     };
     functions = {
       num_kpt_geom = {
@@ -63,4 +60,5 @@
     fishPlugins.fifc
   ];
 }
+
 
