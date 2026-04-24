@@ -10,7 +10,7 @@
       alpha-blending = "linear-corrected";
       font-thicken = if hostName == "Tonys-Mac-mini-M4" then true else false;
       font-size = 12;
-      font-family = "Hack Nerd Font Mono";
+      font-family = [ "Hack Nerd Font Mono" "Noto Sans Mono CJK SC" ];
       font-family-bold = "Hack Nerd Font Mono Bold";
       font-family-bold-italic = "Hack Nerd Font Mono Bold Italic";
       font-family-italic = "Hack Nerd Font Mono Italic";
