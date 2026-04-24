@@ -47,6 +47,12 @@
         hostname = "10.147.17.179";
         identityFile = "~/.ssh/id_ed25519";
       };
+      nix-2 = {
+        host = "nixos-2";
+        user = "tony";
+        hostname = "10.0.0.3";
+        proxyJump = "nix";
+      };
     };
   };
 }
