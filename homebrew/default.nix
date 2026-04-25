@@ -11,6 +11,7 @@
       "watch"
       "php"
       "lablup/tap/all-smi"
+      "cairo"
     ];
     casks = [
       "wezterm"

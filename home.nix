@@ -21,7 +21,7 @@ in
     sessionVariables = {
       LIBRIME_LIB_DIR = "/opt/homebrew/lib";
       LIBRIME_INCLUDE_DIR = "/opt/homebrew/include";
-      DYLD_LIBRARY_PATH = "/opt/homebrew/lib";
+      #DYLD_LIBRARY_PATH = "/opt/homebrew/lib";
     };
 
     packages = with pkgs; [
@@ -53,6 +53,11 @@ in
       python313
       bun
       sd
+      freetype
+      harfbuzz
+      fribidi
+      libraqm
+      zlib
       # Dev stuff
       # (agda.withPackages (p: [ p.standard-library ]))
 

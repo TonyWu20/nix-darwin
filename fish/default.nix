@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ lib, pkgs, config, ... }: {
   programs.fish = {
     enable = true;
     interactiveShellInit = builtins.concatStringsSep "\n" [
@@ -15,21 +15,20 @@
         /opt/homebrew/bin/brew shellenv |source
       ''
       ''
+        # Automatically export sops secrets in UPPERCASE
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: 
+          "set -gx ${lib.toUpper name} (cat ${value.path})"
+        ) config.sops.secrets)}
+      ''
+      ''
         set -gx POE_BASE_URL https://api.poe.com
-        set -gx POE_TOKEN (cat ${config.sops.secrets.poe_chatbot_api.path})
         set -gx YUNWU_BASE_URL https://yunwu.ai
-        set -gx YUNWU_TOKEN (cat ${config.sops.secrets.yunwu_claude_api.path})
-        set -gx FOXCODE_TOKEN (cat ${config.sops.secrets.foxcode_claude_token.path})
         set -gx FOXCODE_BASE_URL https://code.newcli.com/claude/ultra
-        set -gx XCODE_BEST_TOKEN (cat ${config.sops.secrets.xcode_best_claude_token.path})
         set -gx XCODE_BEST_BASE_URL https://xcode.best
-        set -gx CLAUDE_ZZ_TOKEN (cat ${config.sops.secrets.claude_zz_token.path})
         set -gx CLAUDE_BASE_URL https://claude-zhongzhuan.cloud
-        set -gx ANTHROPIC_API_KEY 
-        set -gx DISCORD_INSPECT_CHANNEL_ID (cat ${config.sops.secrets.discord_inspect_channel_id.path})
-        set -gx DISCORD_CHANNEL_ID (cat ${config.sops.secrets.discord_claude_channel_id.path})
-        set -gx DISCORD_BOT_TOKEN (cat ${config.sops.secrets.discord_bot_token.path})
-        set -gx DISCORD_NOTIFY_USER_IDS (cat ${config.sops.secrets.discord_notify_user_ids.path})
+        set -gx ANTHROPIC_API_KEY ""
+        set -gx ANTHROPIC_AUTH_TOKEN $CLAUDE_ZZ_TOKEN
+        set -gx DEEPSEEK_BASE_URL https://api.deepseek.com/anthropic
       ''
     ];
     preferAbbrs = true;

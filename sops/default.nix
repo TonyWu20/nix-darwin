@@ -16,6 +16,7 @@
       discord_claude_channel_id = { };
       discord_inspect_channel_id = { };
       discord_notify_user_ids = { };
+      deepseek_token = { };
     };
   };
 }
