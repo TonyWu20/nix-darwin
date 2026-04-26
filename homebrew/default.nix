@@ -23,6 +23,8 @@
       "citra"
       "squirrel-app"
       "ghostty"
+      "inkscape"
+      "discord"
     ];
   };
 }
