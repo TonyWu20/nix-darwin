@@ -27,8 +27,9 @@
         set -gx XCODE_BEST_BASE_URL https://xcode.best
         set -gx CLAUDE_BASE_URL https://claude-zhongzhuan.cloud
         set -gx ANTHROPIC_API_KEY ""
-        set -gx ANTHROPIC_AUTH_TOKEN $CLAUDE_ZZ_TOKEN
+        set -gx ANTHROPIC_AUTH_TOKEN $DEEPSEEK_TOKEN
         set -gx DEEPSEEK_BASE_URL https://api.deepseek.com/anthropic
+        set -gx ANTHROPIC_BASE_URL $DEEPSEEK_BASE_URL
       ''
     ];
     preferAbbrs = true;
