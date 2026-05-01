@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }: {
+{ lib, pkgs, config, hostName, ... }: {
   programs.fish = {
     enable = true;
     interactiveShellInit = builtins.concatStringsSep "\n" [
@@ -31,6 +31,12 @@
         set -gx DEEPSEEK_BASE_URL https://api.deepseek.com/anthropic
         set -gx ANTHROPIC_BASE_URL $DEEPSEEK_BASE_URL
       ''
+      (if hostName == "Tonys-Mac-mini-M4" then
+        "set -gx DISCORD_BOT_HOST 0.0.0.0:9876"
+      else
+        ''set -gx DISCORD_BOT_HOST 10.147.17.145:9876
+          set -gx DISCORD_BOT_REMOTE true
+        '')
     ];
     preferAbbrs = true;
     shellAbbrs = {
