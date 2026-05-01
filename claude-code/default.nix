@@ -13,18 +13,7 @@
       humanizer-zh = ./humanizer-zh;
     };
     hooks = {
-      notify =
-        (if pkgs.stdenv.isDarwin then
-          ''
-            #!/usr/bin/env bash
-            read -r input
-            message=$(echo "$input" | jq -r '.message // "Claude needs input"')
-            # Use terminal-notifier or osascript
-            osascript -e "display notification \"$message\" with title \"Claude Code\""
-          ''
-        else "");
       five_mins = builtins.readFile ./five_min.sh;
-      notify_telegram = builtins.readFile ./notify_telegram;
     };
   };
 }
