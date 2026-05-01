@@ -68,6 +68,7 @@ in
       nom
       tun2socks
       mosh
+      crossref-cli
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
     ];

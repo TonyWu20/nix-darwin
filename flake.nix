@@ -44,7 +44,7 @@
           modules = [
             ./configuration.nix
             ({ pkgs, ... }: {
-              nixpkgs.overlays = [ fenix.overlays.default ];
+              nixpkgs.overlays = [ fenix.overlays.default nushell_plugin_crossref.overlays.default ];
               environment.systemPackages = with pkgs; [
                 gcc
               ];
@@ -87,7 +87,7 @@
           modules = [
             ./configuration.nix
             ({ pkgs, ... }: {
-              nixpkgs.overlays = [ fenix.overlays.default ];
+              nixpkgs.overlays = [ fenix.overlays.default nushell_plugin_crossref.overlays.default ];
               environment.systemPackages = with pkgs; [
                 gcc
                 libiconv
@@ -114,11 +114,11 @@
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
-                  {
-                    extraPlugins = [
-                      nushell_plugin_crossref.packages.aarch64-darwin.nu_plugin_crossref
-                    ];
-                  }
+                  # {
+                  #   extraPlugins = [
+                  #     nushell_plugin_crossref.packages.aarch64-darwin.nu_plugin_crossref
+                  #   ];
+                  # }
                   sops-nix.homeManagerModules.sops
                 ];
                 backupFileExtension = "hm-backup";
