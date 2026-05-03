@@ -13,7 +13,7 @@
       telegram_bot_token = { };
       telegram_user_id = { };
       discord_bot_token = { };
-      discord_claude_channel_id = { };
+      discord_channel_id = { };
       discord_inspect_channel_id = { };
       discord_notify_user_ids = { };
       discord_summary_channel_id = { };
