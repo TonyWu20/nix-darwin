@@ -10,7 +10,7 @@
         set -gx FZF_PREVIEW_DIR_CMD 'eza -l --git --no-permissions --icons --no-user --level=2 -T '
         set -U FZF_TMUX 0
         set -U FZF_COMPLETE 1
-        set -ga PATH ~/.cargo/bin/
+        set -ga PATH ~/.cargo/bin
         source ${pkgs.fish}/share/fish/completions/rsync.fish
         /opt/homebrew/bin/brew shellenv |source
       ''
