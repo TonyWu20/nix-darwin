@@ -25,6 +25,7 @@
       "ghostty"
       "inkscape"
       "discord"
+      "calibre"
     ];
   };
 }
