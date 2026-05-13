@@ -58,6 +58,10 @@ in
       fribidi
       libraqm
       zlib
+      tree-sitter
+      uv
+      ty
+      wait-for-lsp
       # Dev stuff
       # (agda.withPackages (p: [ p.standard-library ]))
 
@@ -158,6 +162,9 @@ in
       ];
     };
     bat = {
+      enable = true;
+    };
+    btop = {
       enable = true;
     };
   };
