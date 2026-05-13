@@ -3,16 +3,16 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-claude-code-patch = {
-      url = "github:TonyWu20/nixpkgs/claude-code-patch";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     catppuccin.url = "github:catppuccin/nix";
-    nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
+    #nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
+    nvimdots = { url = "git+file:///Users/tony/Downloads/nvimdots"; };
     nushell-cfg.url = "github:TonyWu20/nushell_hm_module";
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -21,6 +21,10 @@
     nushell_plugin_crossref = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:TonyWu20/crossref-rs";
+    };
+    wait-for-lsp = {
+      url = "github:TonyWu20/wait-for-lsp";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -33,9 +37,30 @@
     , nushell-cfg
     , sops-nix
     , nushell_plugin_crossref
-    , nixpkgs-claude-code-patch
+    , wait-for-lsp
     , ...
     }:
+    let
+      claude-code-rev = "v2.1.138";
+
+      claude-code-overlay = final: prev:
+        let
+          stdenv = final.stdenvNoCC;
+          baseUrl = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases";
+          platformKey = "${stdenv.hostPlatform.node.platform}-${stdenv.hostPlatform.node.arch}";
+        in
+        {
+          claude-code =
+            prev.claude-code.overrideAttrs
+              (old: rec {
+                version = final.lib.removePrefix "v" claude-code-rev;
+                src = final.fetchurl {
+                  url = "${baseUrl}/${version}/${platformKey}/claude";
+                  sha256 = "sha256-dZ0jzmJhk8ibyLNcXGyoqeM7nC5QTuFD5M0RmYh3QJc=";
+                };
+              });
+        };
+    in
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#wutongs-MacBook-Air
@@ -44,7 +69,12 @@
           modules = [
             ./configuration.nix
             ({ pkgs, ... }: {
-              nixpkgs.overlays = [ fenix.overlays.default nushell_plugin_crossref.overlays.default ];
+              nixpkgs.overlays = [
+                fenix.overlays.default
+                nushell_plugin_crossref.overlays.default
+                wait-for-lsp.overlays.default
+                claude-code-overlay
+              ];
               environment.systemPackages = with pkgs; [
                 gcc
               ];
@@ -63,7 +93,6 @@
                   ];
                 };
                 extraSpecialArgs = {
-                  nixpkgs-cc-patch = import nixpkgs-claude-code-patch { system = "aarch64-darwin"; config.allowUnfree = true; };
                   hostName = "wutongs-MacBook-Air";
                 };
                 sharedModules = [
@@ -87,7 +116,12 @@
           modules = [
             ./configuration.nix
             ({ pkgs, ... }: {
-              nixpkgs.overlays = [ fenix.overlays.default nushell_plugin_crossref.overlays.default ];
+              nixpkgs.overlays = [
+                fenix.overlays.default
+                nushell_plugin_crossref.overlays.default
+                wait-for-lsp.overlays.default
+                claude-code-overlay
+              ];
               environment.systemPackages = with pkgs; [
                 gcc
                 libiconv
@@ -107,7 +141,6 @@
                   ];
                 };
                 extraSpecialArgs = {
-                  nixpkgs-cc-patch = import nixpkgs-claude-code-patch { system = "aarch64-darwin"; config.allowUnfree = true; };
                   hostName = "Tonys-Mac-mini-M4";
                 };
                 sharedModules = [

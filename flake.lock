@@ -307,11 +307,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1775064974,
-        "narHash": "sha256-fp7+8MzxHrIixIIVvyORI2XpqpQnxf8NodmEHy8rczg=",
+        "lastModified": 1777826146,
+        "narHash": "sha256-wQ/iN5Zp5VIa3ebBibijPnLyKhor+xEbDy4d0goa9Zs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6ebfbc38bdc6b22822a6f991f2d922306f33cfbc",
+        "rev": "73c703c22422b8951895a960959dbbaca7296492",
         "type": "github"
       },
       "original": {
@@ -376,11 +376,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1775272615,
-        "narHash": "sha256-21fc3Po2Q+oPpCxE7MxjJQEE4O3EV5ysi6RqkcJt8qQ=",
+        "lastModified": 1777365483,
+        "narHash": "sha256-mLkXmRUEYSx5cWq4HubHJvqvyOPPhQf7QTBAdSWiV4o=",
         "owner": "TonyWu20",
         "repo": "nushell_hm_module",
-        "rev": "2ae222763323dc3874efaf7fa93e1e8d1b9a09ec",
+        "rev": "7dc3e3e82a566f53adb60e5ecca759b678f0587b",
         "type": "github"
       },
       "original": {
@@ -419,11 +419,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1775335632,
-        "narHash": "sha256-/Du7dXQGeiFnsjuYYBwqsCymv0xsdpjdBqHTDzeJqyQ=",
+        "lastModified": 1777904644,
+        "narHash": "sha256-vplErKYXsfcPC7biqYeij+ufLWvM/zeIRT0YHPHIGgU=",
         "owner": "TonyWu20",
         "repo": "nvimdots",
-        "rev": "93143ee2e7c4339999b7fa385973582370c8d3d5",
+        "rev": "2ef3cb51bf6529e9a7d6338258084a8b0473faea",
         "type": "github"
       },
       "original": {
