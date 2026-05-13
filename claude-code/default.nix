@@ -1,4 +1,4 @@
-{ nixpkgs-cc-patch, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs;[
     claude-code-router
