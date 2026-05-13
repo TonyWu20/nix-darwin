@@ -7,3 +7,6 @@
 [submodule "claude-code/humanizer-zh"]
 	path = claude-code/humanizer-zh
 	url = git@github.com:TonyWu20/Humanizer-zh.git
+[submodule "claude-code/socrates-skill"]
+	path = claude-code/socrates-skill
+	url = https://github.com/bevibing/socrates-skill.git
