@@ -6,8 +6,8 @@
     age.generateKey = false;
     secrets = {
       poe_chatbot_api = { };
-      yunwu_claude_api = { };
-      foxcode_claude_token = { };
+      yunwu_token = { };
+      foxcode_token = { };
       xcode_best_claude_token = { };
       claude_zz_token = { };
       telegram_bot_token = { };
