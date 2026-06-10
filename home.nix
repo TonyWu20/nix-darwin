@@ -125,6 +125,11 @@ in
           ];
         };
       };
+      keymap = {
+        mgr.prepend_keymap = [
+          { run = "plugin handoff -- share_menu"; on = [ "\\" "s" ]; }
+        ];
+      };
     };
     git = {
       enable = true;
