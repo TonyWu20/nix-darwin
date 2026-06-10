@@ -37,7 +37,7 @@
       };
       local-mini = {
         host = "local-mini";
-        user = "tonywu";
+        user = "tony";
         hostname = "10.0.0.5";
         identityFile = "~/.ssh/id_ed25519";
       };
