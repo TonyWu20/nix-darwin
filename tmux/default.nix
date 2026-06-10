@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.tmux = {
     enable = true;
-    shell = "/opt/homebrew/bin/fish";
+    shell = "${pkgs.fish.out}/bin/fish";
     keyMode = "vi";
     extraConfig = builtins.concatStringsSep "\n" [
       (builtins.readFile ./tmux.conf)
@@ -15,6 +15,9 @@
         set -g pane-border-format "#{?pane_input_off,#[fg=white,bg=red,bold] LOCKED ,#[default]#{pane_index}} #{pane_current_command}"
         # Toggle input and force a border refresh (Prefix + X)
         bind X run-shell -C "select-pane -#{?pane_input_off,e,d}; refresh-client -S"
+      ''
+      ''
+        run-shell 'if [ "$(tmux show-env -g TMUX_CPU_INITIALIZED 2>/dev/null)" = "" ]; then tmux set-env -g TMUX_CPU_INITIALIZED 1; ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux; fi'
       ''
     ];
     terminal = "tmux-256color";
