@@ -23,7 +23,6 @@ in
       LIBRIME_INCLUDE_DIR = "/opt/homebrew/include";
       #DYLD_LIBRARY_PATH = "/opt/homebrew/lib";
     };
-
     packages = with pkgs; [
       # Some basics
       coreutils
@@ -62,6 +61,7 @@ in
       uv
       ty
       wait-for-lsp
+      nerd-fonts.hack
       # Dev stuff
       # (agda.withPackages (p: [ p.standard-library ]))
 
@@ -69,7 +69,7 @@ in
       cachix # adding/managing alternative binary caches hosted by Cachix
       # comma # run software from without installing it
       niv # easy dependency management for nix projects
-      nom
+      nix-output-monitor
       tun2socks
       mosh
       crossref-cli

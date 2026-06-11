@@ -14,7 +14,6 @@
       font-family-bold-italic = "Hack Nerd Font Mono Bold Italic";
       font-family-italic = "Hack Nerd Font Mono Italic";
       window-colorspace = "display-p3";
-      theme = "deep";
 
       # Native Claude Code notifications via OSC 9
       desktop-notifications = true;

@@ -11,8 +11,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     catppuccin.url = "github:catppuccin/nix";
-    #nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
-    nvimdots = { url = "git+file:///Users/tony/Downloads/nvimdots"; };
+    nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
+    #nvimdots = { url = "git+file:///Users/tony/Downloads/nvimdots"; };
     nushell-cfg.url = "github:TonyWu20/nushell_hm_module";
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -41,7 +41,7 @@
     , ...
     }:
     let
-      claude-code-rev = "v2.1.138";
+      claude-code-rev = "v2.1.169";
 
       claude-code-overlay = final: prev:
         let
@@ -56,7 +56,7 @@
                 version = final.lib.removePrefix "v" claude-code-rev;
                 src = final.fetchurl {
                   url = "${baseUrl}/${version}/${platformKey}/claude";
-                  sha256 = "sha256-dZ0jzmJhk8ibyLNcXGyoqeM7nC5QTuFD5M0RmYh3QJc=";
+                  sha256 = "sha256-hti4IK1+7VDlChMHBtPcXvcGlvkRlN4bOJeoQhgq/jo=";
                 };
               });
         };
@@ -99,11 +99,6 @@
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
-                  {
-                    extraPlugins = [
-                      nushell_plugin_crossref.packages.aarch64-darwin.nu_plugin_crossref
-                    ];
-                  }
                   sops-nix.homeManagerModules.sops
                 ];
                 backupFileExtension = "hm-backup";

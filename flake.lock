@@ -18,6 +18,21 @@
         "type": "github"
       }
     },
+    "crane": {
+      "locked": {
+        "lastModified": 1778106249,
+        "narHash": "sha256-cM/AuKy5tMhwOOQIbha8ZRRMHVfNf7cv2aljIw+qoCg=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "6d015ea29630b7ad2402841386da2cb617a470a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "devshell": {
       "inputs": {
         "nixpkgs": "nixpkgs_4"
@@ -145,11 +160,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775683737,
-        "narHash": "sha256-oBYyowo6yfgb95Z78s3uTnAd9KkpJpwzjJbfnpLaM2Y=",
+        "lastModified": 1781115031,
+        "narHash": "sha256-WrHqMjiilIoqF1Lu5mxt9ypdl+VsNfX323LR4PcY4Bs=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7ba4ee4228ed36123c7cb75d50524b43514ef992",
+        "rev": "f96f717a47589c9d0b6e21f1a0d0d42d2c576f18",
         "type": "github"
       },
       "original": {
@@ -229,11 +244,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775037210,
-        "narHash": "sha256-KM2WYj6EA7M/FVZVCl3rqWY+TFV5QzSyyGE2gQxeODU=",
+        "lastModified": 1780795403,
+        "narHash": "sha256-AkWx4Zt9pQbD/f82Z8N57+d0HGLN/rV3gdMKJTpBPKs=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "06648f4902343228ce2de79f291dd5a58ee12146",
+        "rev": "6a771120d607dcccb279a27d227650e324815c35",
         "type": "github"
       },
       "original": {
@@ -255,22 +270,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-claude-code-patch": {
-      "locked": {
-        "lastModified": 1776775307,
-        "narHash": "sha256-5AWUJL+U/8Mc6C6r+NxkZKoQEB4p2K2LQ6Lqt8fLLdg=",
-        "owner": "TonyWu20",
-        "repo": "nixpkgs",
-        "rev": "a70a0f416ffb0dc45ee543d19fd792357c80075f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "TonyWu20",
-        "ref": "claude-code-patch",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -307,11 +306,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1777826146,
-        "narHash": "sha256-wQ/iN5Zp5VIa3ebBibijPnLyKhor+xEbDy4d0goa9Zs=",
+        "lastModified": 1780930886,
+        "narHash": "sha256-rppURzHviaQN131F+nLiLdGfcb0uCd9gGP0E5+iw9MI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "73c703c22422b8951895a960959dbbaca7296492",
+        "rev": "8c3cede7ddc26bd659d2d383b5610efbd2c7a16e",
         "type": "github"
       },
       "original": {
@@ -376,11 +375,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1777365483,
-        "narHash": "sha256-mLkXmRUEYSx5cWq4HubHJvqvyOPPhQf7QTBAdSWiV4o=",
+        "lastModified": 1781172512,
+        "narHash": "sha256-Pz3v19e/b0djMv+r9yuTx9L4YHWjp06n6qkT+DbO9bM=",
         "owner": "TonyWu20",
         "repo": "nushell_hm_module",
-        "rev": "7dc3e3e82a566f53adb60e5ecca759b678f0587b",
+        "rev": "134f8e4846dd2175aa868aa5f740ebad7d7854b6",
         "type": "github"
       },
       "original": {
@@ -440,11 +439,11 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-claude-code-patch": "nixpkgs-claude-code-patch",
         "nushell-cfg": "nushell-cfg",
         "nushell_plugin_crossref": "nushell_plugin_crossref",
         "nvimdots": "nvimdots",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "wait-for-lsp": "wait-for-lsp"
       }
     },
     "rust-analyzer-src": {
@@ -515,6 +514,27 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "wait-for-lsp": {
+      "inputs": {
+        "crane": "crane",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778692834,
+        "narHash": "sha256-zh1hW5aUY4hdd7J5j6ZO4yltARQ/SQfTiXdvA/GJtnA=",
+        "owner": "TonyWu20",
+        "repo": "wait-for-lsp",
+        "rev": "d5a7c6a71e7732860c65623c64d7f56314ad684a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TonyWu20",
+        "repo": "wait-for-lsp",
         "type": "github"
       }
     }

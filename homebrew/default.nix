@@ -1,7 +1,10 @@
 { ... }: {
   homebrew = {
     enable = true;
-    onActivation.cleanup = "uninstall";
+    onActivation = {
+      cleanup = "uninstall";
+      extraFlags = [ "--force-cleanup" ];
+    };
 
     taps = [ "daipeihust/tap" "laishulu/homebrew" "lablup/tap" ];
     brews = [
@@ -11,6 +14,7 @@
       "php"
       "lablup/tap/all-smi"
       "cairo"
+      "mole"
     ];
     casks = [
       "wezterm"
