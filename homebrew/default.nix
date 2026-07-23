@@ -1,7 +1,5 @@
 { ... }: {
-  # Use the patched homebrew module instead of the upstream one
-  disabledModules = [ "modules/homebrew.nix" ];
-  imports = [ ./homebrew-module.nix ];
+  imports = [ ./fix-brew-bundle.nix ];
 
   homebrew = {
     enable = true;
