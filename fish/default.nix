@@ -66,7 +66,10 @@
     fishPlugins.z
     fishPlugins.fzf
     fishPlugins.done
-    fishPlugins.bass
+    (fishPlugins.bass.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ gnumake ];
+      doCheck = false;
+    }))
     fishPlugins.forgit
     fishPlugins.fifc
   ];
