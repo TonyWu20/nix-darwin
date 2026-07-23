@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, pi-config, ... }:
 let
   catppuccin_programs = [
     "bat"
@@ -92,6 +92,10 @@ in
     ./ghostty
   ];
   programs = {
+    pi.coding-agent = {
+      enable = true;
+      package = pi-config.packages.aarch64-darwin.default;
+    };
     direnv = {
 
       # https://github.com/malob/nixpkgs/blob/master/home/default.nix
@@ -160,7 +164,7 @@ in
         "--preview-window right:67%"
       ];
       defaultCommand = "fd --type file -HI -E .git --color=always";
-      fileWidgetOptions = [
+      fileWidget.options = [
         "--preview 'bat -n --color=always {}'"
         "--bind 'ctrl-/:change-preview-window(down|hidden|)'"
         "--walker-skip .git,node_modules,target"

@@ -11,7 +11,7 @@
     # enable = true;
     extraPackages = with pkgs; [
       go
-      python3
+      python313
     ];
     withRuby = false;
   };

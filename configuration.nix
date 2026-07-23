@@ -5,25 +5,37 @@
     ./spacebar
     ./homebrew
   ];
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    with pkgs;[
-      vim
-      neovim
-      skhd
-      fish
-      nushell
-      zoxide
-      fontconfig
-    ];
+  environment = {
+    # List packages installed in system profile. To search by name, run:
+    # $ nix-env -qaP | grep wget
+    systemPackages =
+      with pkgs;[
+        vim
+        neovim
+        skhd
+        fish
+        nushell
+        zoxide
+        fontconfig
+      ];
+    # Ensure the environment variables are correctly inherited by the shells
+    variables = {
+      SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+      CURL_CA_BUNDLE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
+  nix = {
 
 
-  # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
-  nix.enable = false;
+    # Necessary for using flakes on this system.
+    settings.experimental-features = "nix-command flakes";
+    enable = false;
+    # Force nix-daemon to use the Nix certificate bundle
+    settings.ssl-cert-file = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+
+  };
   programs = {
 
     # Enable alternative shell support in nix-darwin.

@@ -26,6 +26,8 @@
       url = "github:TonyWu20/wait-for-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pi.url = "github:lukasl-dev/pi.nix";
+    pi-config.url = "git+ssh://git@github.com/TonyWu20/pi-config";
   };
 
   outputs =
@@ -38,6 +40,8 @@
     , sops-nix
     , nushell_plugin_crossref
     , wait-for-lsp
+    , pi
+    , pi-config
     , ...
     }:
     let
@@ -61,6 +65,42 @@
               });
         };
     in
+    let
+      # Spacebar fails to link with Nix's cctools ld on macOS 26+
+      spacebar-overlay = final: prev: {
+        spacebar = prev.spacebar.overrideAttrs (old: {
+          buildPhase = ''
+            runHook preBuild
+            mkdir -p bin
+            # Use system Xcode clang, bypassing Nix's cctools ld which
+            # crashes on macOS 26+
+            /usr/bin/clang src/manifest.m -std=c99 -Wall -DDEBUG -g -O0 \
+              -fvisibility=hidden -mmacosx-version-min=10.13 \
+              -B/Library/Developer/CommandLineTools/usr/bin \
+              -F/System/Library/PrivateFrameworks \
+              -framework Carbon -framework Cocoa -framework CoreServices \
+              -framework SkyLight -framework ScriptingBridge -framework IOKit \
+              -o bin/spacebar
+            runHook postBuild
+          '';
+          installPhase = old.installPhase or ''
+            runHook preInstall
+            mkdir -p $out/bin
+            cp bin/spacebar $out/bin/
+            runHook postInstall
+          '';
+        });
+        # zvbi: fix SDK 14.4+ incompatibilities on macOS
+        zvbi = prev.zvbi.overrideAttrs (old: {
+          NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-error=macro-redefined";
+          configureFlags = (old.configureFlags or [ ]) ++ [ "--without-x" ];
+        });
+        # yabai uses cctools ld which crashes on macOS 26+, use system linker
+        yabai = prev.yabai.overrideAttrs (old: {
+          NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -B/Library/Developer/CommandLineTools/usr/bin";
+        });
+      };
+    in
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#wutongs-MacBook-Air
@@ -70,10 +110,16 @@
             ./configuration.nix
             ({ pkgs, ... }: {
               nixpkgs.overlays = [
+                # Pin default Python to 3.13 to avoid untokenize/docformatter incompatibility
+                (final: prev: {
+                  python3 = final.python313;
+                  python3Packages = final.python313Packages;
+                })
                 fenix.overlays.default
                 nushell_plugin_crossref.overlays.default
                 wait-for-lsp.overlays.default
                 claude-code-overlay
+                spacebar-overlay
               ];
               environment.systemPackages = with pkgs; [
                 gcc
@@ -94,12 +140,15 @@
                 };
                 extraSpecialArgs = {
                   hostName = "wutongs-MacBook-Air";
+                  inherit pi-config;
                 };
                 sharedModules = [
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
+                  pi.homeModules.default
+                  (pi-config.piModules.homeManager { system = "aarch64-darwin"; })
                 ];
                 backupFileExtension = "hm-backup";
               };
@@ -112,10 +161,16 @@
             ./configuration.nix
             ({ pkgs, ... }: {
               nixpkgs.overlays = [
+                # Pin default Python to 3.13 to avoid untokenize/docformatter incompatibility
+                (final: prev: {
+                  python3 = final.python313;
+                  python3Packages = final.python313Packages;
+                })
                 fenix.overlays.default
                 nushell_plugin_crossref.overlays.default
                 wait-for-lsp.overlays.default
                 claude-code-overlay
+                spacebar-overlay
               ];
               environment.systemPackages = with pkgs; [
                 gcc
@@ -137,17 +192,15 @@
                 };
                 extraSpecialArgs = {
                   hostName = "Tonys-Mac-mini-M4";
+                  inherit pi-config;
                 };
                 sharedModules = [
                   nvimdots.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
-                  # {
-                  #   extraPlugins = [
-                  #     nushell_plugin_crossref.packages.aarch64-darwin.nu_plugin_crossref
-                  #   ];
-                  # }
                   sops-nix.homeManagerModules.sops
+                  pi.homeModules.default
+                  (pi-config.piModules.homeManager { system = "aarch64-darwin"; })
                 ];
                 backupFileExtension = "hm-backup";
               };
