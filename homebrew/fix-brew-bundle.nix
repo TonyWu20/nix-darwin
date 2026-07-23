@@ -25,7 +25,7 @@ let
   );
 
   brewBundleCleanup = lib.concatStringsSep " " (
-    [ (mkPrefix {}) "brew bundle cleanup --force" ]
+    [ (mkPrefix {}) "brew bundle cleanup --force --file='${brewfileFile}'" ]
     ++ lib.optional (cfg.onActivation.cleanup == "zap") "--zap"
   );
 
