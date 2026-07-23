@@ -3,37 +3,34 @@ let
   cfg = config.homebrew;
   brewfileFile = pkgs.writeText "Brewfile" cfg.brewfile;
 
-  # Build the brew bundle command with correct --cleanup (not --force-cleanup)
+  # Common prefix for brew bundle commands (env vars + sudo)
+  mkPrefix = { autoUpdate ? cfg.onActivation.autoUpdate }:
+    lib.concatStringsSep " " (
+      [
+        ''PATH="${cfg.prefix}/bin:${lib.makeBinPath [ pkgs.mas ]}:$PATH"''
+        "sudo"
+        "--preserve-env=PATH"
+        "--user=${lib.escapeShellArg cfg.user}"
+        "--set-home"
+        "env"
+      ]
+      ++ lib.optional (!autoUpdate) "HOMEBREW_NO_AUTO_UPDATE=1"
+      ++ lib.mapAttrsToList (k: v: "${k}=${lib.escapeShellArg v}") cfg.onActivation.extraEnv
+    );
+
   brewBundleInstall = lib.concatStringsSep " " (
-    [
-      ''PATH="${cfg.prefix}/bin:${lib.makeBinPath [ pkgs.mas ]}:$PATH"''
-      "sudo"
-      "--preserve-env=PATH"
-      "--user=${lib.escapeShellArg cfg.user}"
-      "--set-home"
-      "env"
-    ]
-    ++ lib.optional (!cfg.onActivation.autoUpdate) "HOMEBREW_NO_AUTO_UPDATE=1"
-    ++ lib.mapAttrsToList (k: v: "${k}=${lib.escapeShellArg v}") cfg.onActivation.extraEnv
-    ++ [ "brew bundle --file='${brewfileFile}'" ]
+    [ (mkPrefix {}) "brew bundle --file='${brewfileFile}'" ]
     ++ lib.optional (!cfg.onActivation.upgrade) "--no-upgrade"
-    ++ lib.optional (cfg.onActivation.cleanup == "uninstall") "--cleanup"
-    ++ lib.optional (cfg.onActivation.cleanup == "zap") "--zap --cleanup"
     ++ cfg.onActivation.extraFlags
   );
 
+  brewBundleCleanup = lib.concatStringsSep " " (
+    [ (mkPrefix {}) "brew bundle cleanup --force" ]
+    ++ lib.optional (cfg.onActivation.cleanup == "zap") "--zap"
+  );
+
   brewBundleCheck = lib.concatStringsSep " " (
-    [
-      ''PATH="${cfg.prefix}/bin:${lib.makeBinPath [ pkgs.mas ]}:$PATH"''
-      "sudo"
-      "--preserve-env=PATH"
-      "--user=${lib.escapeShellArg cfg.user}"
-      "--set-home"
-      "env"
-      "HOMEBREW_NO_AUTO_UPDATE=1"
-    ]
-    ++ lib.mapAttrsToList (k: v: "${k}=${lib.escapeShellArg v}") cfg.onActivation.extraEnv
-    ++ [ "brew bundle --file='${brewfileFile}'" "cleanup" "2>&1" ]
+    [ (mkPrefix { autoUpdate = false; }) "brew bundle --file='${brewfileFile}'" "cleanup" "2>&1" ]
   );
 in
 {
@@ -43,6 +40,7 @@ in
       echo >&2 "Homebrew bundle..."
       if [ -f "${cfg.prefix}/bin/brew" ]; then
         ${brewBundleInstall}
+        ${lib.optionalString (cfg.onActivation.cleanup == "uninstall" || cfg.onActivation.cleanup == "zap") brewBundleCleanup}
       else
         echo -e "\e[1;31merror: Homebrew is not installed, skipping...\e[0m" >&2
       fi
