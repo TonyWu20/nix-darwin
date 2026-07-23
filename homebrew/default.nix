@@ -1,35 +1,12 @@
-{ config, lib, pkgs, ... }:
-let
-  brewfileFile = pkgs.writeText "Brewfile" config.homebrew.brewfile;
-  cfg = config.homebrew;
-in
-{
+{ ... }: {
+  # Use the patched homebrew module instead of the upstream one
+  disabledModules = [ "modules/homebrew.nix" ];
+  imports = [ ./homebrew-module.nix ];
+
   homebrew = {
     enable = true;
     onActivation = {
       cleanup = "zap";
-      brewBundleCmd = lib.mkForce ({ onlyCheck }: lib.concatStringsSep " " (
-        [
-          ''PATH="${cfg.prefix}/bin:${lib.makeBinPath [ pkgs.mas ]}:$PATH"''
-          "sudo"
-          "--preserve-env=PATH"
-          "--user=${lib.escapeShellArg cfg.user}"
-          "--set-home"
-          "env"
-        ]
-        ++ lib.optional (onlyCheck || !cfg.onActivation.autoUpdate) "HOMEBREW_NO_AUTO_UPDATE=1"
-        ++ lib.mapAttrsToList (k: v: "${k}=${lib.escapeShellArg v}") cfg.onActivation.extraEnv
-        ++ [ "brew bundle --file='${brewfileFile}'" ]
-        ++ (
-          if onlyCheck then
-            [ "cleanup 2>&1" ]
-          else
-            lib.optional (!cfg.onActivation.upgrade) "--no-upgrade"
-            ++ lib.optional (cfg.onActivation.cleanup == "uninstall") "--cleanup"
-            ++ lib.optional (cfg.onActivation.cleanup == "zap") "--zap --cleanup"
-            ++ cfg.onActivation.extraFlags
-        )
-      ));
     };
 
     taps = [ "daipeihust/tap" "laishulu/homebrew" "lablup/tap" ];
