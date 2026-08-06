@@ -27,13 +27,21 @@
 
   nixpkgs.config.allowUnfree = true;
   nix = {
-
-
-    # Necessary for using flakes on this system.
-    settings.experimental-features = "nix-command flakes";
     enable = false;
-    # Force nix-daemon to use the Nix certificate bundle
-    settings.ssl-cert-file = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+    settings = {
+      # Necessary for using flakes on this system.
+      experimental-features = "nix-command flakes";
+      # Force nix-daemon to use the Nix certificate bundle
+      ssl-cert-file = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+      extra-substituters = [
+        "https://pi.cachix.org"
+        "https://nix-community.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "pi.cachix.org-1:lGeoGJaZ5ZDabuRzkcD5EBTNnDM4HJ1vqeOxlWk1Flk="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
 
   };
   programs = {

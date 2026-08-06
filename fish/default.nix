@@ -11,7 +11,11 @@
         set -U FZF_TMUX 0
         set -U FZF_COMPLETE 1
         set -ga PATH ~/.cargo/bin
-        source ${pkgs.fish}/share/fish/completions/rsync.fish
+        source ${
+          pkgs.runCommand "rsync-fish-completion" { } ''
+            ${pkgs.fish}/bin/fish --no-config -c 'status get-file completions/rsync.fish' > $out
+          ''
+        }
         /opt/homebrew/bin/brew shellenv |source
       ''
       ''

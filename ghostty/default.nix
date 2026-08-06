@@ -8,7 +8,7 @@
 
     settings = {
       alpha-blending = "linear-corrected";
-      font-size = 12;
+      font-size = 14;
       font-family = [ "Hack Nerd Font Mono" "Noto Sans Mono CJK SC" ];
       font-family-bold = "Hack Nerd Font Mono Bold";
       font-family-bold-italic = "Hack Nerd Font Mono Bold Italic";
