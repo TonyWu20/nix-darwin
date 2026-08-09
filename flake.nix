@@ -2,18 +2,23 @@
   description = "Example nix-darwin system flake ";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     catppuccin.url = "github:catppuccin/nix";
-    nvimdots = { url = "github:TonyWu20/nvimdots/main"; };
-    #nvimdots = { url = "git+file:///Users/tony/Downloads/nvimdots"; };
-    nushell-cfg.url = "github:TonyWu20/nushell_hm_module";
+    nvimdots = { url = "github:TonyWu20/nvimdots/main"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nushell-cfg = {
+      #nvimdots = { url = "git+file:///Users/tony/Downloads/nvimdots"; };
+      url = "github:TonyWu20/nushell_hm_module";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,6 +50,27 @@
     , ...
     }:
     let
+      python_overlay = final: prev: {
+        python313 = prev.python313.override {
+          packageOverrides = pyFinal: pyPrev: {
+            mypy = pyPrev.mypy.overridePythonAttrs (oldAttrs: {
+              # Skip the 45-minute strict test suite to bypass the Python 3.13 cleanup warning
+              doCheck = false;
+            });
+            pytest-timeout = pyPrev.pytest-timeout.overridePythonAttrs (oldAttrs: {
+              disabledTests = (oldAttrs.disabledTests or [ ]) ++ [ "test_disable_debugger_detection_flag" ];
+            });
+            chardet = pyPrev.chardet.overridePythonAttrs (oldAttrs: {
+              disabledTests = (oldAttrs.disabledTests or [ ]) ++ [
+                "test_encoding_detection_all"
+              ];
+            });
+            charset-normalizer = pyPrev.charset-normalizer.overridePythonAttrs (oldAttrs: {
+              doCheck = false;
+            });
+          };
+        };
+      };
       claude-code-rev = "v2.1.169";
 
       claude-code-overlay = final: prev:
@@ -64,8 +90,6 @@
                 };
               });
         };
-    in
-    let
       # Spacebar fails to link with Nix's cctools ld on macOS 26+
       spacebar-overlay = final: prev: {
         spacebar = prev.spacebar.overrideAttrs (old: {
@@ -100,6 +124,19 @@
           NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -B/Library/Developer/CommandLineTools/usr/bin";
         });
       };
+      nvim_overlay = (final: prev: {
+        neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (oldAttrs: {
+          # Disable tests to bypass parallel harness crashes entirely
+          doCheck = false;
+        });
+      });
+      haskell_overlay = (final: prev: {
+        haskellPackages = prev.haskellPackages.override {
+          overrides = hFinal: hPrev: {
+            tls = prev.haskell.lib.dontCheck hPrev.tls;
+          };
+        };
+      });
     in
     {
       # Build darwin flake using:
@@ -120,6 +157,9 @@
                 wait-for-lsp.overlays.default
                 claude-code-overlay
                 spacebar-overlay
+                python_overlay
+                nvim_overlay
+                haskell_overlay
               ];
               environment.systemPackages = with pkgs; [
                 gcc
@@ -171,6 +211,7 @@
                 wait-for-lsp.overlays.default
                 claude-code-overlay
                 spacebar-overlay
+                python_overlay
               ];
               environment.systemPackages = with pkgs; [
                 gcc

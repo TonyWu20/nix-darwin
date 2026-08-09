@@ -48,8 +48,6 @@ in
       lua51Packages.luarocks
       lua51Packages.lua
       librime
-      python313Packages.pynvim
-      python313
       bun
       sd
       freetype
@@ -72,6 +70,7 @@ in
       nix-output-monitor
       tun2socks
       mosh
+      tdf
       crossref-cli
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands

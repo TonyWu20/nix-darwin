@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   programs.neovim = {
     enable = true;
@@ -9,10 +9,6 @@
       withBuildTools = true;
     };
     # enable = true;
-    extraPackages = with pkgs; [
-      go
-      python313
-    ];
     withRuby = false;
   };
 }

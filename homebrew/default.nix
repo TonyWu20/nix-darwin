@@ -30,6 +30,7 @@
       "inkscape"
       "discord"
       "obsidian"
+      "obs"
     ];
   };
 }

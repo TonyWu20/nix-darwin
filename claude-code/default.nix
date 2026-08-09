@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs;[
-    claude-code-router
-  ];
   programs.claude-code = {
     enable = true;
     skills = {
