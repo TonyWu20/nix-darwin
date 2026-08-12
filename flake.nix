@@ -50,46 +50,6 @@
     , ...
     }:
     let
-      python_overlay = final: prev: {
-        python313 = prev.python313.override {
-          packageOverrides = pyFinal: pyPrev: {
-            mypy = pyPrev.mypy.overridePythonAttrs (oldAttrs: {
-              # Skip the 45-minute strict test suite to bypass the Python 3.13 cleanup warning
-              doCheck = false;
-            });
-            pytest-timeout = pyPrev.pytest-timeout.overridePythonAttrs (oldAttrs: {
-              disabledTests = (oldAttrs.disabledTests or [ ]) ++ [ "test_disable_debugger_detection_flag" ];
-            });
-            chardet = pyPrev.chardet.overridePythonAttrs (oldAttrs: {
-              disabledTests = (oldAttrs.disabledTests or [ ]) ++ [
-                "test_encoding_detection_all"
-              ];
-            });
-            charset-normalizer = pyPrev.charset-normalizer.overridePythonAttrs (oldAttrs: {
-              doCheck = false;
-            });
-          };
-        };
-      };
-      claude-code-rev = "v2.1.169";
-
-      claude-code-overlay = final: prev:
-        let
-          stdenv = final.stdenvNoCC;
-          baseUrl = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases";
-          platformKey = "${stdenv.hostPlatform.node.platform}-${stdenv.hostPlatform.node.arch}";
-        in
-        {
-          claude-code =
-            prev.claude-code.overrideAttrs
-              (old: rec {
-                version = final.lib.removePrefix "v" claude-code-rev;
-                src = final.fetchurl {
-                  url = "${baseUrl}/${version}/${platformKey}/claude";
-                  sha256 = "sha256-hti4IK1+7VDlChMHBtPcXvcGlvkRlN4bOJeoQhgq/jo=";
-                };
-              });
-        };
       # Spacebar fails to link with Nix's cctools ld on macOS 26+
       spacebar-overlay = final: prev: {
         spacebar = prev.spacebar.overrideAttrs (old: {
@@ -127,6 +87,7 @@
       nvim_overlay = (final: prev: {
         neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (oldAttrs: {
           # Disable tests to bypass parallel harness crashes entirely
+          python3 = final.python313;
           doCheck = false;
         });
       });
@@ -155,9 +116,7 @@
                 fenix.overlays.default
                 nushell_plugin_crossref.overlays.default
                 wait-for-lsp.overlays.default
-                claude-code-overlay
                 spacebar-overlay
-                python_overlay
                 nvim_overlay
                 haskell_overlay
               ];
@@ -209,9 +168,7 @@
                 fenix.overlays.default
                 nushell_plugin_crossref.overlays.default
                 wait-for-lsp.overlays.default
-                claude-code-overlay
                 spacebar-overlay
-                python_overlay
               ];
               environment.systemPackages = with pkgs; [
                 gcc
