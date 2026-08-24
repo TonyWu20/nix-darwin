@@ -17,7 +17,7 @@
       discord_inspect_channel_id = { };
       discord_notify_user_ids = { };
       discord_summary_channel_id = { };
-      deepseek_token = { };
+      deepseek_api_key = { };
       mineru_token = { };
     };
   };

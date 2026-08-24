@@ -484,11 +484,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1784497964,
-        "narHash": "sha256-vlHUuqAcbcH2RKmHbPiuQzbv1pnzzavXnI62RD0bqCU=",
+        "lastModified": 1786599213,
+        "narHash": "sha256-yNJd40f11EzXBjSByCB7IPpeFFAdeoSKKM67dGkfFoU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "241313f4e8e508cb9b13278c2b0fa25b9ca27163",
+        "rev": "0e251e24a4f24e036a084b6b4b2d2491af4167f4",
         "type": "github"
       },
       "original": {
@@ -609,11 +609,11 @@
         "pi-flake": "pi-flake"
       },
       "locked": {
-        "lastModified": 1785827712,
-        "narHash": "sha256-JTKWJfluCTZPLAsAvuzhPV6nHaT69Cf1mwf2sss8xZ8=",
+        "lastModified": 1786808205,
+        "narHash": "sha256-teInQVGoQgwEoDsFMcKCnae6NeGMLT/VVcYQVAOTT74=",
         "ref": "refs/heads/main",
-        "rev": "0b8bf939dec02d911aac5f19fc3cc40164ebc36b",
-        "revCount": 101,
+        "rev": "f642023896d3767f0da8a96ee254b77d84b74ca5",
+        "revCount": 104,
         "type": "git",
         "url": "ssh://git@github.com/TonyWu20/pi-config"
       },
@@ -630,11 +630,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1784532650,
-        "narHash": "sha256-50kpr8hJKmsd6J+0KKS1WRXp1JRw9nLDHFA4fi/QQ6o=",
+        "lastModified": 1786769384,
+        "narHash": "sha256-ayra+OT4q6l4nu7npuNQyvLwjH8PCBaWwJ1y+v5PhDM=",
         "owner": "lukasl-dev",
         "repo": "pi.nix",
-        "rev": "1ee5a66c7ae8b33051b90aa92016d976dfbb729c",
+        "rev": "156e3ced94973abb5b88ddc7933c6a0ebc6672f4",
         "type": "github"
       },
       "original": {

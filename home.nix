@@ -176,5 +176,5 @@ in
       enable = true;
     };
   };
-  catppuccin = lib.attrsets.genAttrs catppuccin_programs (prog: { enable = true; flavor = "macchiato"; });
+  catppuccin = { enable = true; } // lib.attrsets.genAttrs catppuccin_programs (prog: { enable = true; flavor = "macchiato"; });
 }
