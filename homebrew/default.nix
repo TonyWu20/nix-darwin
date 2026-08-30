@@ -31,6 +31,7 @@
       "discord"
       "obsidian"
       "obs"
+      "google-chrome"
     ];
   };
 }

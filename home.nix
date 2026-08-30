@@ -1,19 +1,4 @@
 { pkgs, lib, pi-config, ... }:
-let
-  catppuccin_programs = [
-    "bat"
-    "btop"
-    "delta"
-    "eza"
-    "fish"
-    "fzf"
-    "ghostty"
-    "nushell"
-    "skim"
-    "starship"
-    "yazi"
-  ];
-in
 {
   home = {
     stateVersion = "25.05";
@@ -72,6 +57,7 @@ in
       mosh
       tdf
       crossref-cli
+      terminal-browser
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
     ];
@@ -175,6 +161,9 @@ in
     btop = {
       enable = true;
     };
+    sioyek = {
+      enable = true;
+    };
   };
-  catppuccin = { enable = true; } // lib.attrsets.genAttrs catppuccin_programs (prog: { enable = true; flavor = "macchiato"; });
+  catppuccin = { autoEnable = true; enable = true; flavor = "macchiato"; };
 }

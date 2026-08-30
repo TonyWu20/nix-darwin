@@ -33,6 +33,7 @@
     };
     pi.url = "github:lukasl-dev/pi.nix";
     pi-config.url = "git+ssh://git@github.com/TonyWu20/pi-config";
+    terminal-browser.url = "github:TonyWu20/terminal-browser-flake";
   };
 
   outputs =
@@ -47,6 +48,7 @@
     , wait-for-lsp
     , pi
     , pi-config
+    , terminal-browser
     , ...
     }:
     let
@@ -119,6 +121,7 @@
                 spacebar-overlay
                 nvim_overlay
                 haskell_overlay
+                terminal-browser.overlays.default
               ];
               environment.systemPackages = with pkgs; [
                 gcc
@@ -169,6 +172,7 @@
                 nushell_plugin_crossref.overlays.default
                 wait-for-lsp.overlays.default
                 spacebar-overlay
+                terminal-browser.overlays.default
               ];
               environment.systemPackages = with pkgs; [
                 gcc

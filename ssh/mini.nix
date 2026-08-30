@@ -46,6 +46,11 @@
         hostname = "10.0.0.6";
         identityFile = "~/.ssh/id_ed25519";
       };
+      nix-pro5000 = {
+        host = "nixos-pro5000";
+        user = "tony";
+        hostname = "10.0.0.6";
+      };
     };
   };
 }
