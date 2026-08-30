@@ -782,11 +782,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1788070669,
-        "narHash": "sha256-Ki3E1UxMu/fH5GEXzCy708D+LH1f0lYU2zhfi3nfkv8=",
+        "lastModified": 1788095486,
+        "narHash": "sha256-wnl6qxQsmox36cqXXDOVwHjNEenECp5tAxaX6qA5Dp8=",
         "owner": "TonyWu20",
         "repo": "terminal-browser-flake",
-        "rev": "3b680b75a21db380d21a017b2ba3ff2586349bc9",
+        "rev": "7f49542fff08c2141cba0fbd8632101e0203feec",
         "type": "github"
       },
       "original": {
