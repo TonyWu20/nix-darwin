@@ -33,7 +33,7 @@
     # man-db's `make check` runs its man-page tests in parallel; on macOS 26.1
     # the test-harness bash subshells intermittently SIGSEGV inside macOS's
     # CFPreferences/os_log locale code (KERN_INVALID_ADDRESS in
-    _os_log_preferences_refresh), failing the build with a random test each
+    # _os_log_preferences_refresh), failing the build with a random test each
     # time (e.g. "FAIL: man8/catman.8", exit 139). This is an OS-level race,
     # not a man-db bug. Disable the check phase (nixpkgs previously kept
     # doCheck off on darwin for this class of failure).
