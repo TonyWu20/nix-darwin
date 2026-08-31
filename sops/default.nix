@@ -19,6 +19,11 @@
       discord_summary_channel_id = { };
       deepseek_api_key = { };
       mineru_token = { };
+      duckdns_token = { };
+      # VLESS + Reality server credentials for sing-box (see sing-box/).
+      vless_uuid = { };
+      vless_private_key = { };
+      vless_short_id = { };
     };
   };
 }

@@ -17,6 +17,8 @@
         nushell
         zoxide
         fontconfig
+        # VLESS+Reality VPN server for friend's GFW bypass
+        sing-box
       ];
     # Ensure the environment variables are correctly inherited by the shells
     variables = {

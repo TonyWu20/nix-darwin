@@ -58,6 +58,7 @@
       tdf
       crossref-cli
       terminal-browser
+      sops
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
     ];

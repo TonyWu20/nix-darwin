@@ -138,6 +138,8 @@
                   imports = [
                     ./home.nix
                     ssh/air.nix
+                    ./sing-box
+                    ./ddns
                   ];
                 };
                 extraSpecialArgs = {
