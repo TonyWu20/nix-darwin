@@ -19,6 +19,7 @@
         fontconfig
         # VLESS+Reality VPN server for friend's GFW bypass
         sing-box
+        jaq
       ];
     # Ensure the environment variables are correctly inherited by the shells
     variables = {

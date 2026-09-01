@@ -9,6 +9,7 @@
         user = "git";
         hostname = "github.com";
         identityFile = "~/.ssh/id_ed25519";
+        AddKeysToAgent = true;
       };
       nix = {
         host = "nix";

@@ -1,5 +1,16 @@
 { pkgs, lib, pi-config, ... }:
 {
+  sshAuthSock = {
+    enable = true;
+    initialization = {
+      nushell = ''
+        $env.SSH_AUTH_SOCK = ($nu.home-dir | path join .ssh agent.sock)
+      '';
+      fish = ''
+        set -x SSH_AUTH_SOCK $HOME/.ssh/agent.sock
+      '';
+    };
+  };
   home = {
     stateVersion = "25.05";
 

@@ -263,11 +263,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786031233,
-        "narHash": "sha256-TIDlLTLI1/pB7IqgjzcKQjpODQsZE2oII4XGG9B6KjI=",
+        "lastModified": 1788229478,
+        "narHash": "sha256-G0F2rFORVcFkEvVdE/qWQTnYekIc77YP5/vRF9nZlxU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7834e82588860aaf780cec1366524456a70898d7",
+        "rev": "1dc2d1f720ab17fc7981e087346bf54b26d284b1",
         "type": "github"
       },
       "original": {
@@ -625,11 +625,11 @@
         "pi-flake": "pi-flake"
       },
       "locked": {
-        "lastModified": 1786808205,
-        "narHash": "sha256-teInQVGoQgwEoDsFMcKCnae6NeGMLT/VVcYQVAOTT74=",
+        "lastModified": 1788129377,
+        "narHash": "sha256-Gx7EyOoMFmCKzAlTjh1eA3iKxyvRN2g994i5sQlLB3o=",
         "ref": "refs/heads/main",
-        "rev": "f642023896d3767f0da8a96ee254b77d84b74ca5",
-        "revCount": 104,
+        "rev": "56f99c44bbac0330b2cd81da45cdc38990f48ef9",
+        "revCount": 112,
         "type": "git",
         "url": "ssh://git@github.com/TonyWu20/pi-config"
       },
