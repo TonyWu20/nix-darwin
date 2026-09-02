@@ -1,6 +1,18 @@
 { lib, pkgs, config, hostName, ... }: {
   programs.fish = {
     enable = true;
+    # fish 4.1+ sends a Primary Device Attribute (DA1) query at startup and
+    # waits up to 10 seconds (fish 4.6+) for a reply. Terminals that do not
+    # reply (macOS Terminal.app, or a tmux pane while tmux outer-terminal DA
+    # responses are in flight) make every fish startup hang 10 seconds and
+    # print a warning. Turning off the query-terminal feature removes the
+    # wait. See fish docs "terminal-compatibility" and
+    # https://github.com/fish-shell/fish-shell/issues/12571 .
+    shellInit = ''
+      if not set -q fish_features
+        set -Ua fish_features no-query-term
+      end
+    '';
     interactiveShellInit = builtins.concatStringsSep "\n" [
       ''
         fish_vi_key_bindings
