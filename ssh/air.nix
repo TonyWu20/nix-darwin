@@ -12,7 +12,7 @@
         AddKeysToAgent = true;
       };
       nix = {
-        host = "nix";
+        host = "nixos";
         user = "tony";
         hostname = "10.147.17.20";
         identityFile = "~/.ssh/id_ed25519";

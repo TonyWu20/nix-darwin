@@ -11,7 +11,7 @@
         identityFile = "~/.ssh/id_ed25519";
       };
       nix = {
-        host = "nix";
+        host = "nixos";
         user = "tony";
         hostname = "10.0.0.2";
         identityFile = "~/.ssh/id_ed25519";
@@ -38,12 +38,6 @@
         host = "mba";
         user = "tony";
         hostname = "10.147.17.179";
-        identityFile = "~/.ssh/id_ed25519";
-      };
-      klt = {
-        host = "klt";
-        user = "Atoms";
-        hostname = "10.0.0.6";
         identityFile = "~/.ssh/id_ed25519";
       };
       nix-pro5000 = {
