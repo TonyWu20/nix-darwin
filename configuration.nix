@@ -92,6 +92,16 @@
 
   # Add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  # NOTE: `sudo darwin-rebuild` fetches the private `pi-config` input over
+  # git+ssh as root. Two host requirements make this work:
+  #   1. `env_keep+=SSH_AUTH_SOCK` in the effective /etc/sudoers, so the
+  #      user's agent socket passes through sudo. Add it in a file in
+  #      /etc/sudoers.d/ if this host lacks it:
+  #        sudo sh -c 'echo "Defaults env_keep += SSH_AUTH_SOCK" > /etc/sudoers.d/20-ssh-auth-sock'
+  #   2. A user ssh-agent on ~/.ssh/agent.sock with ~/.ssh/id_ed25519
+  #      loaded. Provided by the `launchd.agents."ssh-agent"` units in
+  #      home.nix, started at login on every host of this flake.
   users.users.tony.home = "/Users/tony";
   users.users.tony.shell = pkgs.fish;
   users.users.tony.uid = 501;

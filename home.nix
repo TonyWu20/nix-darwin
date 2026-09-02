@@ -1,13 +1,63 @@
 { pkgs, lib, pi-config, ... }:
+let
+  # A persistent user ssh-agent, on a stable socket, with the default key
+  # auto-loaded. This is what makes `sudo darwin-rebuild` able to fetch the
+  # private pi-config input over git+ssh: the agent runs as the user on a
+  # known socket, and sudo keeps the SSH_AUTH_SOCK env var (host setup:
+  # see the NOTE in configuration.nix).
+  agentScript = pkgs.writeScript "ssh-agent-launch" ''
+    #!/bin/sh
+    SOCK="$HOME/.ssh/agent.sock"
+    rm -f "$SOCK"
+    exec /usr/bin/ssh-agent -D -a "$SOCK"
+  '';
+
+  keyScript = pkgs.writeScript "ssh-agent-key-load" ''
+    #!/bin/sh
+    SOCK="$HOME/.ssh/agent.sock"
+    # `ssh-add -L` exits 1 when the agent holds no key and 0 when it does.
+    # Re-add the key whenever it is missing (agent restart clears it).
+    while :; do
+      if ! SSH_AUTH_SOCK="$SOCK" /usr/bin/ssh-add -L >/dev/null 2>&1; then
+        SSH_AUTH_SOCK="$SOCK" /usr/bin/ssh-add "$HOME/.ssh/id_ed25519" 2>/dev/null
+      fi
+      sleep 15
+    done
+  '';
+in
 {
+  launchd.agents."ssh-agent" = {
+    enable = true;
+    config = {
+      Program = "${agentScript}";
+      RunAtLoad = true;
+      KeepAlive = true;
+    };
+  };
+
+  launchd.agents."ssh-agent-keys" = {
+    enable = true;
+    config = {
+      Program = "${keyScript}";
+      RunAtLoad = true;
+      KeepAlive = true;
+    };
+  };
+
+  # Export the LaunchAgent socket only when it exists, so shells started
+  # before the agent is up do not carry a dead path.
   sshAuthSock = {
     enable = true;
     initialization = {
       nushell = ''
-        $env.SSH_AUTH_SOCK = ($nu.home-dir | path join .ssh agent.sock)
+        if ($nu.home-dir | path join ".ssh" "agent.sock" | path exists) {
+          $env.SSH_AUTH_SOCK = ($nu.home-dir | path join ".ssh" "agent.sock")
+        }
       '';
       fish = ''
-        set -x SSH_AUTH_SOCK $HOME/.ssh/agent.sock
+        if test -S "$HOME/.ssh/agent.sock"
+          set -x SSH_AUTH_SOCK "$HOME/.ssh/agent.sock"
+        end
       '';
     };
   };
