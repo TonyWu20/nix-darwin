@@ -1,6 +1,8 @@
 { herdr-nix, config, pkgs, lib, ... }:
 
 {
+  imports = [ ./herdr-mirror.nix ];
+
   herdr = {
     enable = true;
     package = herdr-nix.packages.${pkgs.stdenv.system}.herdr;
