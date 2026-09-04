@@ -1,12 +1,12 @@
 # herdr-mirror — herdr plugin that mirrors remote herdr workspaces locally.
 #
 # Fetches the prebuilt binary from GitHub Releases (same pattern as herdr-nix
-# for the herdr binary) and packages the plugin manifest so herdr can
-# discover it under ~/.config/herdr/plugins/mirror/.
+# for the herdr binary), packages the plugin manifest so herdr can discover
+# it, and registers the plugin via `herdr plugin link` during activation.
 #
 # Upstream: https://github.com/nikok6/herdr-mirror
 
-{ config, lib, pkgs, ... }:
+{ herdr-nix, config, lib, pkgs, ... }:
 
 let
   version = "0.4.1";
@@ -50,7 +50,7 @@ let
     '';
   };
 
-  # Plugin manifest (no [[build]] section — binary is provided by Nix,
+  # Plugin manifest (no [[build]] section — the binary is provided by Nix,
   # so herdr does not need to run scripts/install.sh)
   manifest = pkgs.writeText "herdr-mirror-herdr-plugin.toml" ''
     id = "mirror"
@@ -178,13 +178,21 @@ let
       cp $src $out/herdr-plugin.toml
     '';
   };
+
+  herdrBin = "${herdr-nix.packages.${system}.herdr}/bin/herdr";
 in
 {
-  # Make the binary available on PATH (for CLI: herdr-mirror status, etc.)
-  home.packages = [ herdrMirror ];
+  # Binary on PATH for CLI use (herdr-mirror status, etc.) and the plugin
+  # directory in the Nix store (kept alive by the home profile).
+  home.packages = [ herdrMirror herdrMirrorPlugin ];
 
-  # Install the plugin directory where herdr discovers plugins
-  home.file.".config/herdr/plugins/mirror" = {
-    source = herdrMirrorPlugin;
+  # Register the plugin with herdr's plugin registry.
+  # `herdr plugin link` writes to the user's herdr registry so herdr
+  # discovers the plugin at startup. Safe to re-run: it updates the link.
+  home.activation."herdr-mirror-plugin" = {
+    text = ''
+      ${herdrBin} plugin link ${herdrMirrorPlugin} --enabled \
+        || echo "warning: herdr plugin link failed (herdr not ready?)" >&2
+    '';
   };
 }
