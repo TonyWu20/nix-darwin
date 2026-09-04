@@ -282,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788517905,
-        "narHash": "sha256-9vwSysqd8hQR44D8w8vbPqlNMODvaHgsAdl1fd9MqXk=",
+        "lastModified": 1788520587,
+        "narHash": "sha256-Mh0U/4gkWv9nqY4tu7GueynOGEbHhvG+I1B2LkCuxgg=",
         "owner": "TonyWu20",
         "repo": "herdr-nix",
-        "rev": "eb75fa5267e434c64edd32b3ebc0bba7dc5d875a",
+        "rev": "a242197c614eed7835f6ebbf9eb680833f35c190",
         "type": "github"
       },
       "original": {
