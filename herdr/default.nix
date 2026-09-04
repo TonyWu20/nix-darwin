@@ -1,10 +1,6 @@
 { herdr-nix, config, pkgs, lib, ... }:
 
 {
-  imports = [
-    herdr-nix.homeManagerModules.default
-  ];
-
   herdr = {
     enable = true;
     package = herdr-nix.packages.${pkgs.stdenv.system}.herdr;
