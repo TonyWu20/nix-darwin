@@ -137,6 +137,7 @@ in
     ./nushell
     ./claude-code
     ./ghostty
+    ./herdr
   ];
   programs = {
     pi.coding-agent = {

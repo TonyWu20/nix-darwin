@@ -34,6 +34,10 @@
     pi.url = "github:lukasl-dev/pi.nix";
     pi-config.url = "git+ssh://git@github.com/TonyWu20/pi-config";
     terminal-browser.url = "github:TonyWu20/terminal-browser-flake";
+    herdr-nix = {
+      url = "github:TonyWu20/herdr-nix/home-manager-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -49,6 +53,7 @@
     , pi
     , pi-config
     , terminal-browser
+    , herdr-nix
     , ...
     }:
     let
@@ -179,7 +184,7 @@
                 };
                 extraSpecialArgs = {
                   hostName = "wutongs-MacBook-Air";
-                  inherit pi-config;
+                  inherit pi-config herdr-nix;
                 };
                 sharedModules = [
                   nvimdots.homeManagerModules.default
@@ -188,6 +193,7 @@
                   sops-nix.homeManagerModules.sops
                   pi.homeModules.default
                   (pi-config.piModules.homeManager { system = "aarch64-darwin"; })
+                  herdr-nix.homeManagerModules.default
                 ];
                 backupFileExtension = "hm-backup";
               };
@@ -233,7 +239,7 @@
                 };
                 extraSpecialArgs = {
                   hostName = "Tonys-Mac-mini-M4";
-                  inherit pi-config;
+                  inherit pi-config herdr-nix;
                 };
                 sharedModules = [
                   nvimdots.homeManagerModules.default
@@ -242,6 +248,7 @@
                   sops-nix.homeManagerModules.sops
                   pi.homeModules.default
                   (pi-config.piModules.homeManager { system = "aarch64-darwin"; })
+                  herdr-nix.homeManagerModules.default
                 ];
                 backupFileExtension = "hm-backup";
               };
