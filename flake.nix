@@ -104,6 +104,9 @@
             tls = prev.haskell.lib.dontCheck hPrev.tls;
           };
         };
+        ghc = prev.ghc.overrideAttrs (oldAttrs: {
+          doCheck = false;
+        });
       });
       # The `nix` package (nix < 2.33) links aws-sdk-cpp for S3 binary cache
       # support. The SDK's unit tests auto-run during buildPhase via CMake
