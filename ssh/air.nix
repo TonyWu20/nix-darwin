@@ -4,58 +4,49 @@
     enable = true;
     enableDefaultConfig = false;
     settings = {
-      github = {
-        host = "github.com";
+      "github.com" = {
         user = "git";
         hostname = "github.com";
         identityFile = "~/.ssh/id_ed25519";
         AddKeysToAgent = true;
       };
-      nix = {
-        host = "nixos";
+      nixos = {
         user = "tony";
         hostname = "10.147.17.20";
         identityFile = "~/.ssh/id_ed25519";
       };
-      mac-mini = {
-        host = "mac";
+      mac = {
         user = "tonywu";
         hostname = "10.147.17.25";
         identityFile = "~/.ssh/id_ed25519";
       };
-      mac-mini-m4 = {
-        host = "macm4";
+      macm4 = {
         user = "tony";
         hostname = "10.147.17.145";
         identityFile = "~/.ssh/id_ed25519";
       };
       klt = {
-        host = "klt";
         user = "klt";
         hostname = "10.147.17.146";
         identityFile = "~/.ssh/id_ed25519";
         forwardX11 = true;
       };
       local-mini = {
-        host = "local-mini";
         user = "tony";
         hostname = "10.0.0.5";
         identityFile = "~/.ssh/id_ed25519";
       };
       mba = {
-        host = "mba";
         user = "tony";
         hostname = "10.147.17.179";
         identityFile = "~/.ssh/id_ed25519";
       };
-      nix-2 = {
-        host = "nixos-2";
+      nixos-2 = {
         user = "tony";
         hostname = "10.0.0.3";
-        proxyJump = "nix";
+        proxyJump = "nixos";
       };
-      nix-pro5000 = {
-        host = "nixos-pro5000";
+      nixos-pro5000 = {
         user = "tony";
         hostname = "10.147.17.8";
       };

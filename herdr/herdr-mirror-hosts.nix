@@ -16,11 +16,13 @@
 let
   sshSettings = config.programs.ssh.settings or { };
 
-  # ssh alias for an entry: its `host` field, falling back to the Nix key.
-  aliasOf = name: value: value.host or name;
+  # The Nix key of each settings entry is the SSH `Host` alias that
+  # nix-darwin writes to ~/.ssh/config. Use that as the herdr-mirror
+  # target so `ssh <alias>` works.
+  aliasOf = name: value: name;
 
-  # Keep every machine entry; drop github.com (git remote, not herdr).
-  machines = lib.filterAttrs (name: value: aliasOf name value != "github.com") sshSettings;
+  # Keep every machine entry; drop github.com (git remote, not a herdr host).
+  machines = lib.filterAttrs (name: value: name != "github.com") sshSettings;
 
   hostBlock = name: value:
     let alias = aliasOf name value; in
