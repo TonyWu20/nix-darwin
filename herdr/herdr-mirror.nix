@@ -10,7 +10,7 @@
 
 let
   version = "0.4.1";
-  system = builtins.currentSystem;
+  system = pkgs.stdenv.system;
 
   assets = {
     "aarch64-darwin" = {
@@ -189,10 +189,9 @@ in
   # Register the plugin with herdr's plugin registry.
   # `herdr plugin link` writes to the user's herdr registry so herdr
   # discovers the plugin at startup. Safe to re-run: it updates the link.
-  home.activation."herdr-mirror-plugin" = {
-    text = ''
+  home.activation."herdr-mirror-plugin" =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       ${herdrBin} plugin link ${herdrMirrorPlugin} --enabled \
         || echo "warning: herdr plugin link failed (herdr not ready?)" >&2
     '';
-  };
 }
