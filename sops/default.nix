@@ -24,6 +24,8 @@
       vless_uuid = { };
       vless_private_key = { };
       vless_short_id = { };
+      # huggingface token
+      hf_token = { };
     };
   };
 }
