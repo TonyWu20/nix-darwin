@@ -32,7 +32,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pi.url = "github:lukasl-dev/pi.nix";
-    pi-config.url = "git+ssh://git@github.com/TonyWu20/pi-config";
+    pi-config = {
+      url = "git+ssh://git@github.com/TonyWu20/pi-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pi-flake.follows = "pi";
+    };
     terminal-browser.url = "github:TonyWu20/terminal-browser-flake";
     herdr-nix = {
       url = "github:TonyWu20/herdr-nix/home-manager-module";
@@ -226,6 +230,22 @@
                 gcc
                 libiconv
               ];
+              launchd.user.agents.ssh-tunnel-nixos-pro5000 = {
+                serviceConfig = {
+                  ProgramArguments = [
+                    "/usr/bin/ssh"
+                    "-NT"
+                    "nixos-pro5000"
+                  ];
+                  # KeepAlive ensures the tunnel automatically restarts if the connection drops
+                  KeepAlive = true;
+                  RunAtLoad = true;
+
+                  # Optional: Log errors if troubleshooting is needed
+                  StandardOutPath = "/tmp/ssh-tunnel-nixos-pro5000.out.log";
+                  StandardErrorPath = "/tmp/ssh-tunnel-nixos-pro5000.err.log";
+                };
+              };
             }
             )
 

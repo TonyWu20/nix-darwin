@@ -38,6 +38,9 @@
         user = "tony";
         hostname = "10.0.0.6";
         identityFile = "~/.ssh/id_ed25519";
+        LocalForward = [
+          "30000 localhost:30000"
+        ];
       };
     };
   };
