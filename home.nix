@@ -120,6 +120,7 @@ in
       crossref-cli
       terminal-browser
       sops
+      mdfried
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
     ];
@@ -138,6 +139,7 @@ in
     ./claude-code
     ./ghostty
     ./herdr
+    ./mdfried
   ];
   programs = {
     pi.coding-agent = {
