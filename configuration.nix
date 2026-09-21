@@ -10,11 +10,8 @@
     # $ nix-env -qaP | grep wget
     systemPackages =
       with pkgs;[
-        vim
-        neovim
         skhd
         fish
-        nushell
         zoxide
         fontconfig
         # VLESS+Reality VPN server for friend's GFW bypass
