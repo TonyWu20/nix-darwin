@@ -13,7 +13,11 @@
     };
     fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     catppuccin.url = "github:catppuccin/nix";
-    nvimdots = { url = "github:TonyWu20/nvimdots/main"; inputs.nixpkgs.follows = "nixpkgs"; };
+    my-nvim = {
+      url = "github:TonyWu20/my-nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     nushell-cfg = {
       #nvimdots = { url = "git+file:///Users/tony/Downloads/nvimdots"; };
       url = "github:TonyWu20/nushell_hm_module";
@@ -38,9 +42,10 @@
       inputs.pi-flake.follows = "pi";
     };
     terminal-browser.url = "github:TonyWu20/terminal-browser-flake";
-    herdr-nix = {
-      url = "github:TonyWu20/herdr-nix/home-manager-module";
+    rushi-config = {
+      url = "git+ssh://git@github.com/TonyWu20/rushi-config";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.fenix.follows = "fenix";
     };
   };
 
@@ -49,7 +54,7 @@
     , home-manager
     , fenix
     , catppuccin
-    , nvimdots
+    , my-nvim
     , nushell-cfg
     , sops-nix
     , nushell_plugin_crossref
@@ -57,7 +62,7 @@
     , pi
     , pi-config
     , terminal-browser
-    , herdr-nix
+    , rushi-config
     , ...
     }:
     let
@@ -95,13 +100,6 @@
           NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -B/Library/Developer/CommandLineTools/usr/bin";
         });
       };
-      nvim_overlay = (final: prev: {
-        neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (oldAttrs: {
-          # Disable tests to bypass parallel harness crashes entirely
-          python3 = final.python313;
-          doCheck = false;
-        });
-      });
       haskell_overlay = (final: prev: {
         haskellPackages = prev.haskellPackages.override {
           overrides = hFinal: hPrev: {
@@ -164,7 +162,6 @@
                 nushell_plugin_crossref.overlays.default
                 wait-for-lsp.overlays.default
                 spacebar-overlay
-                nvim_overlay
                 haskell_overlay
                 terminal-browser.overlays.default
                 aws_sdk_cpp_overlay
@@ -191,16 +188,16 @@
                 };
                 extraSpecialArgs = {
                   hostName = "wutongs-MacBook-Air";
-                  inherit pi-config herdr-nix;
+                  inherit pi-config rushi-config;
                 };
                 sharedModules = [
-                  nvimdots.homeManagerModules.default
+		  my-nvim.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
                   pi.homeModules.default
                   (pi-config.piModules.homeManager { system = "aarch64-darwin"; })
-                  herdr-nix.homeManagerModules.default
+                  rushi-config.homeManagerModules.rushi
                 ];
                 backupFileExtension = "hm-backup";
               };
@@ -213,11 +210,6 @@
             ./configuration.nix
             ({ pkgs, ... }: {
               nixpkgs.overlays = [
-                # Pin default Python to 3.13 to avoid untokenize/docformatter incompatibility
-                (final: prev: {
-                  python3 = final.python313;
-                  python3Packages = final.python313Packages;
-                })
                 fenix.overlays.default
                 nushell_plugin_crossref.overlays.default
                 wait-for-lsp.overlays.default
@@ -262,16 +254,16 @@
                 };
                 extraSpecialArgs = {
                   hostName = "Tonys-Mac-mini-M4";
-                  inherit pi-config herdr-nix;
+                  inherit pi-config rushi-config;
                 };
                 sharedModules = [
-                  nvimdots.homeManagerModules.default
+		  my-nvim.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
                   pi.homeModules.default
                   (pi-config.piModules.homeManager { system = "aarch64-darwin"; })
-                  herdr-nix.homeManagerModules.default
+                  rushi-config.homeManagerModules.rushi
                 ];
                 backupFileExtension = "hm-backup";
               };

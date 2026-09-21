@@ -1,4 +1,4 @@
-{ pkgs, lib, pi-config, ... }:
+{ pkgs, lib, pi-config, rushi-config, ... }:
 let
   # A persistent user ssh-agent, on a stable socket, with the default key
   # auto-loaded. This is what makes `sudo darwin-rebuild` able to fetch the
@@ -121,6 +121,7 @@ in
       terminal-browser
       sops
       mdfried
+      obscura
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
     ];
@@ -130,7 +131,6 @@ in
     ./fish
     ./starship
     ./wezterm
-    ./nvim
     ./tmux
     ./skhd
     ./rime
@@ -138,10 +138,13 @@ in
     ./nushell
     ./claude-code
     ./ghostty
-    ./herdr
     ./mdfried
   ];
   programs = {
+    rushi = {
+      enable = true;
+      package = rushi-config.packages.aarch64-darwin.rushi;
+    };
     pi.coding-agent = {
       enable = true;
       package = pi-config.packages.aarch64-darwin.default;
