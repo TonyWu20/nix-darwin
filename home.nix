@@ -136,7 +136,6 @@ in
     ./rime
     ./sops
     ./nushell
-    ./claude-code
     ./ghostty
     ./mdfried
   ];
