@@ -35,12 +35,6 @@
       url = "github:TonyWu20/wait-for-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pi.url = "github:lukasl-dev/pi.nix";
-    pi-config = {
-      url = "git+ssh://git@github.com/TonyWu20/pi-config";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pi-flake.follows = "pi";
-    };
     terminal-browser.url = "github:TonyWu20/terminal-browser-flake";
     rushi-config = {
       url = "git+ssh://git@github.com/TonyWu20/rushi-config";
@@ -59,8 +53,6 @@
     , sops-nix
     , nushell_plugin_crossref
     , wait-for-lsp
-    , pi
-    , pi-config
     , terminal-browser
     , rushi-config
     , ...
@@ -153,11 +145,6 @@
             ./configuration.nix
             ({ pkgs, ... }: {
               nixpkgs.overlays = [
-                # Pin default Python to 3.13 to avoid untokenize/docformatter incompatibility
-                (final: prev: {
-                  python3 = final.python313;
-                  python3Packages = final.python313Packages;
-                })
                 fenix.overlays.default
                 nushell_plugin_crossref.overlays.default
                 wait-for-lsp.overlays.default
@@ -188,15 +175,13 @@
                 };
                 extraSpecialArgs = {
                   hostName = "wutongs-MacBook-Air";
-                  inherit pi-config rushi-config;
+                  inherit rushi-config;
                 };
                 sharedModules = [
 		  my-nvim.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
-                  pi.homeModules.default
-                  (pi-config.piModules.homeManager { system = "aarch64-darwin"; })
                   rushi-config.homeManagerModules.rushi
                 ];
                 backupFileExtension = "hm-backup";
@@ -254,15 +239,13 @@
                 };
                 extraSpecialArgs = {
                   hostName = "Tonys-Mac-mini-M4";
-                  inherit pi-config rushi-config;
+                  inherit rushi-config;
                 };
                 sharedModules = [
 		  my-nvim.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
-                  pi.homeModules.default
-                  (pi-config.piModules.homeManager { system = "aarch64-darwin"; })
                   rushi-config.homeManagerModules.rushi
                 ];
                 backupFileExtension = "hm-backup";
