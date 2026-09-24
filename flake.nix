@@ -178,7 +178,7 @@
                   inherit rushi-config;
                 };
                 sharedModules = [
-		  my-nvim.homeManagerModules.default
+                  my-nvim.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
@@ -242,7 +242,7 @@
                   inherit rushi-config;
                 };
                 sharedModules = [
-		  my-nvim.homeManagerModules.default
+                  my-nvim.homeManagerModules.default
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops

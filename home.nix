@@ -144,10 +144,6 @@ in
       enable = true;
       package = rushi-config.packages.aarch64-darwin.rushi;
     };
-    pi.coding-agent = {
-      enable = true;
-      package = pi-config.packages.aarch64-darwin.default;
-    };
     direnv = {
 
       # https://github.com/malob/nixpkgs/blob/master/home/default.nix

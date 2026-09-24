@@ -47,6 +47,12 @@
       experimental-features = "nix-command flakes";
       # Force nix-daemon to use the Nix certificate bundle
       ssl-cert-file = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+      substituters = [
+        "https://cache.nixos.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ];
       extra-substituters = [
         "https://pi.cachix.org"
         "https://nix-community.cachix.org"
