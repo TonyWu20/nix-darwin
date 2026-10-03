@@ -17,11 +17,13 @@
       ''
         fish_vi_key_bindings
         zoxide init fish | source
-        set -gx FZF_DEFAULT_COMMAND 'fd --type file -HI -E .git --color=always'
-        set -gx FZF_PREVIEW_FILE_CMD 'bat --style=header,numbers,grid --line-range :300 --color=always'
-        set -gx FZF_PREVIEW_DIR_CMD 'eza -l --git --no-permissions --icons --no-user --level=2 -T '
-        set -U FZF_TMUX 0
-        set -U FZF_COMPLETE 1
+        tv init fish | source
+        # Fuzzy find and history come from the television fish integration
+        # (programs.television.enableFishIntegration in ../television):
+        #   ctrl-t  smart autocompletion (files/dirs channels)
+        #   ctrl-r  command history search
+        # Tab completion for the tv CLI ships in the package at
+        # share/fish/vendor_completions.d/tv.fish (== `tv completions fish`).
         set -ga PATH ~/.cargo/bin
         source ${
           pkgs.runCommand "rsync-fish-completion" { } ''
@@ -80,10 +82,9 @@
   };
   home.packages = with pkgs; [
     fishPlugins.z
-    fishPlugins.fzf
     fishPlugins.done
     (fishPlugins.bass.overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ gnumake ];
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ gnumake ];
       doCheck = false;
     }))
     fishPlugins.forgit
