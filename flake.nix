@@ -252,7 +252,7 @@
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
                   rushi-config.homeManagerModules.rushi
-                  tv-rushi.homeManagerModules."aarch64-darwin".darwin
+                  tv-rushi.homeManagerModules."aarch64-darwin".default
                 ];
                 backupFileExtension = "hm-backup";
               };

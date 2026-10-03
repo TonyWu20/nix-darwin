@@ -601,11 +601,11 @@
         "rushi-tui-mermaid-ext": "rushi-tui-mermaid-ext_2"
       },
       "locked": {
-        "lastModified": 1790818100,
-        "narHash": "sha256-gwp66KnvlzsswR7FakQX2yhAl6pt40wc0WS9inEOAcE=",
+        "lastModified": 1791047905,
+        "narHash": "sha256-qNXb1bwkPRD+bvDFxLGQuPo1y5ZrcEzEUx7N3TeCw/U=",
         "ref": "refs/heads/main",
-        "rev": "4741657f8123d38b9e775d0854e91e119f395fa8",
-        "revCount": 85,
+        "rev": "7ecbb83bf8e9f398f961edc02bdf2e602d38096e",
+        "revCount": 86,
         "type": "git",
         "url": "ssh://git@github.com/TonyWu20/rushi-config"
       },
