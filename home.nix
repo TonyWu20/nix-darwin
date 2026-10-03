@@ -142,7 +142,7 @@ in
   programs = {
     rushi = {
       enable = true;
-      package = rushi-config.packages.aarch64-darwin.rushi;
+      package = rushi-config.packages.aarch64-darwin.default;
     };
     direnv = {
 

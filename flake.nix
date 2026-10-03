@@ -41,6 +41,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.fenix.follows = "fenix";
     };
+    tv-rushi.url = "github:TonyWu20/tv-rushi";
   };
 
   outputs =
@@ -55,6 +56,7 @@
     , wait-for-lsp
     , terminal-browser
     , rushi-config
+    , tv-rushi
     , ...
     }:
     let
@@ -171,6 +173,7 @@
                     ssh/air.nix
                     ./sing-box
                     ./ddns
+                    ./television
                   ];
                 };
                 extraSpecialArgs = {
@@ -183,6 +186,7 @@
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
                   rushi-config.homeManagerModules.rushi
+                  tv-rushi.homeManagerModules."aarch64-darwin".default
                 ];
                 backupFileExtension = "hm-backup";
               };
@@ -235,6 +239,7 @@
                   imports = [
                     ./home.nix
                     ssh/mini.nix
+                    ./television
                   ];
                 };
                 extraSpecialArgs = {
@@ -247,6 +252,7 @@
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
                   rushi-config.homeManagerModules.rushi
+                  tv-rushi.homeManagerModules."aarch64-darwin".darwin
                 ];
                 backupFileExtension = "hm-backup";
               };
