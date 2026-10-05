@@ -122,6 +122,8 @@ in
       sops
       mdfried
       obscura
+      ffmpeg
+      inter
     ] ++ lib.optionals stdenv.isDarwin [
       m-cli # useful macOS CLI commands
     ];
@@ -143,6 +145,10 @@ in
     rushi = {
       enable = true;
       package = rushi-config.packages.aarch64-darwin.default;
+    };
+    rushi-sessions = {
+      enable = true;
+      sourceRoots = ["/Users/tony"];
     };
     direnv = {
 
