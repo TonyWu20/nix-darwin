@@ -160,11 +160,27 @@
       #     NarInfoDiskCacheImpl::getCache reaches unreachable() in
       #     src/libstore/nar-info-disk-cache.cc.
       # These are upstream nix bugs. Skip the check gate so building `nix`
-      # does not run the broken suite.
+      # does not run the broken suite. nixpkgs also pins older nix
+      # instances under `nixVersions` (e.g. `nix_2_31`, used by the
+      # `cachix` and `hercules-ci` haskell builds). Those instances carry
+      # the same gate. Skip it on every derivation in `nixVersions`.
       nix_overlay = (final: prev: {
         nix = prev.nix.overrideAttrs (old: {
           doCheck = false;
         });
+        nixVersions = prev.nixVersions // builtins.listToAttrs (
+          builtins.map (name: {
+            inherit name;
+            value =
+              if builtins.isAttrs prev.nixVersions.${name}
+              && (prev.nixVersions.${name} ? outPath
+                || prev.nixVersions.${name} ? outputSpecs)
+              then prev.nixVersions.${name}.overrideAttrs (old: {
+                doCheck = false;
+              })
+              else prev.nixVersions.${name};
+          }) (builtins.attrNames prev.nixVersions)
+        );
       });
     in
     {
