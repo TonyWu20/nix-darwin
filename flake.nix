@@ -41,7 +41,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.fenix.follows = "fenix";
     };
-    tv-rushi.url = "github:TonyWu20/tv-rushi";
+    tv-rushi = {
+      url = "github:TonyWu20/tv-rushi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
