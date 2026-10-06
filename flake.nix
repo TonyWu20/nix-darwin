@@ -137,6 +137,32 @@
       // prev.lib.optionalAttrs (prev ? protobuf_35) {
         protobuf_35 = prev.protobuf_35.overrideAttrs (old: { doCheck = false; });
       });
+      # The nix package gates its build on the full test suite: it sets
+      # doCheck = true and lists `nix-functional-tests` in checkInputs, so
+      # building `nix` (e.g. as a dependency of `cachix`) runs all 201
+      # functional tests. For nix 2.31.5+1, nine tests fail
+      # deterministically, independent of host, and the gate is still
+      # wired in as of nix 2.34.8:
+      #   - the version string `2.31.5+1` lands in the test build dir name
+      #     (`nix-build-nix-functional-tests-2.31.5+1.drv-0`). The `+`
+      #     breaks the shell paths the tests embed in regexes: `5+` parses
+      #     as a "one or more 5" quantifier, so the ERE patterns of
+      #     `repl` (grep -o -E "$NIX_STORE_DIR/\w*-simple"), `nix-shell`
+      #     ([[ $out =~ ${testDir}.* ]]) and `user-envs` (jq regex) never
+      #     match; `nix-profile` and `dubious-query` embed the raw path in
+      #     expected nix error text, but nix prints the `+`
+      #     percent-encoded as `%2B`.
+      #   - `binary-cache` and `ca:substitute` abort with SIGABRT: after
+      #     the test clears the NAR-info disk cache database,
+      #     NarInfoDiskCacheImpl::getCache reaches unreachable() in
+      #     src/libstore/nar-info-disk-cache.cc.
+      # These are upstream nix bugs. Skip the check gate so building `nix`
+      # does not run the broken suite.
+      nix_overlay = (final: prev: {
+        nix = prev.nix.overrideAttrs (old: {
+          doCheck = false;
+        });
+      });
     in
     {
       # Build darwin flake using:
@@ -155,6 +181,7 @@
                 terminal-browser.overlays.default
                 aws_sdk_cpp_overlay
                 protobuf_overlay
+                nix_overlay
               ];
               environment.systemPackages = with pkgs; [
                 gcc
@@ -206,6 +233,7 @@
                 terminal-browser.overlays.default
                 aws_sdk_cpp_overlay
                 protobuf_overlay
+                nix_overlay
               ];
               environment.systemPackages = with pkgs; [
                 gcc
