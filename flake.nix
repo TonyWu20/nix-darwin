@@ -164,24 +164,67 @@
       # instances under `nixVersions` (e.g. `nix_2_31`, used by the
       # `cachix` and `hercules-ci` haskell builds). Those instances carry
       # the same gate. Skip it on every derivation in `nixVersions`.
-      nix_overlay = (final: prev: {
-        nix = prev.nix.overrideAttrs (old: {
-          doCheck = false;
-        });
-        nixVersions = prev.nixVersions // builtins.listToAttrs (
-          builtins.map (name: {
-            inherit name;
-            value =
-              if builtins.isAttrs prev.nixVersions.${name}
-              && (prev.nixVersions.${name} ? outPath
-                || prev.nixVersions.${name} ? outputSpecs)
-              then prev.nixVersions.${name}.overrideAttrs (old: {
+      #
+      # Disabling the gate also removes the C closure that the test
+      # packages used to pull into the nix build. The haskell builds of
+      # `hercules-ci` and `cachix` rely on that closure: the nix `.pc`
+      # files need `libblake3` and other C libraries, and pkg-config
+      # only finds them if they reach the haskell build inputs. With the
+      # gate off, configure fails with
+      # "Package libblake3 was not found in the pkg-config search path".
+      # The override below restores the C closure as explicit build
+      # inputs. It excludes the test packages themselves:
+      # `nix-functional-tests` still runs the full suite in its own
+      # checkPhase, which fails deterministically on this host.
+      nix_overlay = final: prev:
+      let
+        lib = prev.lib;
+
+          directDeps = p:
+            (if builtins.isAttrs p then p.buildInputs or [] else [])
+            ++ (if builtins.isAttrs p then p.propagatedBuildInputs or [] else []);
+
+          # Transitive buildInputs closure of the test packages' direct
+          # dependencies, i.e. the C closure. The test packages themselves
+          # are excluded so their checkPhase stays out of the build plan.
+          cClosureOf =
+            inst:
+            let
+              seed = builtins.concatMap directDeps (inst.checkInputs or []);
+              dedupName = p:
+                if builtins.isAttrs p then lib.getName p
+                else builtins.baseNameOf (toString p);
+              step = seen:
+                let
+                  fresh = builtins.filter
+                    (x: !builtins.elem (dedupName x) (map dedupName seen))
+                    seen;
+                  more = builtins.concatMap directDeps fresh;
+                in
+                if more == [ ] then seen else step (seen ++ more);
+            in
+            step seed;
+
+          skipGates = inst:
+            if builtins.isAttrs inst
+            && (inst ? outPath || inst ? outputSpecs)
+            then
+              inst.overrideAttrs (old: {
                 doCheck = false;
+                buildInputs = (old.buildInputs or []) ++ cClosureOf old;
               })
-              else prev.nixVersions.${name};
-          }) (builtins.attrNames prev.nixVersions)
-        );
-      });
+            else
+              inst;
+        in
+        {
+          nix = skipGates prev.nix;
+          nixVersions = prev.nixVersions // builtins.listToAttrs (
+            builtins.map (name: {
+              inherit name;
+              value = skipGates prev.nixVersions.${name};
+            }) (builtins.attrNames prev.nixVersions)
+          );
+        };
     in
     {
       # Build darwin flake using:
