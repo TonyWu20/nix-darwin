@@ -1,4 +1,9 @@
-{ pkgs, lib, pi-config, rushi-config, ... }:
+{
+  pkgs,
+  lib,
+  rushi-config,
+  ...
+}:
 let
   # A persistent user ssh-agent, on a stable socket, with the default key
   # auto-loaded. This is what makes `sudo darwin-rebuild` able to fetch the
@@ -69,64 +74,68 @@ in
       LIBRIME_INCLUDE_DIR = "/opt/homebrew/include";
       #DYLD_LIBRARY_PATH = "/opt/homebrew/lib";
     };
-    packages = with pkgs; [
-      # Some basics
-      coreutils
-      curl
-      wget
-      wezterm
-      fish
-      starship
-      zoxide
-      ripgrep
-      fd
-      gh
-      sad
-      skim
-      tmux
-      eza
-      btop
-      nodejs_24
-      source-sans-pro
-      imagemagick
-      rar
-      simple-http-server
-      lua51Packages.luarocks
-      lua51Packages.lua
-      librime
-      bun
-      sd
-      freetype
-      harfbuzz
-      fribidi
-      libraqm
-      zlib
-      tree-sitter
-      uv
-      ty
-      wait-for-lsp
-      nerd-fonts.hack
-      # Dev stuff
-      # (agda.withPackages (p: [ p.standard-library ]))
+    packages =
+      with pkgs;
+      [
+        # Some basics
+        coreutils
+        curl
+        wget
+        wezterm
+        fish
+        starship
+        zoxide
+        ripgrep
+        fd
+        gh
+        sad
+        skim
+        tmux
+        eza
+        btop
+        nodejs_24
+        source-sans-pro
+        imagemagick
+        rar
+        simple-http-server
+        lua51Packages.luarocks
+        lua51Packages.lua
+        librime
+        bun
+        sd
+        freetype
+        harfbuzz
+        fribidi
+        libraqm
+        zlib
+        tree-sitter
+        uv
+        ty
+        wait-for-lsp
+        nerd-fonts.hack
+        # Dev stuff
+        # (agda.withPackages (p: [ p.standard-library ]))
 
-      # Useful nix related tools
-      cachix # adding/managing alternative binary caches hosted by Cachix
-      # comma # run software from without installing it
-      niv # easy dependency management for nix projects
-      nix-output-monitor
-      tun2socks
-      mosh
-      tdf
-      crossref-cli
-      terminal-browser
-      sops
-      mdfried
-      obscura
-      ffmpeg
-      inter
-    ] ++ lib.optionals stdenv.isDarwin [
-      m-cli # useful macOS CLI commands
-    ];
+        # Useful nix related tools
+        cachix # adding/managing alternative binary caches hosted by Cachix
+        # comma # run software from without installing it
+        niv # easy dependency management for nix projects
+        nix-output-monitor
+        tun2socks
+        mosh
+        tdf
+        crossref-cli
+        terminal-browser
+        sops
+        mdfried
+        mdcat
+        obscura
+        ffmpeg
+        inter
+      ]
+      ++ lib.optionals stdenv.isDarwin [
+        m-cli # useful macOS CLI commands
+      ];
   };
 
   imports = [
@@ -148,7 +157,12 @@ in
     };
     rushi-sessions = {
       enable = true;
-      sourceRoots = ["/Users/tony"];
+      sourceRoots = [
+        "/Users/tony"
+        "nixos:/export"
+        "nixos:/home/tony"
+      ];
+      eventPreviewer = "mdcat --ansi";
     };
     direnv = {
 
@@ -170,22 +184,33 @@ in
       shellWrapperName = "y";
       settings = {
         plugins = {
-          prepend_previewers = [{
-            mime = "image/tiff";
-            run = "magick";
-          }
+          prepend_previewers = [
+            {
+              mime = "image/tiff";
+              run = "magick";
+            }
             {
               name = "*.tif";
               run = "magick";
-            }];
+            }
+          ];
           prepend_preloaders = [
-            { mime = "image/tiff"; run = "magick"; }
+            {
+              mime = "image/tiff";
+              run = "magick";
+            }
           ];
         };
       };
       keymap = {
         mgr.prepend_keymap = [
-          { run = "plugin handoff -- share_menu"; on = [ "\\" "s" ]; }
+          {
+            run = "plugin handoff -- share_menu";
+            on = [
+              "\\"
+              "s"
+            ];
+          }
         ];
       };
     };
@@ -234,5 +259,9 @@ in
       enable = true;
     };
   };
-  catppuccin = { autoEnable = true; enable = true; flavor = "macchiato"; };
+  catppuccin = {
+    autoEnable = true;
+    enable = true;
+    flavor = "macchiato";
+  };
 }
