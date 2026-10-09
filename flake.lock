@@ -155,10 +155,34 @@
     "fenix_6": {
       "inputs": {
         "nixpkgs": [
-          "tv-rushi",
+          "tv-himalaya-mail",
+          "ortie",
           "nixpkgs"
         ],
         "rust-analyzer-src": "rust-analyzer-src_6"
+      },
+      "locked": {
+        "lastModified": 1782900513,
+        "narHash": "sha256-GHrsl1+ysDFgmDQtQSqWS7TiYD2Q58VlwLvnf1+crJM=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "16810aa8f4ad89ca480b1513774e8b6f485fe368",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "monthly",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
+    "fenix_7": {
+      "inputs": {
+        "nixpkgs": [
+          "tv-rushi",
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src_7"
       },
       "locked": {
         "lastModified": 1790770476,
@@ -550,6 +574,45 @@
         "type": "github"
       }
     },
+    "ortie": {
+      "inputs": {
+        "fenix": "fenix_6",
+        "nixpkgs": [
+          "tv-himalaya-mail",
+          "nixpkgs"
+        ],
+        "pimalaya": "pimalaya"
+      },
+      "locked": {
+        "lastModified": 1791058248,
+        "narHash": "sha256-JEdvZg7NrDIOZiCX9tZQ1E67rforzaVGvsWhqKzFlLU=",
+        "owner": "pimalaya",
+        "repo": "ortie",
+        "rev": "42502729458d5a281caae1dc90067d77841dc811",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pimalaya",
+        "repo": "ortie",
+        "type": "github"
+      }
+    },
+    "pimalaya": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790888248,
+        "narHash": "sha256-KjU8CrD6bo77bHrsaXtaGxLhv34PYHULvldbbXRVgVE=",
+        "owner": "pimalaya",
+        "repo": "nix",
+        "rev": "82fb3477f7b5a21aa08d68eb9de4febb0632e099",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pimalaya",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
@@ -563,6 +626,7 @@
         "rushi-config": "rushi-config",
         "sops-nix": "sops-nix",
         "terminal-browser": "terminal-browser",
+        "tv-himalaya-mail": "tv-himalaya-mail",
         "tv-rushi": "tv-rushi",
         "wait-for-lsp": "wait-for-lsp"
       }
@@ -586,11 +650,11 @@
         "rushi-tui-mermaid-ext": "rushi-tui-mermaid-ext_2"
       },
       "locked": {
-        "lastModified": 1791392739,
-        "narHash": "sha256-Ybki8WzvOZFB6IWh954dSu6V0zPHtBdtf0E02AtwBtI=",
+        "lastModified": 1791457068,
+        "narHash": "sha256-g8yXMcKFJH6OTnQAZHR233vMDtNZyTFsLii4xBhcDUo=",
         "ref": "refs/heads/main",
-        "rev": "9d275b1d9fd73bc46938afbdd139bbb46aa1e4ac",
-        "revCount": 96,
+        "rev": "3f4f4649600e45af83e090e1a6858a0cda24c314",
+        "revCount": 98,
         "type": "git",
         "url": "ssh://git@github.com/TonyWu20/rushi-config"
       },
@@ -695,11 +759,11 @@
         "rushiTui": "rushiTui"
       },
       "locked": {
-        "lastModified": 1791199044,
-        "narHash": "sha256-uB754xi88fgfWZ/wvNwhom2YJy64rQB4269LajNQeVM=",
+        "lastModified": 1791455025,
+        "narHash": "sha256-278OfFsYrUOAQwJmkp5Qdq7t3yCvEzR6Ow+KXq+m8FQ=",
         "owner": "TonyWu20",
         "repo": "rushi",
-        "rev": "5d73f38adcd5623f624c4de5388e9112a1f9b2bd",
+        "rev": "297cba8f013c8e4973ba48a1d6d43ef4e665d44b",
         "type": "github"
       },
       "original": {
@@ -1060,11 +1124,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791391878,
-        "narHash": "sha256-kdY0BTfnPcbM35/IWmYvO356b3OjeqyqB8AJLajAVPg=",
+        "lastModified": 1791450583,
+        "narHash": "sha256-3TNx9S1ZZlFcbxR06ogMufC+XaQVwcXGmDjPHZeG1KM=",
         "owner": "TonyWu20",
         "repo": "rushi-tui",
-        "rev": "7dac391b8892477d1a84f9688f5d1af332b15cab",
+        "rev": "9212999a4de59838c3558049a72d3e0fc3bd2911",
         "type": "github"
       },
       "original": {
@@ -1223,6 +1287,23 @@
     "rust-analyzer-src_6": {
       "flake": false,
       "locked": {
+        "lastModified": 1782864348,
+        "narHash": "sha256-NVYhLbaefeIUftPlo3kS6qr0xd8eFJRodEiaHrvFKR4=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "0d381ca097a8e0375a19387874d952c0a230ac4f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "rust-analyzer-src_7": {
+      "flake": false,
+      "locked": {
         "lastModified": 1790532271,
         "narHash": "sha256-j8y/AO3AMDF9p+11aIDhnA21JnNj5PjvcejTI43vI8Q=",
         "owner": "rust-lang",
@@ -1292,19 +1373,40 @@
         "type": "github"
       }
     },
+    "tv-himalaya-mail": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "ortie": "ortie"
+      },
+      "locked": {
+        "lastModified": 1791549211,
+        "narHash": "sha256-lTeJKNycNUO6Fyxe47iL5Lhex//La3na2zTAzOIx0TY=",
+        "ref": "refs/heads/main",
+        "rev": "a1a1a2c7efc78eac7e7f251fa9d05a68dc38e88c",
+        "revCount": 3,
+        "type": "git",
+        "url": "file:///Users/tony/programming/tv-himalaya-mail"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///Users/tony/programming/tv-himalaya-mail"
+      }
+    },
     "tv-rushi": {
       "inputs": {
-        "fenix": "fenix_6",
+        "fenix": "fenix_7",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1791393656,
-        "narHash": "sha256-kO36CeMneSi6CTenPCnEaqajLa8RghjICqcMC4Vtjr8=",
+        "lastModified": 1791455558,
+        "narHash": "sha256-Sj3eMdRStZhLlqiff1uSKWIJNM27LKr8wPfkFPtG3lk=",
         "owner": "TonyWu20",
         "repo": "tv-rushi",
-        "rev": "188c1dce7ef1928dea6208f953309327a859fbb6",
+        "rev": "5fe44052e8149c194a29ca6070146ecb0b47dd17",
         "type": "github"
       },
       "original": {

@@ -187,4 +187,53 @@
   # It lands in programs.television.channels."rushi-sessions" and the
   # home-manager television module serializes it to
   # ~/.config/television/cable/rushi-sessions.toml.
+
+  # The mail channel (tv-himalaya-mail): one source view per
+  # (account, mailbox) pair over the himalaya CLI. The module bundles
+  # himalaya, jq and ortie into home.packages and registers
+  # programs.television.channels."mail".
+  #
+  # First run, outside Nix:
+  #   ortie configure            # add the gmail and msgraph accounts
+  #   ortie auth get -a gmail    # authorize (browser or device code)
+  #   ortie auth get -a msgraph  # the school tenant consent test
+  #
+  # sentMailbox stays empty: the gmail and msgraph backends file the
+  # sent message themselves.
+  programs."himalaya-mail" = {
+    enable = true;
+    accounts = [
+      { account = "gmail";  backend = "gmail"; }
+      { account = "school"; backend = "msgraph"; }
+    ];
+    # reader = "less -RX";     # the ctrl-o pipe filter, the default
+    # extraPkgs = with pkgs; [ mml ];
+
+    # Written to ~/.config/himalaya/config.toml. One section per
+    # account, the backend block beneath it. The ortie account names
+    # match the -a argument in both token commands.
+    himalayaConfig = {
+      accounts = {
+        gmail = {
+          default = true;
+          gmail = {
+            auth = {
+              token = {
+                command = [ "ortie" "token" "show" "-a" "gmail" ];
+              };
+            };
+          };
+        };
+        school = {
+          msgraph = {
+            auth = {
+              token = {
+                command = [ "ortie" "token" "show" "-a" "msgraph" ];
+              };
+            };
+          };
+        };
+      };
+    };
+  };
 }

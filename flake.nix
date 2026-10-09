@@ -45,6 +45,10 @@
       url = "github:TonyWu20/tv-rushi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tv-himalaya-mail = {
+      url = "git+file:///Users/tony/programming/tv-himalaya-mail";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -60,6 +64,7 @@
     , terminal-browser
     , rushi-config
     , tv-rushi
+    , tv-himalaya-mail
     , ...
     }:
     let
@@ -276,6 +281,7 @@
                   sops-nix.homeManagerModules.sops
                   rushi-config.homeManagerModules.rushi
                   tv-rushi.homeManagerModules."aarch64-darwin".default
+                  tv-himalaya-mail.homeManagerModules."aarch64-darwin".default
                 ];
                 backupFileExtension = "hm-backup";
               };
@@ -343,6 +349,7 @@
                   sops-nix.homeManagerModules.sops
                   rushi-config.homeManagerModules.rushi
                   tv-rushi.homeManagerModules."aarch64-darwin".default
+                  tv-himalaya-mail.homeManagerModules."aarch64-darwin".default
                 ];
                 backupFileExtension = "hm-backup";
               };
