@@ -158,7 +158,9 @@ in
     rushi-sessions = {
       enable = true;
       sourceRoots = [
-        "/Users/tony"
+        "/Users/tony/Documents"
+        "/Users/tony/Downloads"
+        "/Users/tony/programming"
         "nixos:/export"
         "nixos:/home/tony"
       ];
