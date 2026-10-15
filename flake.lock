@@ -332,11 +332,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785389976,
-        "narHash": "sha256-0tLW8Ff5yt8AH97jw4ZpFJ0OCJ122zIlgWGDmOfU/VU=",
+        "lastModified": 1786845137,
+        "narHash": "sha256-oQFip+v0luP8NIxJzmiW4Wu8bILsbFWom5l0zonl8hQ=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "15abb8c98f336cd8bd840d71059adebabe60bf04",
+        "rev": "4cff07de74b50e64bdd68cd4e722ab5b6b35ee48",
         "type": "github"
       },
       "original": {
@@ -1429,11 +1429,11 @@
         "ortie": "ortie"
       },
       "locked": {
-        "lastModified": 1791827798,
-        "narHash": "sha256-s8ezaFs6HEIxcnBQJ+iPTxaSq/s0SNOfPpV5B3cG6N0=",
+        "lastModified": 1792057583,
+        "narHash": "sha256-iVe93VmGyZC9JFVtrnOhRDc70Vd7XLVr68S9GkyuaX8=",
         "ref": "refs/heads/main",
-        "rev": "5952747f9ce03c4ad0e46b5e875c3d496180dc09",
-        "revCount": 6,
+        "rev": "917bdb5810c69f4cd905d53ab80e2fb28b289eff",
+        "revCount": 7,
         "type": "git",
         "url": "file:///Users/tony/programming/tv-himalaya-mail"
       },
