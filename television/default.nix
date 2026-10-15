@@ -194,17 +194,20 @@
   # programs.television.channels."mail".
   #
   # First run, outside Nix:
-  #   ortie configure            # add the gmail and msgraph accounts
+  #   ortie configure            # add the gmail and imap accounts
   #   ortie auth get -a gmail    # authorize (browser or device code)
-  #   ortie auth get -a msgraph  # the school tenant consent test
+  #   ortie auth get -a imap     # the school IMAP over OAuth2
   #
-  # sentMailbox stays empty: the gmail and msgraph backends file the
-  # sent message themselves.
+  # The school tenant refused the Graph consent, so the school
+  # account rides IMAP plus SMTP via the ortie imap account.
+  # sentMailbox stays empty: gmail files sent mail itself; SMTP
+  # sends are not filed (set sentMailbox to "sent" to file them,
+  # knowing gmail would then double-file).
   programs."himalaya-mail" = {
     enable = true;
     accounts = [
       { account = "gmail";  backend = "gmail"; }
-      { account = "school"; backend = "msgraph"; }
+      { account = "school"; backend = "imap"; }
     ];
     # reader = "less -RX";     # the ctrl-o pipe filter, the default
     # extraPkgs = with pkgs; [ mml ];
@@ -225,13 +228,14 @@
           };
         };
         school = {
-          msgraph = {
-            auth = {
-              token = {
-                command = [ "ortie" "token" "show" "-a" "msgraph" ];
-              };
+          # Auth is account-level for the protocol backends.
+          auth = {
+            token = {
+              command = [ "ortie" "token" "show" "-a" "imap" ];
             };
           };
+          imap = { server = "outlook.office365.com"; };
+          smtp = { server = "smtp.office365.com"; };
         };
       };
     };
