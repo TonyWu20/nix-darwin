@@ -194,12 +194,16 @@
   # programs.television.channels."mail".
   #
   # First run, outside Nix:
-  #   ortie configure            # add the gmail and imap accounts
+  #   ortie configure            # the gmail and msgraph accounts
   #   ortie auth get -a gmail    # authorize (browser or device code)
-  #   ortie auth get -a imap     # the school IMAP over OAuth2
+  #   ortie auth get -a msgraph  # the school IMAP/SMTP scopes
   #
   # The school tenant refused the Graph consent, so the school
-  # account rides IMAP plus SMTP via the ortie imap account.
+  # account rides IMAP plus SMTP via the ortie msgraph account,
+  # which holds the IMAP.AccessAsUser and SMTP.Send scopes. The
+  # msgraph backend itself needs a Graph-audience token; the
+  # current token has the outlook.office.com audience, so the
+  # backend column stays on imap.
   # sentMailbox stays empty: gmail files sent mail itself; SMTP
   # sends are not filed (set sentMailbox to "sent" to file them,
   # knowing gmail would then double-file).
@@ -213,8 +217,8 @@
     # extraPkgs = with pkgs; [ mml ];
 
     # Written to ~/.config/himalaya/config.toml. One section per
-    # account, the backend block beneath it. The ortie account names
-    # match the -a argument in both token commands.
+    # account, the backend block beneath it. The -a argument in the
+    # token commands is the ortie account name (gmail and msgraph).
     himalayaConfig = {
       accounts = {
         gmail = {
@@ -228,10 +232,12 @@
           };
         };
         school = {
-          # Auth is account-level for the protocol backends.
+          # Auth is account-level for the protocol backends. The
+          # token comes from the ortie msgraph account, which holds
+          # the school IMAP and SMTP OAuth scopes.
           auth = {
             token = {
-              command = [ "ortie" "token" "show" "-a" "imap" ];
+              command = [ "ortie" "token" "show" "-a" "msgraph" ];
             };
           };
           imap = { server = "outlook.office365.com"; };
