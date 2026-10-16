@@ -1429,11 +1429,11 @@
         "ortie": "ortie"
       },
       "locked": {
-        "lastModified": 1792147899,
-        "narHash": "sha256-LOBBM6f6CFdlq38hLKslUX5JRhaBw5GBN/nkTrEGUxc=",
+        "lastModified": 1792148490,
+        "narHash": "sha256-fuYQcAw98+hnu1U7RdDpqgD8mbp9QMSb688jIlt1IuY=",
         "ref": "refs/heads/main",
-        "rev": "f2213165d18f81278809be96c510039cf8613b55",
-        "revCount": 8,
+        "rev": "6112ae4b2b702ca64d368cd361338898130f2364",
+        "revCount": 9,
         "type": "git",
         "url": "file:///Users/tony/programming/tv-himalaya-mail"
       },
