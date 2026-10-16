@@ -1429,11 +1429,11 @@
         "ortie": "ortie"
       },
       "locked": {
-        "lastModified": 1792057583,
-        "narHash": "sha256-iVe93VmGyZC9JFVtrnOhRDc70Vd7XLVr68S9GkyuaX8=",
+        "lastModified": 1792147899,
+        "narHash": "sha256-LOBBM6f6CFdlq38hLKslUX5JRhaBw5GBN/nkTrEGUxc=",
         "ref": "refs/heads/main",
-        "rev": "917bdb5810c69f4cd905d53ab80e2fb28b289eff",
-        "revCount": 7,
+        "rev": "f2213165d18f81278809be96c510039cf8613b55",
+        "revCount": 8,
         "type": "git",
         "url": "file:///Users/tony/programming/tv-himalaya-mail"
       },
@@ -1450,11 +1450,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791820970,
-        "narHash": "sha256-F0Xb4i2Gy6k+2k0LmInS42h55ckZ3ApyTKzLYeKZwn0=",
+        "lastModified": 1792142366,
+        "narHash": "sha256-ShnMe2y8xEwV/j3w4DbrOr1KttMUjEEb+Mos49e9IwI=",
         "owner": "TonyWu20",
         "repo": "tv-rushi",
-        "rev": "19dc0a82171eac0694cb44031be5fac00b2b8853",
+        "rev": "cfbbd0a539a8bb45b5fe3b1a5c0dedd0daed0197",
         "type": "github"
       },
       "original": {
