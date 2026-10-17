@@ -652,11 +652,11 @@
         "terminal-browser-agent": "terminal-browser-agent"
       },
       "locked": {
-        "lastModified": 1791835121,
-        "narHash": "sha256-wuHzRHwOetSmgX+N33DFZXBD6xhrGQ3gixyi2juSXsY=",
+        "lastModified": 1792246723,
+        "narHash": "sha256-bq0qDxKesZZLmiKsz5tzYt/P6ememzIsJLdczCdvDj0=",
         "ref": "refs/heads/main",
-        "rev": "0a4bf7db57162bb070901618b5d2b89d17d98fe9",
-        "revCount": 106,
+        "rev": "cde1251292cade52da7c2a9f245adef3ae937795",
+        "revCount": 112,
         "type": "git",
         "url": "ssh://git@github.com/TonyWu20/rushi-config"
       },
@@ -786,11 +786,11 @@
         "rushiTui": "rushiTui"
       },
       "locked": {
-        "lastModified": 1791831048,
-        "narHash": "sha256-n0m13UGgha63UyOLA1A9ACUAU+WxTNAmFSVyZZNXUSA=",
+        "lastModified": 1792058611,
+        "narHash": "sha256-LtyDXiUDRalwznxcV3ovO8nYNGt1mhU5mEPQjtU5wMY=",
         "owner": "TonyWu20",
         "repo": "rushi",
-        "rev": "d9878baca7c5ca878cd52201c6062ec25caef658",
+        "rev": "fe4c56d5cecd60fdffb676f1b2c1a44bedf57adc",
         "type": "github"
       },
       "original": {
@@ -974,11 +974,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790763452,
-        "narHash": "sha256-yZZeBXmync238qSxoewv8FdezJ5w/5nJ+W1rcZ1svWA=",
+        "lastModified": 1792005295,
+        "narHash": "sha256-/MLsO1maLDXH5B/H9N0IOY/sK6rVMIb47uJm/5KSby8=",
         "owner": "TonyWu20",
         "repo": "rushi-simple-english",
-        "rev": "9ef59957eda6ef2738dab2666d0f738dfef1132c",
+        "rev": "f4dee6867f9db4a62ded4569f00a8887f3db0fc0",
         "type": "github"
       },
       "original": {
@@ -1151,11 +1151,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791450583,
-        "narHash": "sha256-3TNx9S1ZZlFcbxR06ogMufC+XaQVwcXGmDjPHZeG1KM=",
+        "lastModified": 1791966052,
+        "narHash": "sha256-iZ/zYtKzlSbbditYBG7MWdCvlWhG2oJBcs6XMpFtPaE=",
         "owner": "TonyWu20",
         "repo": "rushi-tui",
-        "rev": "9212999a4de59838c3558049a72d3e0fc3bd2911",
+        "rev": "4be0ed2fdb20aa0752414424713fba50f07530a5",
         "type": "github"
       },
       "original": {
@@ -1450,11 +1450,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792196007,
-        "narHash": "sha256-6Eb56nB0IhO5vmFNuVqGoqbfOgt8oafeS+Hx9QlB7Qs=",
+        "lastModified": 1792265300,
+        "narHash": "sha256-ucrGlHdXOPgjbbl4upsuW5YS1VKFPNijKPjjFqqtxgk=",
         "owner": "TonyWu20",
         "repo": "tv-rushi",
-        "rev": "41c6432924cff703db27364728e10420696283c7",
+        "rev": "5ea177e9ad1bb2e8a9de315fc3c09d4a5248d9a2",
         "type": "github"
       },
       "original": {
