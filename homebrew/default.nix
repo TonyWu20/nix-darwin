@@ -23,14 +23,14 @@
       "xquartz"
       "darktable"
       "zoom"
-      "kitty"
+      #"kitty"
       "citra"
       "squirrel-app"
       "ghostty"
-      "inkscape"
+      #"inkscape"
       "discord"
       "obsidian"
-      "obs"
+      #"obs"
       "google-chrome"
     ];
   };
