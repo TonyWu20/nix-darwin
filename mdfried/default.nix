@@ -11,5 +11,5 @@
 { ... }:
 
 {
-  home.file.".config/mdfried/config.toml".source = ./config.toml;
+  home.file."Library/Application Support/rs.mdfried/config.toml".source = ./config.toml;
 }
