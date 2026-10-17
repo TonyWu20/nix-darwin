@@ -245,11 +245,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789765459,
-        "narHash": "sha256-voJJ5IZR4w2149u2Jm/j2zifeWROlpZQ+JzmCQwjgn8=",
+        "lastModified": 1792098797,
+        "narHash": "sha256-u4DIIZgznEGzByxXrxWCXK19VcMtTBmi/M9gZ7Jk9bM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "17903129f47656fa4d07e78ad87f6592ff4f2527",
+        "rev": "640725978b99076e18e069f6e7d2959124584f8f",
         "type": "github"
       },
       "original": {
@@ -392,11 +392,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1789546076,
-        "narHash": "sha256-zVxLZiSnmaaPLwnhj7pwmqe3axBg/C6nG5JZsJMh2g4=",
+        "lastModified": 1791956154,
+        "narHash": "sha256-jBYGPi4udQ9uo4KQp9m2J0546nJVQitG15gvZSaVVAs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b1b875982b17dabde9b4a37f3e229e74913e6db3",
+        "rev": "55bfb4d7437bd4e09ab7cba58a43bd68eb310044",
         "type": "github"
       },
       "original": {
@@ -1450,11 +1450,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792142366,
-        "narHash": "sha256-ShnMe2y8xEwV/j3w4DbrOr1KttMUjEEb+Mos49e9IwI=",
+        "lastModified": 1792196007,
+        "narHash": "sha256-6Eb56nB0IhO5vmFNuVqGoqbfOgt8oafeS+Hx9QlB7Qs=",
         "owner": "TonyWu20",
         "repo": "tv-rushi",
-        "rev": "cfbbd0a539a8bb45b5fe3b1a5c0dedd0daed0197",
+        "rev": "41c6432924cff703db27364728e10420696283c7",
         "type": "github"
       },
       "original": {
