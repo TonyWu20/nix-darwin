@@ -136,6 +136,7 @@ in
         mdcat
         obscura
         ffmpeg
+        mpv
         inter
       ]
       ++ lib.optionals stdenv.isDarwin [

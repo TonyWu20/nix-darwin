@@ -8,16 +8,15 @@
   environment = {
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
-    systemPackages =
-      with pkgs;[
-        skhd
-        fish
-        zoxide
-        fontconfig
-        # VLESS+Reality VPN server for friend's GFW bypass
-        sing-box
-        jaq
-      ];
+    systemPackages = with pkgs; [
+      skhd
+      fish
+      zoxide
+      fontconfig
+      # VLESS+Reality VPN server for friend's GFW bypass
+      sing-box
+      jaq
+    ];
     # Ensure the environment variables are correctly inherited by the shells
     variables = {
       SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";

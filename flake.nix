@@ -123,7 +123,7 @@
                   sops-nix.homeManagerModules.sops
                   rushi-config.homeManagerModules.default
                   tv-rushi.homeManagerModules."aarch64-darwin".default
-                  tv-himalaya-mail.homeManagerModules."aarch64-darwin".default
+                  #tv-himalaya-mail.homeManagerModules."aarch64-darwin".default
                 ];
                 backupFileExtension = "hm-backup";
               };
