@@ -86,6 +86,7 @@
                 (import ./overlays/protobuf.nix)
                 (import ./overlays/nix.nix)
                 (import ./overlays/tmux.nix)
+                (import ./overlays/fish-foreign-env.nix)
               ];
               environment.systemPackages = with pkgs; [
                 gcc
@@ -140,6 +141,7 @@
                 (import ./overlays/protobuf.nix)
                 (import ./overlays/nix.nix)
                 (import ./overlays/tmux.nix)
+                (import ./overlays/fish-foreign-env.nix)
               ];
               environment.systemPackages = with pkgs; [
                 gcc
