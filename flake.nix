@@ -11,7 +11,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    fenix = { url = "github:nix-community/fenix"; inputs.nixpkgs.follows = "nixpkgs"; };
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     catppuccin.url = "github:catppuccin/nix";
     my-nvim = {
       url = "github:TonyWu20/my-nixvim";
@@ -37,7 +40,7 @@
     };
     terminal-browser.url = "github:TonyWu20/terminal-browser-flake";
     rushi-config = {
-      url = "git+ssh://git@github.com/TonyWu20/rushi-config";
+      url = "github:TonyWu20/my-rushi-config";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.fenix.follows = "fenix";
     };
@@ -52,20 +55,21 @@
   };
 
   outputs =
-    { nix-darwin
-    , home-manager
-    , fenix
-    , catppuccin
-    , my-nvim
-    , nushell-cfg
-    , sops-nix
-    , nushell_plugin_crossref
-    , wait-for-lsp
-    , terminal-browser
-    , rushi-config
-    , tv-rushi
-    , tv-himalaya-mail
-    , ...
+    {
+      nix-darwin,
+      home-manager,
+      fenix,
+      catppuccin,
+      my-nvim,
+      nushell-cfg,
+      sops-nix,
+      nushell_plugin_crossref,
+      wait-for-lsp,
+      terminal-browser,
+      rushi-config,
+      tv-rushi,
+      tv-himalaya-mail,
+      ...
     }:
     {
       # Build darwin flake using:
@@ -91,8 +95,7 @@
               environment.systemPackages = with pkgs; [
                 gcc
               ];
-            }
-            )
+            })
 
             home-manager.darwinModules.home-manager
             {
@@ -117,7 +120,7 @@
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
-                  rushi-config.homeManagerModules.rushi
+                  rushi-config.homeManagerModules.default
                   tv-rushi.homeManagerModules."aarch64-darwin".default
                   tv-himalaya-mail.homeManagerModules."aarch64-darwin".default
                 ];
@@ -163,8 +166,28 @@
                   StandardErrorPath = "/tmp/ssh-tunnel-nixos-pro5000.err.log";
                 };
               };
-            }
-            )
+              launchd.daemons.nfs-pro5000 = {
+                # Mount the nixos-pro5000 NFS share (10.0.0.6:/home/tony/nfs,
+                # the server-side /export) at /Volumes/pro5000. The script is
+                # idempotent: it skips the mount when the share is already
+                # mounted. If the network is not up at boot, the next
+                # StartInterval attempt performs the mount.
+                script = ''
+                  /bin/mkdir -p /Volumes/pro5000
+                  # This macOS has no /bin/mount or /usr/bin/mount; the
+                  # mount utility is /sbin/mount.
+                  if ! /sbin/mount | /usr/bin/awk '/on \\/Volumes\\/pro5000 /{ f = 1 } END { exit ! f }'; then
+                    /sbin/mount -t nfs -o vers=3 10.0.0.6:/home/tony/nfs /Volumes/pro5000
+                  fi
+                '';
+                serviceConfig = {
+                  # Runs at load and retries every 5 minutes.
+                  StartInterval = 300;
+                  StandardOutPath = "/tmp/nfs-pro5000.mount.out";
+                  StandardErrorPath = "/tmp/nfs-pro5000.mount.err";
+                };
+              };
+            })
 
             home-manager.darwinModules.home-manager
             {
@@ -187,7 +210,7 @@
                   catppuccin.homeModules.catppuccin
                   nushell-cfg.homeManagerModules.default
                   sops-nix.homeManagerModules.sops
-                  rushi-config.homeManagerModules.rushi
+                  rushi-config.homeManagerModules.default
                   tv-rushi.homeManagerModules."aarch64-darwin".default
                   tv-himalaya-mail.homeManagerModules."aarch64-darwin".default
                 ];
