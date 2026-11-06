@@ -28,4 +28,8 @@
       hf_token = { };
     };
   };
+
+  # Start the sops-nix decryption agent in the per-user (background)
+  # launchd domain so it runs on headless SSH logins.
+  launchd.agents.sops-nix.domain = "user";
 }

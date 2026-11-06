@@ -31,8 +31,12 @@ let
   '';
 in
 {
+  # Per-user (background) launchd domain: the agent starts on SSH logins
+  # without a GUI session. This keeps `sudo darwin-rebuild` working on the
+  # headless mini.
   launchd.agents."ssh-agent" = {
     enable = true;
+    domain = "user";
     config = {
       Program = "${agentScript}";
       RunAtLoad = true;
@@ -42,6 +46,7 @@ in
 
   launchd.agents."ssh-agent-keys" = {
     enable = true;
+    domain = "user";
     config = {
       Program = "${keyScript}";
       RunAtLoad = true;

@@ -150,22 +150,9 @@
                 gcc
                 libiconv
               ];
-              launchd.user.agents.ssh-tunnel-nixos-pro5000 = {
-                serviceConfig = {
-                  ProgramArguments = [
-                    "/usr/bin/ssh"
-                    "-NT"
-                    "nixos-pro5000"
-                  ];
-                  # KeepAlive ensures the tunnel automatically restarts if the connection drops
-                  KeepAlive = true;
-                  RunAtLoad = true;
-
-                  # Optional: Log errors if troubleshooting is needed
-                  StandardOutPath = "/tmp/ssh-tunnel-nixos-pro5000.out.log";
-                  StandardErrorPath = "/tmp/ssh-tunnel-nixos-pro5000.err.log";
-                };
-              };
+              # The ssh tunnel to nixos-pro5000 moved to a per-user launchd
+              # agent in ssh/mini.nix (domain = "user"), so it starts on
+              # headless SSH logins instead of a GUI login.
               launchd.daemons.nfs-pro5000 = {
                 # Mount the nixos-pro5000 NFS share (10.0.0.6:/home/tony/nfs,
                 # the server-side /export) at /Volumes/pro5000. The script is

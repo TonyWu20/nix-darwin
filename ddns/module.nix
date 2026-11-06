@@ -53,6 +53,8 @@ in
   config = mkIf cfg.enable {
     launchd.agents.duckdns = {
       enable = true;
+      # Per-user (background) launchd domain: runs on headless SSH logins.
+      domain = "user";
       config =
         {
           Program = "${updater}";

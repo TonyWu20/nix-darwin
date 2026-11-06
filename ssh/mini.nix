@@ -46,4 +46,22 @@
       };
     };
   };
+
+  # Keep the SSH tunnel to nixos-pro5000 alive on this headless mini.
+  # The per-user (background) launchd domain makes the agent start on SSH
+  # logins without a GUI session. The host `nixos-pro5000` resolves via
+  # the ssh settings above.
+  launchd.agents."ssh-tunnel-nixos-pro5000" = {
+    enable = true;
+    domain = "user";
+    config = {
+      # KeepAlive restarts the tunnel if the connection drops.
+      ProgramArguments = [ "/usr/bin/ssh" "-NT" "nixos-pro5000" ];
+      RunAtLoad = true;
+      KeepAlive = true;
+      # Log output if the tunnel misbehaves.
+      StandardOutPath = "/tmp/ssh-tunnel-nixos-pro5000.out.log";
+      StandardErrorPath = "/tmp/ssh-tunnel-nixos-pro5000.err.log";
+    };
+  };
 }
