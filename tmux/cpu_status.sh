@@ -2,6 +2,8 @@
 # Consolidated CPU + RAM status for the tmux status bar.
 # Replaces the 24 individual #(...) script calls that the
 # tmux-cpu plugin injects, cutting process spawns from 24/s to 1/s.
+# Darwin-only copy for the nix-darwin flake. The Linux iostat and
+# /proc/stat branches carried by the NixOS copy are dropped here.
 
 set -u
 
@@ -9,60 +11,50 @@ set -u
 get_cpu_pct() {
   local pct=""
   if command -v iostat &>/dev/null; then
-    if [[ "$(uname)" == "Darwin" ]]; then
-      pct=$(iostat -c 2 2>/dev/null | sed '/^\s*$/d' | tail -n 1 \
-        | awk '{printf "%.1f", 100-$NF}')
-    else
-      pct=$(iostat -c 1 2 2>/dev/null | sed '/^\s*$/d' | tail -n 1 \
-        | awk '{printf "%.1f", 100-$NF}')
-    fi
-  fi
-  if [[ -z "$pct" ]]; then
-    # Linux: read /proc/stat twice with a 1 s gap for an accurate rate.
-    if [[ -r /proc/stat ]]; then
-      local c1 c2 idle1 idle2
-      read -r _ user1 nice1 sys1 idle1 iowait1 irq1 softirq1 steal1 _ < /proc/stat
-      c1=$((user1 + nice1 + sys1 + iowait1 + irq1 + softirq1 + steal1))
-      sleep 1
-      read -r _ user2 nice2 sys2 idle2 iowait2 irq2 softirq2 steal2 _ < /proc/stat
-      c2=$((user2 + nice2 + sys2 + iowait2 + irq2 + softirq2 + steal2))
-      local total=$((c2 - c1))
-      local idle_diff=$((idle2 - idle1))
-      if [[ $total -gt 0 ]]; then
-        pct=$(awk -v u=$((total - idle_diff)) -v t="$total" 'BEGIN {printf "%.1f", 100*u/t}')
-      fi
-    fi
+    # macOS iostat prints CPU (us sy id) and load-average columns by
+    # default. The last field of the last line is the 15 m load
+    # average, not idle. Locate the "id" column in the header row and
+    # take it from the second sample, the current one.
+    pct=$(iostat -c 2 2>/dev/null | awk '
+      NR == 2 { for (i = 1; i <= NF; i++) if ($i == "id") c = i }
+      c && NR > 2 { v = $c }
+      END { if (c) printf "%.1f", 100 - v }')
   fi
   if [[ -z "$pct" ]]; then
     # Final fallback: ps snapshot (inaccurate but always available).
     local load cpus
     load=$(ps -aux 2>/dev/null | awk 'NR>1 {s+=$3} END {print s+0}')
-    cpus=$(sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || echo 1)
+    cpus=$(sysctl -n hw.ncpu 2>/dev/null || echo 1)
     pct=$(awk -v l="${load:-0}" -v c="$cpus" 'BEGIN {printf "%.1f", l/c}')
   fi
   echo "${pct:-0.0}"
 }
 
 # --- RAM percentage ----------------------------------------------------------
+# Used = active + wired + compressed. File cache (free, inactive,
+# speculative, purgeable pages) does not count as used. The active
+# list still holds some hot file pages, so the number reads slightly
+# high against the OS estimate (memory_pressure).
 get_ram_pct() {
-  if command -v free &>/dev/null; then
-    free 2>/dev/null | awk '/^Mem:/ {printf "%.1f", 100*$3/$2}'
-  elif command -v vm_stat &>/dev/null; then
-    vm_stat 2>/dev/null | awk '
-      /Pages active/               { a += $NF * 4096 }
-      /Pages inactive/             { i += $NF * 4096 }
-      /Pages speculative/          { s += $NF * 4096 }
-      /Pages wired down/           { w += $NF * 4096 }
-      /Pages occupied by compressor/ { c += $NF * 4096 }
-      /Pages purgeable/            { p += $NF * 4096 }
-      /File-backed pages/          { f += $NF * 4096 }
-      /Pages free/                { fr += $NF * 4096 }
-      END {
-        used  = a + i + s + w + c - p - f
-        total = used + fr
-        if (total > 0) printf "%.1f", 100 * used / total
-      }'
-  fi
+  local mem
+  mem=$(sysctl -n hw.memsize 2>/dev/null || echo 0)
+  vm_stat 2>/dev/null | awk -v mem="$mem" '
+    NR == 1 {
+      # Page size from the header, e.g. "page size of 16384 bytes".
+      if (match($0, /page size of [0-9]+ bytes/))
+        ps = substr($0, RSTART + 13, RLENGTH - 19) + 0
+      if (ps == 0) ps = 4096
+    }
+    /Pages active/                 { a = $NF * ps }
+    /Pages wired down/             { w = $NF * ps }
+    /Pages occupied by compressor/ { c = $NF * ps }
+    END {
+      if (mem > 0) {
+        used = a + w + c
+        if (used > mem) used = mem
+        printf "%.1f", 100 * used / mem
+      }
+    }'
 }
 
 # --- colour helpers (catppuccin-friendly) ------------------------------------
