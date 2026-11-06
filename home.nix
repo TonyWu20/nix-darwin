@@ -158,7 +158,6 @@ in
   programs = {
     rushi = {
       enable = true;
-      package = rushi-config.packages.aarch64-darwin.default;
     };
     rushi-sessions = {
       enable = true;
@@ -169,7 +168,9 @@ in
         "nixos:/export"
         "nixos:/home/tony"
       ];
-      eventPreviewer = "mdcat --ansi";
+      eventPreviewer = "mdcat --ansi --theme catppuccin-mocha --columns 106";
+      eventViewer = "mdless --ansi --theme catppuccin-mocha --full-width";
+      sessionPreviewer = "mdcat --ansi --theme catppuccin-mocha --columns 172";
     };
     direnv = {
 

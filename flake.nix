@@ -161,12 +161,20 @@
                 # idempotent: it skips the mount when the share is already
                 # mounted. If the network is not up at boot, the next
                 # StartInterval attempt performs the mount.
+                #
+                # The guard uses `grep -F` instead of awk: the system
+                # /usr/bin/awk cannot parse a backslash-escaped slash in a
+                # regex literal, so the old awk guard always died with a
+                # syntax error and the daemon remounted every 5 minutes,
+                # stacking shadowed NFS mount entries on /Volumes/pro5000.
                 script = ''
                   /bin/mkdir -p /Volumes/pro5000
                   # This macOS has no /bin/mount or /usr/bin/mount; the
                   # mount utility is /sbin/mount.
-                  if ! /sbin/mount | /usr/bin/awk '/on \\/Volumes\\/pro5000 /{ f = 1 } END { exit ! f }'; then
-                    /sbin/mount -t nfs -o vers=3 10.0.0.6:/home/tony/nfs /Volumes/pro5000
+                  node="10.0.0.6:/home/tony/nfs"
+                  mountpoint="/Volumes/pro5000"
+                  if ! /sbin/mount | /usr/bin/grep -F -q "$node on $mountpoint "; then
+                    /sbin/mount -t nfs -o vers=3 "$node" "$mountpoint"
                   fi
                 '';
                 serviceConfig = {
