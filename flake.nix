@@ -91,6 +91,7 @@
                 (import ./overlays/nix.nix)
                 (import ./overlays/tmux.nix)
                 (import ./overlays/fish-foreign-env.nix)
+                (import ./overlays/ghostty.nix)
               ];
               environment.systemPackages = with pkgs; [
                 gcc
@@ -145,6 +146,7 @@
                 (import ./overlays/nix.nix)
                 (import ./overlays/tmux.nix)
                 (import ./overlays/fish-foreign-env.nix)
+                (import ./overlays/ghostty.nix)
               ];
               environment.systemPackages = with pkgs; [
                 gcc
