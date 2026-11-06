@@ -20,8 +20,8 @@ ctrl + alt - 0x55  : yabai -m display --focus 3
 ctrl + alt - 0x56  : yabai -m display --focus 4
 
 # focus desktop
-ctrl + alt - j: yabai -m space --focus next
-ctrl + alt - k: yabai -m space --focus prev
+#ctrl + alt - j: yabai -m space --focus next
+#ctrl + alt - k: yabai -m space --focus prev
 ctrl + shift - 0x53 : yabai -m space --focus 1
 ctrl + shift - 0x54 : yabai -m space --focus 2
 ctrl + shift - 0x55 : yabai -m space --focus 3
