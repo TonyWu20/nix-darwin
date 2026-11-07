@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+  imports = [
+    # fixed fish-history cable; merged into programs.television.channels
+    ./fish-history.nix
+    # fixed procs cable; merged into programs.television.channels
+    ./procs.nix
+  ];
   # television replaces the jethrokuan/fzf fish plugin as the shell fuzzy
   # finder.  Its fish integration (share/television/completion.fish) binds:
   #   ctrl-t  smart autocompletion (files/dirs channels)
