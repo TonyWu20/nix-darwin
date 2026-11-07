@@ -1,21 +1,35 @@
-# protobuf's MapImplTest.RandomOrdering expects map iteration order to
-# be randomly seeded per process; in the Nix build sandbox the seed is
-# deterministic, so the test fails (reproducibly) on aarch64-darwin.
-# Skip the unit-test suite. The closure builds several protobuf
-# versions (default plus versioned instances pulled in by other
-# packages, e.g. protobuf-c -> protobuf_33); disable tests on all of
-# them.
-final: prev: {
-  protobuf = prev.protobuf.overrideAttrs (old: {
-    doCheck = false;
-  });
-}
-// prev.lib.optionalAttrs (prev ? protobuf_33) {
-  protobuf_33 = prev.protobuf_33.overrideAttrs (old: { doCheck = false; });
-}
-// prev.lib.optionalAttrs (prev ? protobuf_34) {
-  protobuf_34 = prev.protobuf_34.overrideAttrs (old: { doCheck = false; });
-}
-// prev.lib.optionalAttrs (prev ? protobuf_35) {
-  protobuf_35 = prev.protobuf_35.overrideAttrs (old: { doCheck = false; });
-}
+# doCheck: MapImplTest.RandomOrdering fails in the Nix build sandbox
+# on aarch64-darwin.
+# outputChecks: Nix resolves sibling output names against the outputs
+# it registers in the current build. A build that registers only a
+# subset gets falsely rejected. Rationale: commit message.
+final: prev:
+let
+  lib = prev.lib;
+
+  instances = [
+    "protobuf"
+    "protobuf_36"
+    "protobuf_35"
+    "protobuf_34"
+    "protobuf_33"
+    "protobuf_32"
+    "protobuf_31"
+    "protobuf_30"
+    "protobuf_29"
+    "protobuf_27"
+    "protobuf_25"
+    "protobuf_21"
+  ];
+in
+  lib.listToAttrs (
+    lib.map
+      (name: {
+        inherit name;
+        value = prev.${name}.overrideAttrs (old: {
+          doCheck = false;
+          outputChecks = { };
+        });
+      })
+      (lib.filter (n: lib.elem n (lib.attrNames prev)) instances)
+  )
